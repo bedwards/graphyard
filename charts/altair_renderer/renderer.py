@@ -86,9 +86,13 @@ class AltairRenderer:
         data = spec.load_data()
 
         # Convert year columns to strings to avoid comma formatting (DRY fix)
+        # Also extract unique years for decade tick calculation
+        self._year_values = []
         if spec.x_format == "year" and spec.x:
+            self._year_values = sorted(set(row[spec.x] for row in data))
             data = [{**row, spec.x: str(row[spec.x])} for row in data]
         if spec.y_format == "year" and spec.y:
+            self._year_values = sorted(set(row[spec.y] for row in data))
             data = [{**row, spec.y: str(row[spec.y])} for row in data]
 
         # Build base chart
@@ -140,7 +144,12 @@ class AltairRenderer:
         elif chart_type == "horizontal_bar":
             return chart.mark_bar().encode(
                 x=y_axis,  # Swap for horizontal
-                y=alt.Y(f"{spec.x}:N", title=spec.x_label, sort="-x") if spec.x else alt.Y(),
+                y=alt.Y(
+                    f"{spec.x}:N",
+                    title=spec.x_label,
+                    sort="-x",
+                    axis=alt.Axis(labelLimit=250),  # Prevent label truncation
+                ) if spec.x else alt.Y(),
                 color=alt.Color(spec.color) if spec.color else alt.value(self.COLORS[0]),
             )
 
@@ -188,10 +197,10 @@ class AltairRenderer:
         This is the single source of truth for all axis formatting (DRY).
         Changes here propagate to all charts automatically.
         """
-        # Year format: handled at data level (converted to strings in render())
-        # No additional axis formatting needed
+        # Year format: show only decades (1960, 1970, 1980...) to avoid cramped axis
         if format_type == "year":
-            return axis
+            decade_ticks = [str(y) for y in self._year_values if y % 10 == 0]
+            return axis.axis(values=decade_ticks, labelAngle=0)
 
         format_map = {
             "currency": "$,.0f",
