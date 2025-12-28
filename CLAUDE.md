@@ -268,11 +268,25 @@ Do NOT claim a reading time that the word count doesn't support.
 
 ### Deployment
 
-GitHub Pages deployment via `.github/workflows/deploy.yml`:
-- Builds Astro site
-- Generates charts with Altair
-- Creates PDFs with Playwright
-- Deploys to `https://[username].github.io/graphyard/`
+**Simple main branch deployment** (no GitHub Actions):
+
+1. Build site locally: `cd site && npm run build`
+2. Astro outputs to `docs/` folder at project root
+3. Commit and push `docs/` to main branch
+4. GitHub Pages serves from `main` branch `/docs` folder
+
+```bash
+# Full deployment workflow
+cd site
+npm run charts          # Generate charts with Altair
+npm run build           # Build to ../docs/
+cd ..
+git add docs/
+git commit -m "Build site"
+git push
+```
+
+Site URL: `https://bedwards.github.io/graphyard/`
 
 ---
 
