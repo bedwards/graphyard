@@ -27,10 +27,8 @@ const renderer = "altair";
   publishDate={frontmatter.publishDate}
   readingTime={frontmatter.readingTime}
 >
-  <nav class="version-nav">
-    <a href="/graphyard/" class="home-link">← Home</a>
-    <span class="active">Altair (Python)</span>
-    <a href="/graphyard/articles/gdp/plot/">Observable Plot (TypeScript)</a>
+  <nav class="breadcrumb">
+    <a href="/graphyard/">← Home</a>
   </nav>
 
 <Fragment set:html={`
@@ -183,29 +181,17 @@ const renderer = "altair";
 `} />
 
   <style>
-    .version-nav {
-      display: flex;
-      gap: 1rem;
+    .breadcrumb {
       margin-bottom: 2rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--color-border);
     }
 
-    .version-nav .active {
-      font-weight: 600;
-      color: var(--color-accent);
-    }
-
-    .version-nav a {
+    .breadcrumb a {
       color: var(--color-text-muted);
+      text-decoration: none;
     }
 
-    .version-nav a:hover {
+    .breadcrumb a:hover {
       color: var(--color-accent);
-    }
-
-    .version-nav .home-link {
-      margin-right: auto;
     }
   </style>
 </ArticleLayout>
