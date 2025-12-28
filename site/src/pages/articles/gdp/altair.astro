@@ -167,6 +167,12 @@ import Chart from "../../../components/Chart.astro";
           Every few months, financial news leads with a familiar ritual: the release of Gross Domestic Product figures. Markets move. Politicians celebrate or deflect. Economists debate whether we are heading toward recession or recovery. Behind this ritual lies a single number that has become the primary scorecard for national economic success—a number that shapes policy decisions affecting billions of people, influences elections, and determines whether countries are considered prosperous or struggling.
         </p>
 
+        <Chart
+          chartId="top-10-gdp"
+          title="World's Largest Economies (2023)"
+          caption="The United States leads at over $27 trillion, followed by China at approximately $18 trillion. These ten economies together produce more than two-thirds of global output—a concentration of economic power that shapes everything from trade negotiations to climate agreements."
+        />
+
         <p>
           Yet for all its influence, few people truly understand what this number represents. Most can recite the basic definition—the total value of goods and services produced in a country—but struggle to explain why a country with high GDP might still have widespread poverty, or why GDP growth does not always translate to improved quality of life. This article aims to change that by exploring GDP from first principles: its historical origins, the mechanics of its calculation, what it reveals about our economies, what it conceals, and how modern techniques like machine learning are opening new possibilities for economic forecasting.
         </p>
@@ -325,14 +331,8 @@ import Chart from "../../../components/Chart.astro";
         </p>
 
         <p>
-          But aggregate figures conceal as much as they reveal. Behind the headline number of world GDP lies an extraordinarily unequal distribution of economic activity. A handful of countries produce the lion's share of global output, while many others contribute only marginally despite having substantial populations.
+          But aggregate figures conceal as much as they reveal. Behind the headline number of world GDP lies an extraordinarily unequal distribution of economic activity. A handful of countries produce the lion's share of global output, while many others contribute only marginally despite having substantial populations. As we saw at the opening of this article, just ten countries account for more than two-thirds of global GDP.
         </p>
-
-        <Chart
-          chartId="top-10-gdp"
-          title="World's Largest Economies (2023)"
-          caption="The United States remains the world's largest economy at over $27 trillion, followed by China at approximately $18 trillion. The gap between the top two and the rest is substantial: Japan, in third place, produces less than one-fifth what the United States produces."
-        />
 
         <p>
           The ranking of the world's largest economies reflects a combination of population, productivity, and historical development. The United States has led the world in total economic output for over a century, though its lead has narrowed considerably as China has grown. Japan, despite having only about a third of America's population, long held the second position thanks to its high productivity and technological sophistication. Germany, the United Kingdom, and France represent Europe's major economies, while India and Brazil represent large emerging markets with enormous populations but lower per capita output.
@@ -454,6 +454,12 @@ import Chart from "../../../components/Chart.astro";
           The results were staggering. China maintained GDP growth rates near 10 percent for three decades, a feat unmatched by any large economy in history. Hundreds of millions of people moved from farms to factories, from villages to cities, from poverty to at least modest prosperity. China became the world's manufacturing hub, producing everything from clothing to computers to solar panels. Its emergence reshaped global trade patterns, commodity markets, and geopolitical alignments.
         </p>
 
+        <Chart
+          chartId="china-growth-miracle"
+          title="China's Growth Miracle (1980-2023)"
+          caption="For three decades, China averaged nearly 10% annual growth—rates that double an economy every seven years. The 2020 COVID shock interrupted this trajectory, and growth has moderated since, raising questions about whether the miracle era has ended."
+        />
+
         <p>
           Yet China's growth model also created challenges that are now becoming more pressing. Heavy reliance on investment and exports may have reached its limits. Environmental degradation, from air pollution to water scarcity, threatens both health and economic sustainability. Demographic changes—particularly the aging of the population following decades of the one-child policy—will reduce the workforce and increase the burden on social services. Income inequality has risen sharply, and the gap between coastal cities and interior provinces remains wide. Navigating these challenges while maintaining reasonable growth rates will test Chinese policymakers in the decades ahead.
         </p>
@@ -472,6 +478,12 @@ import Chart from "../../../components/Chart.astro";
           Then the bubble burst. Stock prices collapsed. Real estate values plummeted. Banks, burdened with bad loans, stopped lending. The economy that had grown at 4 to 5 percent annually in the 1980s barely grew at 1 percent in the 1990s—and even that modest growth required enormous fiscal stimulus. Japan entered what economists call a "lost decade," which eventually stretched into two lost decades, and arguably more.
         </p>
 
+        <Chart
+          chartId="japan-lost-decades"
+          title="Japan's Lost Decades"
+          caption="After the bubble burst in 1990, Japan's economy barely grew for two decades. The contrast with the high-growth era is stark: years of negative growth became common, and even positive years rarely exceeded 2-3%. The pattern shows how difficult it can be to escape economic stagnation once it sets in."
+        />
+
         <p>
           The causes of Japan's stagnation remain debated. Some emphasize the banking crisis and the failure to address bad loans quickly. Others point to demographic headwinds—Japan began aging rapidly just as its growth slowed. Still others blame policy mistakes: insufficient monetary stimulus, stop-and-go fiscal policy, structural reforms that never quite materialized. Whatever the causes, Japan's experience warns against assuming that past growth will continue indefinitely and demonstrates how difficult it can be to escape from a low-growth equilibrium.
         </p>
@@ -485,6 +497,12 @@ import Chart from "../../../components/Chart.astro";
         <p>
           What happened? No single factor explains Argentina's long relative decline, but several contributed. Political instability—including numerous coups, dictatorships, and abrupt policy reversals—made long-term planning difficult and deterred investment. Populist policies, particularly under Juan Peron and his successors, prioritized short-term consumption over long-term growth. Repeated currency crises and hyperinflation episodes wiped out savings and undermined confidence. Heavy external debt and messy defaults damaged access to international capital markets.
         </p>
+
+        <Chart
+          chartId="argentina-vs-peers"
+          title="Argentina's Relative Decline"
+          caption="In 1960, Argentina, Australia, and Chile had similar GDP per capita. Six decades later, Australia's income per person is roughly five times Argentina's. Chile, despite its own challenges, has also pulled ahead. The divergence illustrates how institutional quality and policy consistency compound over generations."
+        />
 
         <p>
           Today, Argentina remains a middle-income country with enormous potential—educated population, natural resources, diversified economy—yet it continues to struggle with inflation, debt, and macroeconomic instability. Its experience serves as a warning about the importance of sound institutions, consistent policies, and avoiding the temptation to finance current consumption at the expense of future prosperity.
@@ -506,6 +524,12 @@ import Chart from "../../../components/Chart.astro";
           The crisis reached its peak in September 2008 with the collapse of Lehman Brothers, a major investment bank. Credit markets froze. Banks stopped lending to each other, let alone to businesses or households. The resulting credit crunch pushed economies around the world into recession. Global GDP fell for the first time since World War II.
         </p>
 
+        <Chart
+          chartId="crisis-2008"
+          title="The 2008 Financial Crisis: Global Synchronization"
+          caption="The 2008 crisis demonstrated how interconnected the global economy had become. All major economies contracted simultaneously in 2009—a synchronization that amplified the downturn. China's massive stimulus program helped it recover fastest, while Western economies struggled for years."
+        />
+
         <p>
           Policy responses were massive and unprecedented. Central banks slashed interest rates to near zero and began purchasing financial assets directly—quantitative easing. Governments enacted fiscal stimulus packages totaling trillions of dollars. Banks received bailouts and guarantees. These measures prevented a complete collapse and eventually restored growth, though recovery was slow and uneven.
         </p>
@@ -523,6 +547,12 @@ import Chart from "../../../components/Chart.astro";
         <p>
           The GDP impact was immediate and severe: the steepest quarterly decline ever recorded in most countries. But the nature of this crisis meant that GDP was an even more imperfect measure than usual. Much of the decline reflected deliberate policy choice—the decision to prioritize health over economic activity. The sharp fall in GDP was, in a sense, the price paid to slow the spread of a deadly virus.
         </p>
+
+        <Chart
+          chartId="crisis-covid"
+          title="The COVID-19 Shock and Recovery"
+          caption="The 2020 collapse was the sharpest ever recorded, but the rebound was equally dramatic. India and the UK experienced the deepest contractions, while China—where the pandemic began but was controlled early—barely dipped. The V-shaped recovery reflected pent-up demand and unprecedented policy support."
+        />
 
         <p>
           The recovery, too, was unusual. Once vaccines became available and restrictions lifted, pent-up demand surged. People who had been confined to their homes rushed to travel, dine out, attend concerts. GDP rebounded sharply in 2021. Yet the recovery was uneven across sectors and across countries. Some industries, like technology and logistics, thrived throughout. Others, like hospitality and entertainment, continued to struggle even as restrictions eased.
@@ -709,6 +739,12 @@ import Chart from "../../../components/Chart.astro";
         <p>
           The United Nations Development Programme introduced the Human Development Index (HDI) in 1990 as an explicit alternative to pure income measures. HDI combines three dimensions: health (measured by life expectancy), education (measured by years of schooling), and standard of living (measured by income per capita, but with diminishing returns at higher levels).
         </p>
+
+        <Chart
+          chartId="life-expectancy-vs-gdp"
+          title="Life Expectancy vs GDP Per Capita (2022)"
+          caption="The relationship between income and health is strong but nonlinear. Moving from $1,000 to $10,000 per capita adds roughly 15 years of life expectancy. Moving from $50,000 to $100,000 adds almost nothing. This pattern of diminishing returns is central to critiques of GDP as a welfare measure—and to the design of alternatives like HDI."
+        />
 
         <p>
           By including non-income dimensions, HDI can reveal countries that perform better or worse than their income alone would suggest. Cuba, for example, has relatively low income but high life expectancy and literacy, resulting in a higher HDI rank than income rank. Resource-rich countries with poor governance may have the opposite pattern—high income but low education and life expectancy.

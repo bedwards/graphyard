@@ -199,3 +199,115 @@ def load_country_gdp_timeseries(
     df = pd.read_sql(query, conn, params=[start_year, end_year] + countries)
     conn.close()
     return df
+
+
+def load_country_growth_timeseries(
+    countries: list[str],
+    start_year: int = 1960,
+    end_year: int = 2023
+):
+    """Load GDP growth rate time series for multiple countries."""
+    import pandas as pd
+
+    conn = get_db_connection()
+    placeholders = ','.join(['%s'] * len(countries))
+    query = f"""
+        SELECT e.entity_name as country, cd.year, cd.value
+        FROM country_data cd
+        JOIN entities e ON cd.entity_code = e.entity_code
+        WHERE cd.indicator_code = 'NY.GDP.MKTP.KD.ZG'
+          AND cd.year BETWEEN %s AND %s
+          AND cd.entity_code IN ({placeholders})
+        ORDER BY cd.year, e.entity_name
+    """
+    df = pd.read_sql(query, conn, params=[start_year, end_year] + countries)
+    conn.close()
+    return df
+
+
+def load_crisis_comparison(crisis_year: int, countries: list[str], window: int = 3):
+    """Load GDP growth around a crisis year for comparison."""
+    import pandas as pd
+
+    start = crisis_year - window
+    end = crisis_year + window
+    return load_country_growth_timeseries(countries, start, end)
+
+
+def load_gdp_per_capita_timeseries(
+    countries: list[str],
+    start_year: int = 1960,
+    end_year: int = 2023
+):
+    """Load GDP per capita time series for multiple countries."""
+    import pandas as pd
+
+    conn = get_db_connection()
+    placeholders = ','.join(['%s'] * len(countries))
+    query = f"""
+        SELECT e.entity_name as country, cd.year, cd.value
+        FROM country_data cd
+        JOIN entities e ON cd.entity_code = e.entity_code
+        WHERE cd.indicator_code = 'NY.GDP.PCAP.CD'
+          AND cd.year BETWEEN %s AND %s
+          AND cd.entity_code IN ({placeholders})
+        ORDER BY cd.year, e.entity_name
+    """
+    df = pd.read_sql(query, conn, params=[start_year, end_year] + countries)
+    conn.close()
+    return df
+
+
+def load_income_share_top10(countries: list[str], start_year: int = 1980, end_year: int = 2023):
+    """Load income share held by top 10% over time."""
+    import pandas as pd
+
+    conn = get_db_connection()
+    placeholders = ','.join(['%s'] * len(countries))
+    query = f"""
+        SELECT e.entity_name as country, cd.year, cd.value
+        FROM country_data cd
+        JOIN entities e ON cd.entity_code = e.entity_code
+        WHERE cd.indicator_code = 'SI.DST.10TH.10'
+          AND cd.year BETWEEN %s AND %s
+          AND cd.entity_code IN ({placeholders})
+        ORDER BY cd.year, e.entity_name
+    """
+    df = pd.read_sql(query, conn, params=[start_year, end_year] + countries)
+    conn.close()
+    return df
+
+
+def load_life_expectancy_vs_gdp(year: int = 2022):
+    """Load life expectancy vs GDP per capita for scatter plot."""
+    import pandas as pd
+
+    conn = get_db_connection()
+    query = """
+        SELECT
+            e.entity_name as country,
+            gdp.value as gdp_per_capita,
+            life.value as life_expectancy
+        FROM country_data gdp
+        JOIN country_data life ON gdp.entity_code = life.entity_code AND gdp.year = life.year
+        JOIN entities e ON gdp.entity_code = e.entity_code
+        WHERE gdp.indicator_code = 'NY.GDP.PCAP.CD'
+          AND life.indicator_code = 'SP.DYN.LE00.IN'
+          AND gdp.year = %s
+          AND gdp.value IS NOT NULL
+          AND life.value IS NOT NULL
+        ORDER BY gdp.value DESC
+    """
+    df = pd.read_sql(query, conn, params=(year,))
+    conn.close()
+    return df
+
+
+def load_japan_lost_decades():
+    """Load Japan GDP growth to show the lost decades."""
+    return load_gdp_growth_rates('JPN', 40)
+
+
+def load_argentina_vs_peers(start_year: int = 1960, end_year: int = 2023):
+    """Load Argentina vs comparable countries (Chile, Australia) GDP per capita."""
+    return load_gdp_per_capita_timeseries(['ARG', 'CHL', 'AUS'], start_year, end_year)

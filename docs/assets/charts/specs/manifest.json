@@ -26,5 +26,29 @@
   {
     "chartId": "china-usa-gdp",
     "specFile": "china-usa-gdp.json"
+  },
+  {
+    "chartId": "china-growth-miracle",
+    "specFile": "china-growth-miracle.json"
+  },
+  {
+    "chartId": "japan-lost-decades",
+    "specFile": "japan-lost-decades.json"
+  },
+  {
+    "chartId": "argentina-vs-peers",
+    "specFile": "argentina-vs-peers.json"
+  },
+  {
+    "chartId": "crisis-2008",
+    "specFile": "crisis-2008.json"
+  },
+  {
+    "chartId": "crisis-covid",
+    "specFile": "crisis-covid.json"
+  },
+  {
+    "chartId": "life-expectancy-vs-gdp",
+    "specFile": "life-expectancy-vs-gdp.json"
   }
 ]

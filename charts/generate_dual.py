@@ -35,6 +35,12 @@ from charts.gdp.data import (
     load_gdp_components,
     load_regional_gdp,
     load_country_gdp_timeseries,
+    load_country_growth_timeseries,
+    load_crisis_comparison,
+    load_gdp_per_capita_timeseries,
+    load_life_expectancy_vs_gdp,
+    load_japan_lost_decades,
+    load_argentina_vs_peers,
 )
 # ML forecasting available in charts.gdp.forecast if needed
 
@@ -129,10 +135,87 @@ def get_gdp_chart_specs() -> list[ChartSpec]:
             y_label="GDP (Current US$)",
             x_format="year",
             y_format="trillions",
-            color="country",  # Color by country for multi-line
+            color="country",
         ),
-        # Note: GDP forecast chart requires running ML models
-        # For now, the article discusses forecasting without a dedicated chart
+        # Part VII: Case Studies
+        ChartSpec(
+            chart_id="china-growth-miracle",
+            chart_type=ChartType.LINE,
+            title="China's Growth Miracle (1980-2023)",
+            data_source=lambda: load_country_growth_timeseries(["CHN"], 1980, 2023),
+            x="year",
+            y="value",
+            x_label="Year",
+            y_label="GDP Growth (%)",
+            x_format="year",
+            y_format="percent_raw",
+            color="country",
+        ),
+        ChartSpec(
+            chart_id="japan-lost-decades",
+            chart_type=ChartType.BAR,
+            title="Japan's Lost Decades",
+            data_source=lambda: load_gdp_growth_rates("JPN", 40),
+            x="year",
+            y="value",
+            x_label="Year",
+            y_label="GDP Growth (%)",
+            x_format="year",
+            y_format="percent_raw",
+            options={"highlight_negative": True},
+        ),
+        ChartSpec(
+            chart_id="argentina-vs-peers",
+            chart_type=ChartType.LINE,
+            title="Argentina's Relative Decline",
+            data_source=lambda: load_gdp_per_capita_timeseries(["ARG", "CHL", "AUS"], 1960, 2023),
+            x="year",
+            y="value",
+            x_label="Year",
+            y_label="GDP Per Capita (US$)",
+            x_format="year",
+            y_format="thousands",
+            color="country",
+        ),
+        # Part VIII: Crises
+        ChartSpec(
+            chart_id="crisis-2008",
+            chart_type=ChartType.LINE,
+            title="The 2008 Financial Crisis: Global Synchronization",
+            data_source=lambda: load_crisis_comparison(2009, ["USA", "DEU", "JPN", "GBR", "CHN"], 4),
+            x="year",
+            y="value",
+            x_label="Year",
+            y_label="GDP Growth (%)",
+            x_format="year",
+            y_format="percent_raw",
+            color="country",
+        ),
+        ChartSpec(
+            chart_id="crisis-covid",
+            chart_type=ChartType.LINE,
+            title="The COVID-19 Shock and Recovery",
+            data_source=lambda: load_crisis_comparison(2020, ["USA", "DEU", "JPN", "GBR", "CHN", "IND"], 3),
+            x="year",
+            y="value",
+            x_label="Year",
+            y_label="GDP Growth (%)",
+            x_format="year",
+            y_format="percent_raw",
+            color="country",
+        ),
+        # Part X/XI: GDP Limitations and Alternatives
+        ChartSpec(
+            chart_id="life-expectancy-vs-gdp",
+            chart_type=ChartType.SCATTER,
+            title="Life Expectancy vs GDP Per Capita (2022)",
+            data_source=lambda: load_life_expectancy_vs_gdp(2022),
+            x="gdp_per_capita",
+            y="life_expectancy",
+            x_label="GDP Per Capita (US$)",
+            y_label="Life Expectancy (Years)",
+            x_format="thousands",
+        ),
     ]
 
 
