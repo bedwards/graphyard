@@ -50,5 +50,13 @@
   {
     "chartId": "life-expectancy-vs-gdp",
     "specFile": "life-expectancy-vs-gdp.json"
+  },
+  {
+    "chartId": "ml-feature-importance",
+    "specFile": "ml-feature-importance.json"
+  },
+  {
+    "chartId": "ml-model-comparison",
+    "specFile": "ml-model-comparison.json"
   }
 ]

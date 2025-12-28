@@ -41,6 +41,8 @@ from charts.gdp.data import (
     load_life_expectancy_vs_gdp,
     load_japan_lost_decades,
     load_argentina_vs_peers,
+    load_ml_feature_importance,
+    load_ml_model_comparison,
 )
 # ML forecasting available in charts.gdp.forecast if needed
 
@@ -215,6 +217,28 @@ def get_gdp_chart_specs() -> list[ChartSpec]:
             x_label="GDP Per Capita (US$)",
             y_label="Life Expectancy (Years)",
             x_format="thousands",
+        ),
+        # Part IX: Machine Learning Forecasting
+        ChartSpec(
+            chart_id="ml-feature-importance",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="What Predicts GDP? Feature Importance",
+            data_source=load_ml_feature_importance,
+            x="feature",
+            y="importance",
+            x_label="Feature",
+            y_label="Importance",
+            y_format="percent",
+        ),
+        ChartSpec(
+            chart_id="ml-model-comparison",
+            chart_type=ChartType.BAR,
+            title="Model Comparison: R² Score",
+            data_source=load_ml_model_comparison,
+            x="model",
+            y="r_squared",
+            x_label="Model",
+            y_label="R² Score",
         ),
     ]
 

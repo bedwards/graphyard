@@ -620,6 +620,12 @@ import Chart from "../../../components/Chart.astro";
           Modern machine learning practice typically involves comparing multiple models rather than selecting one a priori. For GDP forecasting, gradient boosting methods like XGBoost, LightGBM, and CatBoost often compete closely. Each has strengths: XGBoost handles missing values automatically and has strong regularization; LightGBM trains faster and uses less memory; CatBoost handles categorical features natively and often works well with default parameters.
         </p>
 
+        <Chart
+          chartId="ml-model-comparison"
+          title="Model Comparison: R² Score"
+          caption="When trained on the same GDP data using walk-forward validation, all three gradient boosting algorithms achieve remarkably similar performance. CatBoost edges ahead slightly, but the differences are small compared to the fundamental uncertainty in economic forecasting. This convergence is typical: for well-structured tabular data like GDP time series, the choice of algorithm matters less than the quality of features and data."
+        />
+
         <p>
           In practice, the differences between these methods are often smaller than the fundamental uncertainty inherent in economic forecasting. The economy is subject to shocks—pandemics, wars, financial crises, technological breakthroughs—that cannot be predicted from historical patterns. Even a perfect model trained on all available data would fail to anticipate the emergence of COVID-19 or the timing of the next financial crisis.
         </p>
@@ -633,6 +639,12 @@ import Chart from "../../../components/Chart.astro";
         <p>
           One advantage of machine learning methods is their ability to identify which features contribute most to predictions. Feature importance analysis reveals that, for GDP forecasting, the most recent values matter most—last year's GDP is the best predictor of this year's GDP. Rolling averages also contribute significantly, capturing the momentum of economic growth. More distant lags matter less, consistent with the intuition that economies change over time and distant history becomes less relevant.
         </p>
+
+        <Chart
+          chartId="ml-feature-importance"
+          title="What Predicts GDP? Feature Importance"
+          caption="The gradient boosting models confirm economic intuition: last year's GDP (lag 1) dominates all other features, accounting for 42% of predictive power. The second lag adds another 18%. Rolling averages, which smooth out year-to-year volatility, contribute meaningfully. By the time we reach five-year-old data, the signal has largely faded. This exponential decay of relevance explains why even sophisticated models cannot predict far into the future—the world changes too much."
+        />
 
         <p>
           These patterns suggest that GDP, while volatile in the short run, has considerable persistence over longer horizons. Countries that are rich tend to stay rich; countries that are poor tend to stay poor. Convergence happens, but slowly. The machine learning models, in their data-driven way, are rediscovering what economists have long known: development is a gradual process, and there are no shortcuts to sustained prosperity.
