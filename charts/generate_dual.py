@@ -64,7 +64,7 @@ def get_gdp_chart_specs() -> list[ChartSpec]:
             y="value",
             x_label="Year",
             y_label="Annual Growth (%)",
-            y_format="percent",
+            y_format="percent_raw",  # Data already in % form (3.5 = 3.5%), don't multiply
             options={"highlight_negative": True},
         ),
         ChartSpec(
@@ -106,8 +106,8 @@ def get_gdp_chart_specs() -> list[ChartSpec]:
         ChartSpec(
             chart_id="gdp-components-usa",
             chart_type=ChartType.DONUT,
-            title="US GDP Components (2023)",
-            data_source=lambda: load_gdp_components("USA", 2023),
+            title="US GDP Components (2022)",
+            data_source=lambda: load_gdp_components("USA", 2022),
             x="indicator_name",
             y="value",
         ),

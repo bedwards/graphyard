@@ -146,7 +146,7 @@ def load_gdp_components(entity_code: str = 'USA', year: int = 2023):
 
     # Simplify names
     name_map = {
-        'Household final consumption expenditure (current US$)': 'Consumption (C)',
+        'Households and NPISHs Final consumption expenditure (current US$)': 'Consumption (C)',
         'General government final consumption expenditure (current US$)': 'Government (G)',
         'Gross capital formation (current US$)': 'Investment (I)',
         'Exports of goods and services (current US$)': 'Exports',

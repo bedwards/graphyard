@@ -226,3 +226,6 @@ site/public/assets/charts/
 # Playwright
 site/playwright-report/
 site/test-results/
+
+# CatBoost
+catboost_info/

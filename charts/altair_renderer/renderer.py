@@ -183,7 +183,9 @@ class AltairRenderer:
             "currency": "$,.0f",
             "trillions": "$,.2s",
             "billions": "$,.2s",
+            "thousands": ",.0f",
             "percent": ".1%",
+            "percent_raw": ".1f",  # Data already in % form (3.5 = 3.5%)
             "decimal": ".2f",
         }
 
