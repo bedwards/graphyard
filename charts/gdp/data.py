@@ -175,3 +175,27 @@ def load_regional_gdp(year: int = 2023):
     df = pd.read_sql(query, conn, params=(year,))
     conn.close()
     return df
+
+
+def load_country_gdp_timeseries(
+    countries: list[str],
+    start_year: int = 1960,
+    end_year: int = 2023
+):
+    """Load GDP time series for multiple countries."""
+    import pandas as pd
+
+    conn = get_db_connection()
+    placeholders = ','.join(['%s'] * len(countries))
+    query = f"""
+        SELECT e.entity_name as country, cd.year, cd.value
+        FROM country_data cd
+        JOIN entities e ON cd.entity_code = e.entity_code
+        WHERE cd.indicator_code = 'NY.GDP.MKTP.CD'
+          AND cd.year BETWEEN %s AND %s
+          AND cd.entity_code IN ({placeholders})
+        ORDER BY cd.year, cd.value DESC
+    """
+    df = pd.read_sql(query, conn, params=[start_year, end_year] + countries)
+    conn.close()
+    return df

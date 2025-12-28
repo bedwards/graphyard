@@ -34,6 +34,7 @@ from charts.gdp.data import (
     load_gdp_per_capita_by_income_group,
     load_gdp_components,
     load_regional_gdp,
+    load_country_gdp_timeseries,
 )
 
 OUTPUT_DIR_ALTAIR = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "altair"
@@ -107,11 +108,27 @@ def get_gdp_chart_specs() -> list[ChartSpec]:
         ),
         ChartSpec(
             chart_id="gdp-components-usa",
-            chart_type=ChartType.DONUT,
+            chart_type=ChartType.HORIZONTAL_BAR,  # Bar chart better than pie for comparing values
             title="US GDP Components (2022)",
             data_source=lambda: load_gdp_components("USA", 2022),
             x="indicator_name",
             y="value",
+            x_label="Component",
+            y_label="Value (US$)",
+            y_format="trillions",
+        ),
+        ChartSpec(
+            chart_id="china-usa-gdp",
+            chart_type=ChartType.LINE,
+            title="The Rise of China: GDP Comparison",
+            data_source=lambda: load_country_gdp_timeseries(["CHN", "USA"], 1980, 2023),
+            x="year",
+            y="value",
+            x_label="Year",
+            y_label="GDP (Current US$)",
+            x_format="year",
+            y_format="trillions",
+            color="country",  # Color by country for multi-line
         ),
     ]
 

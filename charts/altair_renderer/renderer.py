@@ -131,7 +131,7 @@ class AltairRenderer:
             return chart.mark_line(strokeWidth=2.5).encode(
                 x=x_axis,
                 y=y_axis,
-                color=alt.Color(spec.color) if spec.color else alt.value(self.COLORS[0]),
+                color=alt.Color(f"{spec.color}:N") if spec.color else alt.value(self.COLORS[0]),
             )
 
         elif chart_type == "bar":

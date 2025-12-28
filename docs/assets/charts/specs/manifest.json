@@ -22,5 +22,9 @@
   {
     "chartId": "gdp-components-usa",
     "specFile": "gdp-components-usa.json"
+  },
+  {
+    "chartId": "china-usa-gdp",
+    "specFile": "china-usa-gdp.json"
   }
 ]
