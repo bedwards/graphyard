@@ -1,0 +1,60 @@
+---
+/**
+ * Definition Component
+ *
+ * Highlights key terms and concepts with clear formatting.
+ * Avoids jargon by providing accessible explanations.
+ */
+
+interface Props {
+  /** The term being defined */
+  term: string;
+  /** Optional: pronunciation or abbreviation expansion */
+  pronunciation?: string;
+}
+
+const { term, pronunciation } = Astro.props;
+---
+
+<dl class="definition">
+  <dt>
+    {term}
+    {pronunciation && <span class="pronunciation">({pronunciation})</span>}
+  </dt>
+  <dd>
+    <slot />
+  </dd>
+</dl>
+
+<style>
+  .definition {
+    background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+    border-left: 4px solid var(--color-accent, #2563eb);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    border-radius: 0 8px 8px 0;
+  }
+
+  dt {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--color-text, #1a1a2e);
+    margin-bottom: 0.5rem;
+  }
+
+  .pronunciation {
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: var(--color-text-muted, #4a5568);
+    margin-left: 0.5rem;
+  }
+
+  dd {
+    color: var(--color-text-muted, #4a5568);
+    line-height: 1.6;
+  }
+
+  dd :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>

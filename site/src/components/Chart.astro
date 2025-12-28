@@ -1,0 +1,124 @@
+---
+/**
+ * Chart Component
+ *
+ * Displays a chart from either Altair (Python) or Observable Plot (TypeScript).
+ * Supports switching between chart renderers for dual-version articles.
+ *
+ * 2025 Chart Selection Guidelines:
+ * - Comparisons → Bar charts
+ * - Trends over time → Line charts
+ * - Part-to-whole → Donut charts (max 5 segments)
+ * - Distributions → Histograms
+ * - Correlations → Scatter plots
+ * - Rankings → Horizontal bar charts
+ */
+
+interface Props {
+  /** Chart ID from manifest (without extension) */
+  id: string;
+  /** Chart title (shown in caption) */
+  title: string;
+  /** Description of what the chart shows */
+  description: string;
+  /** Key insight or conclusion */
+  insight?: string;
+  /** Data source attribution */
+  source?: string;
+  /** Use wide layout (breaks out of content column) */
+  wide?: boolean;
+  /** Alt text for accessibility */
+  alt?: string;
+  /** Chart renderer: 'altair' or 'plot' */
+  renderer?: "altair" | "plot";
+}
+
+const {
+  id,
+  title,
+  description,
+  insight,
+  source,
+  wide = false,
+  alt,
+  renderer = "altair",
+} = Astro.props;
+
+const imgSrc = `/graphyard/assets/charts/${renderer}/${id}.svg`;
+const altText = alt || `Chart: ${title}`;
+---
+
+<figure class:list={[{ wide }]} data-renderer={renderer}>
+  <img src={imgSrc} alt={altText} loading="lazy" />
+  <figcaption>
+    <strong>Figure: {title}</strong>
+    {description}
+    {insight && <span class="insight"> {insight}</span>}
+    {source && <cite class="source">Source: {source}</cite>}
+    <span class="renderer-badge">{renderer === "altair" ? "Altair" : "Observable Plot"}</span>
+  </figcaption>
+</figure>
+
+<style>
+  figure {
+    margin: 2.5rem 0;
+    padding: 0;
+    background: transparent;
+  }
+
+  figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: #fafafa;
+    border-radius: 8px;
+    padding: 1rem;
+  }
+
+  figcaption {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted, #4a5568);
+    line-height: 1.6;
+  }
+
+  figcaption strong {
+    display: block;
+    color: var(--color-text, #1a1a2e);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .insight {
+    font-style: italic;
+  }
+
+  .source {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: #718096;
+  }
+
+  .renderer-badge {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.15rem 0.4rem;
+    background: #f3f4f6;
+    color: #6b7280;
+    border-radius: 3px;
+  }
+
+  figure.wide {
+    max-width: 960px;
+  }
+
+  @media (min-width: 1100px) {
+    figure.wide {
+      width: 960px;
+      margin-left: calc((720px - 960px) / 2);
+    }
+  }
+</style>

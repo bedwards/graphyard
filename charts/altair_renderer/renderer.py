@@ -1,0 +1,215 @@
+"""
+Altair Renderer
+
+Converts ChartSpec to Altair charts and exports to static formats.
+"""
+
+from pathlib import Path
+from typing import Optional
+import altair as alt
+
+from charts.spec import ChartSpec, ChartType
+
+
+class AltairRenderer:
+    """
+    Renders ChartSpec using Altair with publication-quality defaults.
+
+    Uses the Lexend font family and a clean, minimal theme suitable
+    for academic and professional publications.
+    """
+
+    # Publication-quality color palette
+    COLORS = [
+        "#2563eb",  # Primary blue
+        "#16a34a",  # Green
+        "#dc2626",  # Red
+        "#9333ea",  # Purple
+        "#ea580c",  # Orange
+        "#0891b2",  # Cyan
+    ]
+
+    def __init__(
+        self,
+        width: int = 600,
+        height: int = 400,
+        font_family: str = "Lexend, system-ui, sans-serif",
+    ):
+        self.width = width
+        self.height = height
+        self.font_family = font_family
+        self._configure_theme()
+
+    def _configure_theme(self):
+        """Configure Altair theme for publication quality."""
+        def publication_theme():
+            return {
+                "config": {
+                    "font": self.font_family,
+                    "title": {
+                        "font": self.font_family,
+                        "fontSize": 16,
+                        "fontWeight": 600,
+                        "anchor": "start",
+                        "color": "#1a1a2e",
+                    },
+                    "axis": {
+                        "labelFont": self.font_family,
+                        "labelFontSize": 11,
+                        "labelColor": "#4a5568",
+                        "titleFont": self.font_family,
+                        "titleFontSize": 12,
+                        "titleColor": "#1a1a2e",
+                        "gridColor": "#e5e7eb",
+                        "domainColor": "#9ca3af",
+                    },
+                    "legend": {
+                        "labelFont": self.font_family,
+                        "labelFontSize": 11,
+                        "titleFont": self.font_family,
+                        "titleFontSize": 12,
+                    },
+                    "view": {
+                        "strokeWidth": 0,
+                    },
+                    "range": {
+                        "category": self.COLORS,
+                    },
+                }
+            }
+
+        alt.themes.register("publication", publication_theme)
+        alt.themes.enable("publication")
+
+    def render(self, spec: ChartSpec) -> alt.Chart:
+        """Render ChartSpec to Altair Chart object."""
+        data = spec.load_data()
+
+        # Build base chart
+        chart = alt.Chart(alt.Data(values=data)).properties(
+            width=self.width,
+            height=self.height,
+            title=spec.title,
+        )
+
+        # Apply chart type
+        chart = self._apply_chart_type(chart, spec)
+
+        return chart
+
+    def _apply_chart_type(self, chart: alt.Chart, spec: ChartSpec) -> alt.Chart:
+        """Apply the appropriate mark and encoding based on chart type."""
+
+        # Add type hints since we're using dict data (not pandas DataFrame)
+        x_axis = alt.X(f"{spec.x}:Q", title=spec.x_label) if spec.x else alt.X()
+        y_axis = alt.Y(f"{spec.y}:Q", title=spec.y_label) if spec.y else alt.Y()
+
+        # Override for temporal/nominal fields
+        if spec.x_format == "year":
+            x_axis = alt.X(f"{spec.x}:O", title=spec.x_label)  # Ordinal for years
+
+        # Apply formatting
+        if spec.x_format:
+            x_axis = self._apply_format(x_axis, spec.x_format, 'x')
+        if spec.y_format:
+            y_axis = self._apply_format(y_axis, spec.y_format, 'y')
+
+        # Use string comparison for chart type to avoid enum import issues
+        chart_type = spec.chart_type.value if hasattr(spec.chart_type, 'value') else str(spec.chart_type)
+
+        if chart_type == "line":
+            return chart.mark_line(strokeWidth=2.5).encode(
+                x=x_axis,
+                y=y_axis,
+                color=alt.Color(spec.color) if spec.color else alt.value(self.COLORS[0]),
+            )
+
+        elif chart_type == "bar":
+            return chart.mark_bar().encode(
+                x=x_axis,
+                y=y_axis,
+                color=alt.Color(spec.color) if spec.color else alt.value(self.COLORS[0]),
+            )
+
+        elif chart_type == "horizontal_bar":
+            return chart.mark_bar().encode(
+                x=y_axis,  # Swap for horizontal
+                y=alt.Y(f"{spec.x}:N", title=spec.x_label, sort="-x") if spec.x else alt.Y(),
+                color=alt.Color(spec.color) if spec.color else alt.value(self.COLORS[0]),
+            )
+
+        elif chart_type == "donut":
+            return chart.mark_arc(innerRadius=60).encode(
+                theta=alt.Theta(spec.y, type="quantitative"),
+                color=alt.Color(spec.x, type="nominal", legend=alt.Legend(title=None)),
+            )
+
+        elif chart_type == "scatter":
+            mark = chart.mark_circle(size=60)
+            encoding = {"x": x_axis, "y": y_axis}
+            if spec.color:
+                encoding["color"] = alt.Color(spec.color)
+            if spec.size:
+                encoding["size"] = alt.Size(spec.size)
+            return mark.encode(**encoding)
+
+        elif chart_type == "area":
+            return chart.mark_area(opacity=0.7).encode(
+                x=x_axis,
+                y=y_axis,
+                color=alt.Color(spec.color) if spec.color else alt.value(self.COLORS[0]),
+            )
+
+        elif chart_type == "stacked_area":
+            return chart.mark_area().encode(
+                x=x_axis,
+                y=alt.Y(spec.y, stack="zero", title=spec.y_label),
+                color=alt.Color(spec.color) if spec.color else alt.value(self.COLORS[0]),
+            )
+
+        elif chart_type == "histogram":
+            return chart.mark_bar().encode(
+                x=alt.X(spec.x, bin=True, title=spec.x_label),
+                y=alt.Y("count()", title="Count"),
+            )
+
+        else:
+            raise ValueError(f"Unsupported chart type: {chart_type}")
+
+    def _apply_format(self, axis, format_type: str, axis_name: str):
+        """Apply formatting to axis based on format type."""
+        format_map = {
+            "year": "d",
+            "currency": "$,.0f",
+            "trillions": "$,.2s",
+            "billions": "$,.2s",
+            "percent": ".1%",
+            "decimal": ".2f",
+        }
+
+        if format_type in format_map:
+            return axis.axis(format=format_map[format_type])
+        return axis
+
+    def save(
+        self,
+        spec: ChartSpec,
+        output_dir: Path,
+        formats: list[str] = ["svg", "png", "pdf"],
+    ) -> list[Path]:
+        """
+        Render and save chart to specified formats.
+
+        Uses vl-convert for dependency-free static export.
+        """
+        chart = self.render(spec)
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        saved_files = []
+        for fmt in formats:
+            output_path = output_dir / f"{spec.chart_id}.{fmt}"
+            chart.save(str(output_path))
+            saved_files.append(output_path)
+            print(f"  [Altair] Saved: {output_path.name}")
+
+        return saved_files

@@ -2,7 +2,14 @@
 
 ## Project Overview
 
-Graphyard is a data analysis project working with World Development Indicators (WDI) data from the World Bank. The goal is to clean, normalize, and load this data for analysis.
+Graphyard is a data analysis and visualization project for economic indicators, primarily using World Development Indicators (WDI) data from the World Bank. The project includes:
+
+1. **Data Pipeline**: Clean, normalize, and load WDI data into PostgreSQL
+2. **Chart Framework**: Dual-package visualization with Altair (Python) and Observable Plot (TypeScript)
+3. **ML Analytics**: Time series forecasting with XGBoost, LightGBM, CatBoost, and PyTorch
+4. **Static Site**: Astro-based publication system with GitHub Pages deployment
+
+---
 
 ## Critical Rules
 
@@ -32,7 +39,47 @@ Always use **"Indicator"** terminology, never "Series":
 ### 3. Output Locations
 
 - **Cleaned CSV files**: `datasets/WDI_CSV_clean/`
-- **Database**: PostgreSQL `graphyard` database (see Database section)
+- **Database**: PostgreSQL `graphyard` database
+- **Charts**: `site/public/assets/charts/{altair,plot}/`
+
+---
+
+## Project Structure
+
+```
+graphyard/
+├── CLAUDE.md                    # This file
+├── WDI.md                       # WDI dataset documentation
+├── .gitignore
+├── scripts/
+│   ├── wdi_utils.py            # Clean and load WDI data
+│   └── wdi_schema.sql          # Database schema
+├── charts/                      # Python chart framework
+│   ├── __init__.py
+│   ├── spec.py                 # ChartSpec schema (shared with TypeScript)
+│   ├── generate_dual.py        # Dual-package chart generator
+│   ├── altair_renderer/        # Altair (Vega-Lite) renderer
+│   ├── gdp/                    # GDP article charts and data loaders
+│   └── themes/                 # Color palettes
+├── ml/                          # Machine learning framework
+│   ├── __init__.py
+│   ├── preprocessing.py        # Missing data, lag features
+│   └── forecaster.py           # XGBoost, LightGBM, CatBoost wrappers
+├── site/                        # Astro static site
+│   ├── astro.config.mjs
+│   ├── package.json
+│   ├── src/
+│   │   ├── layouts/
+│   │   ├── components/
+│   │   ├── lib/                # Observable Plot renderer
+│   │   └── pages/
+│   └── scripts/
+│       ├── generate-pdf.ts     # PDF export with Playwright
+│       └── generate-plot-charts.ts
+└── datasets/                    # Git-ignored
+    ├── WDI_CSV/                # Source data (READ-ONLY)
+    └── WDI_CSV_clean/          # Cleaned output
+```
 
 ---
 
@@ -46,6 +93,7 @@ Host: localhost
 Port: 5432
 Database: graphyard
 User: postgres
+Password: postgres
 Container: hex-index-postgres
 ```
 
@@ -54,119 +102,7 @@ Connect via CLI:
 docker exec -it hex-index-postgres psql -U postgres -d graphyard
 ```
 
----
-
-## WDI Utilities Tool
-
-Use `scripts/wdi_utils.py` to clean and load WDI data:
-
-```bash
-# CLEANING
-python scripts/wdi_utils.py clean --all                    # Full cleaning pipeline
-python scripts/wdi_utils.py clean --fix-encoding           # Level 1: Fix UTF-8 encoding
-python scripts/wdi_utils.py clean --normalize              # Level 2: Normalize special chars
-python scripts/wdi_utils.py clean --parse-csv              # Level 3: Parse CSV, fix column names
-python scripts/wdi_utils.py clean --to-narrow              # Level 4a: Wide → narrow format
-python scripts/wdi_utils.py clean --split-entities         # Level 4b: Split by entity type
-python scripts/wdi_utils.py clean -f WDICSV.csv --all      # Process single file
-
-# LOADING TO DATABASE
-python scripts/wdi_utils.py load --all                     # Load all into PostgreSQL
-python scripts/wdi_utils.py load --indicators              # Load indicator metadata
-python scripts/wdi_utils.py load --entities                # Load entity metadata
-python scripts/wdi_utils.py load --observations            # Load observation data
-```
-
----
-
-## Data Formats
-
-### Wide Format (Original)
-
-Original WDICSV.csv has columns for each year:
-```
-Country Name, Country Code, Indicator Name, Indicator Code, 1960, 1961, ... 2024
-USA, US, GDP, NY.GDP.MKTP.CD, 543300000000, 563300000000, ...
-```
-
-### Narrow Format (Cleaned)
-
-After `--to-narrow`, each year becomes a row:
-```
-Country Name, Country Code, Indicator Name, Indicator Code, Year, Value
-USA, US, GDP, NY.GDP.MKTP.CD, 1960, 543300000000
-USA, US, GDP, NY.GDP.MKTP.CD, 1961, 563300000000
-```
-
----
-
-## Entity Types
-
-The data mixes actual countries with aggregate groupings. These are separated by `--split-entities`:
-
-| Type | Code Examples | Description |
-|------|--------------|-------------|
-| `country` | USA, CHN, GBR, BRA | Actual countries (have Region field in metadata) |
-| `world` | WLD | Global aggregate |
-| `region_geo` | EAS, ECS, LCN, SAS, SSF, NAC, MEA | Main World Bank geographic regions |
-| `region_geo_sub` | AFE, AFW, CEB | Sub-regional aggregates |
-| `region_geo_exhi` | EAP, ECA, LAC, SSA | Regions excluding high income |
-| `income` | HIC, UMC, LMC, LIC, MIC, LMY | Income group aggregates |
-| `lending` | IDA, IBRD, IBD, IDX, IBT | Lending category aggregates |
-| `region_lending` | TEA, TEC, TLA, TSS | Region + Lending combinations |
-| `demographic` | PRE, EAR, LTE, PST | Demographic dividend stages |
-| `small_states` | SST, CSS, PSS, OSS | Small state groupings |
-| `political` | ARB, EMU, EUU, OED | Political/economic groupings |
-| `dev_status` | FCS, HPC, LDC | Development/fragility status |
-
-### Important
-
-- Countries have **non-empty Region** field in WDICountry.csv
-- Aggregates have **empty Region** field
-- Each aggregate type represents a different analytical dimension
-- Do NOT mix countries with aggregates in the same analysis table
-
----
-
-## Known Data Quality Issues
-
-The cleaning tool (`wdi_clean.py`) addresses these issues:
-
-| Issue | Location | Fix |
-|-------|----------|-----|
-| Column naming inconsistency | WDISeries uses "Series Code" | Renamed to "Indicator Code" |
-| Indicator name mismatches | 96 names differ between WDICSV and WDISeries | Use WDICSV as source of truth |
-| Non-ASCII characters | WDISeries has smart quotes, em-dashes, NBSP | Normalized to ASCII equivalents |
-| Multiline text fields | WDISeries has embedded newlines | Handled by proper CSV parsing |
-| Wide format | Year columns instead of rows | Converted to narrow format |
-| Mixed entity types | Countries and aggregates mixed | Split into separate tables |
-
-### Character Normalizations
-
-```
-" " → " "   (smart quotes to ASCII quotes)
-' ' → '     (smart apostrophes to ASCII)
-– — → -     (en-dash, em-dash to hyphen)
-NBSP → space (non-breaking space)
-```
-
----
-
-## Project Structure
-
-```
-graphyard/
-├── CLAUDE.md                    # This file
-├── .gitignore                   # Ignores datasets/
-├── scripts/
-│   ├── wdi_utils.py            # Clean and load WDI data
-│   └── wdi_schema.sql          # Database schema
-└── datasets/
-    ├── WDI_CSV/                # Source data (READ-ONLY, git-ignored)
-    └── WDI_CSV_clean/          # Cleaned output (git-ignored)
-```
-
-## Database Tables
+### Database Tables
 
 ```
 indicators          - Indicator metadata (1,513 rows)
@@ -179,3 +115,180 @@ income_data         - Income group observations (207K rows)
 lending_data        - Lending category observations (348K rows)
 other_aggregate_data - Other aggregate observations (454K rows)
 ```
+
+---
+
+## Chart Framework
+
+### Dual-Package System (2025 Best Practices)
+
+Charts are rendered with **both** packages for comparison:
+
+| Package | Language | Strengths |
+|---------|----------|-----------|
+| **Altair** | Python | Declarative grammar, vl-convert for static export |
+| **Observable Plot** | TypeScript | D3-based, excellent TypeScript support, ES modules |
+
+### Chart Type Selection Guide
+
+Based on 2025 data visualization guidelines:
+
+| Question | Chart Type |
+|----------|------------|
+| How does X change over time? | LINE |
+| How do categories compare? | BAR |
+| What is the ranking? | HORIZONTAL_BAR |
+| What is the composition? | DONUT (max 5 parts) |
+| How are X and Y related? | SCATTER |
+| What is the distribution? | HISTOGRAM |
+
+### Commands
+
+```bash
+cd site
+npm run charts              # Generate with both packages
+npm run charts:altair       # Altair only
+npm run charts:plot         # Observable Plot only
+npm run build               # Build site (auto-generates Altair charts)
+npm run pdf                 # Generate PDFs with Playwright
+```
+
+---
+
+## Machine Learning Framework
+
+### Installed Packages (Apple Silicon Optimized)
+
+```
+PyTorch 2.9+      - MPS backend for Apple Silicon GPU
+XGBoost 3.1+      - Gradient boosting (CPU on Mac)
+LightGBM 4.6+     - Fast leaf-wise boosting (CPU on Mac)
+CatBoost 1.2+     - Categorical feature handling (CPU on Mac)
+Skforecast 0.19+  - Time series forecasting utilities
+```
+
+### Key Challenges Addressed
+
+1. **Different start dates**: Countries begin data collection at different years
+2. **Missing values**: MCAR, MAR, MNAR patterns handled via preprocessing
+3. **Optimal lag selection**: Research shows 4-9 lags optimal for annual data
+4. **Walk-forward validation**: Proper time series evaluation (not k-fold)
+
+### Usage
+
+```python
+from ml import prepare_panel_data, TimeSeriesForecaster, PanelForecaster
+
+# Prepare panel data with lag features
+df_prepared, metadata = prepare_panel_data(
+    df,
+    value_col="value",
+    entity_col="entity_code",
+    lags=[1, 2, 3, 4, 5],
+    rolling_windows=[3, 5],
+    handle_missing="linear",
+    min_years=10,
+)
+
+# Compare models
+forecaster = TimeSeriesForecaster(
+    models=["xgboost", "lightgbm", "catboost"]
+)
+results = forecaster.fit_and_compare(X, y, n_splits=5)
+
+print(f"Best model: {forecaster.best_model}")
+print(f"MAE: {results[forecaster.best_model].mae:.4f}")
+```
+
+---
+
+## WDI Utilities Tool
+
+```bash
+# CLEANING
+python scripts/wdi_utils.py clean --all                    # Full pipeline
+python scripts/wdi_utils.py clean --to-narrow              # Wide → narrow format
+python scripts/wdi_utils.py clean --split-entities         # Split by entity type
+
+# LOADING TO DATABASE
+python scripts/wdi_utils.py load --all                     # Load all into PostgreSQL
+```
+
+---
+
+## Entity Types
+
+The data mixes actual countries with aggregate groupings:
+
+| Type | Examples | Description |
+|------|----------|-------------|
+| `country` | USA, CHN, GBR | Actual countries (have Region field) |
+| `world` | WLD | Global aggregate |
+| `region_geo` | EAS, ECS, LCN | World Bank geographic regions |
+| `income` | HIC, UMC, LMC | Income group aggregates |
+| `lending` | IDA, IBRD | Lending category aggregates |
+
+**Important**: Countries have non-empty Region field; aggregates have empty Region.
+
+---
+
+## Static Site
+
+Built with Astro 5.16+ and MDX:
+
+```bash
+cd site
+npm run dev         # Development server
+npm run build       # Production build
+npm run preview     # Preview production build
+```
+
+### Article Versions
+
+Each article has two versions with different chart packages:
+- `/articles/gdp/altair/` - Charts rendered with Altair (Python)
+- `/articles/gdp/plot/` - Charts rendered with Observable Plot (TypeScript)
+
+### Deployment
+
+GitHub Pages deployment via `.github/workflows/deploy.yml`:
+- Builds Astro site
+- Generates charts with Altair
+- Creates PDFs with Playwright
+- Deploys to `https://[username].github.io/graphyard/`
+
+---
+
+## Known Data Quality Issues
+
+| Issue | Fix |
+|-------|-----|
+| Column naming inconsistency | Renamed "Series Code" to "Indicator Code" |
+| Indicator name mismatches | Use WDICSV as source of truth |
+| Non-ASCII characters | Normalized to ASCII equivalents |
+| Wide format | Converted to narrow format |
+| Mixed entity types | Split into separate tables |
+
+---
+
+## References
+
+### Chart Types (2025)
+- https://www.luzmo.com/blog/chart-types
+- https://guides.lib.berkeley.edu/data-visualization/type
+
+### Python Visualization
+- https://altair-viz.github.io/
+- https://pypi.org/project/vl-convert-python/
+
+### TypeScript Visualization
+- https://observablehq.com/plot/
+- https://d3js.org/
+
+### Time Series ML
+- https://skforecast.org/
+- https://cienciadedatos.net/documentos/py39-forecasting-time-series-with-skforecast-xgboost-lightgbm-catboost
+
+### Apple Silicon ML
+- https://developer.apple.com/metal/pytorch/
+- https://pytorch.org/blog/introducing-accelerated-pytorch-training-on-mac/

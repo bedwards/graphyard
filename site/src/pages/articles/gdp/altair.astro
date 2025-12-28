@@ -1,0 +1,136 @@
+---
+/**
+ * GDP Article - Altair Version
+ *
+ * Charts rendered with Altair (Python) - declarative grammar of graphics.
+ * Publication-quality static charts via vl-convert.
+ */
+
+import ArticleLayout from '../../../layouts/ArticleLayout.astro';
+import Chart from '../../../components/Chart.astro';
+import Definition from '../../../components/Definition.astro';
+
+const frontmatter = {
+  title: "GDP: Understanding the Economy's Measuring Stick",
+  description: "A first-principles exploration of Gross Domestic Product—what it measures, how it's calculated, and why it matters.",
+  author: "Brian Edwards",
+  publishDate: "Coming Soon",
+  readingTime: "15 min",
+};
+
+const renderer = "altair";
+---
+
+<ArticleLayout
+  title={frontmatter.title}
+  description={frontmatter.description}
+  author={frontmatter.author}
+  publishDate={frontmatter.publishDate}
+  readingTime={frontmatter.readingTime}
+>
+  <nav class="version-nav">
+    <span class="active">Altair (Python)</span>
+    <a href="/graphyard/articles/gdp/plot/">Observable Plot (TypeScript)</a>
+  </nav>
+
+  <p><em>This article is currently being written. Charts below demonstrate the dual-package rendering system.</em></p>
+
+  <h2>What Is GDP?</h2>
+
+  <Definition term="Gross Domestic Product" pronunciation="GDP">
+    The total monetary value of all final goods and services produced within a
+    country's borders during a specific time period, typically one year or quarter.
+  </Definition>
+
+  <h2>World GDP Over Time</h2>
+
+  <Chart
+    id="world-gdp-trend"
+    title="World GDP Over Time"
+    description="Global economic output from 1960 to present."
+    insight="The world economy has grown roughly 100-fold in nominal terms."
+    source="World Bank WDI"
+    renderer={renderer}
+    wide
+  />
+
+  <h2>GDP Growth Rates</h2>
+
+  <Chart
+    id="world-gdp-growth"
+    title="World GDP Growth Rate"
+    description="Annual percentage change in real GDP."
+    insight="Global recessions are rare but impactful: 2009 financial crisis and 2020 pandemic."
+    source="World Bank WDI"
+    renderer={renderer}
+  />
+
+  <h2>Top Economies</h2>
+
+  <Chart
+    id="top-10-gdp"
+    title="World's Largest Economies"
+    description="The ten countries with highest GDP in 2023."
+    source="World Bank WDI"
+    renderer={renderer}
+  />
+
+  <h2>Regional Distribution</h2>
+
+  <Chart
+    id="gdp-by-region"
+    title="GDP by World Bank Region"
+    description="Economic output across major world regions."
+    source="World Bank WDI"
+    renderer={renderer}
+  />
+
+  <h2>Income Groups</h2>
+
+  <Chart
+    id="gdp-per-capita-income-groups"
+    title="GDP Per Capita by Income Group"
+    description="Average output per person across World Bank income classifications."
+    insight="High-income countries produce roughly 50x more per person than low-income countries."
+    source="World Bank WDI"
+    renderer={renderer}
+  />
+
+  <h2>GDP Components</h2>
+
+  <Chart
+    id="gdp-components-usa"
+    title="US GDP Components (2023)"
+    description="Breakdown of US GDP by expenditure category."
+    insight="Consumption dominates at roughly 68% of GDP."
+    source="World Bank WDI"
+    renderer={renderer}
+  />
+
+  <style>
+    .version-nav {
+      display: flex;
+      gap: 1rem;
+      padding: 0.75rem 1rem;
+      background: #f8fafc;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+    }
+
+    .version-nav .active {
+      font-weight: 600;
+      color: #2563eb;
+    }
+
+    .version-nav a {
+      color: #64748b;
+      text-decoration: none;
+    }
+
+    .version-nav a:hover {
+      color: #2563eb;
+      text-decoration: underline;
+    }
+  </style>
+</ArticleLayout>

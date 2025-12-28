@@ -1,0 +1,188 @@
+---
+/**
+ * Graphyard Home Page
+ *
+ * Landing page linking to all articles.
+ */
+
+// Future: dynamically load from content collections
+const articles = [
+  {
+    slug: "gdp/altair",
+    title: "GDP: Understanding the Economy's Measuring Stick",
+    description: "A first-principles exploration of Gross Domestic Product—what it measures, how it's calculated, and why it matters.",
+    status: "draft",
+    versions: [
+      { name: "Altair (Python)", slug: "gdp/altair" },
+      { name: "Observable Plot (TypeScript)", slug: "gdp/plot" },
+    ],
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Graphyard: Data-driven explorations of economics and the world." />
+    <title>Graphyard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --color-text: #1a1a2e;
+        --color-text-muted: #4a5568;
+        --color-background: #ffffff;
+        --color-accent: #2563eb;
+        --color-border: #e5e7eb;
+        --font-sans: 'Lexend', system-ui, sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        color: var(--color-text);
+        background: var(--color-background);
+        line-height: 1.6;
+      }
+
+      main {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 4rem 1.5rem;
+      }
+
+      header {
+        margin-bottom: 4rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .tagline {
+        color: var(--color-text-muted);
+        font-size: 1.125rem;
+      }
+
+      h2 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        color: var(--color-text-muted);
+      }
+
+      .articles {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .article-card {
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 1.5rem;
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+
+      .article-card:hover {
+        border-color: var(--color-accent);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+      }
+
+      .article-card a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .article-card h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--color-accent);
+      }
+
+      .article-card p {
+        color: var(--color-text-muted);
+        margin-bottom: 0.75rem;
+      }
+
+      .draft-badge {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 500;
+        padding: 0.25rem 0.5rem;
+        background: #fef3c7;
+        color: #92400e;
+        border-radius: 4px;
+      }
+
+      .versions {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+      }
+
+      .version-link {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+        background: #f1f5f9;
+        color: #475569;
+        border-radius: 4px;
+        text-decoration: none;
+      }
+
+      .version-link:hover {
+        background: #e2e8f0;
+        color: #2563eb;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <header>
+        <h1>Graphyard</h1>
+        <p class="tagline">Data-driven explorations of economics and the world.</p>
+      </header>
+
+      <section>
+        <h2>Articles</h2>
+        <div class="articles">
+          {articles.map((article) => (
+            <article class="article-card">
+              <a href={`/graphyard/articles/${article.slug}/`}>
+                <h3>{article.title}</h3>
+                <p>{article.description}</p>
+                {article.status === "draft" && (
+                  <span class="draft-badge">Coming Soon</span>
+                )}
+                {article.versions && (
+                  <div class="versions">
+                    {article.versions.map((v) => (
+                      <a href={`/graphyard/articles/${v.slug}/`} class="version-link">{v.name}</a>
+                    ))}
+                  </div>
+                )}
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

@@ -151,8 +151,8 @@ venv.bak/
 # Rope project settings
 .ropeproject
 
-# mkdocs documentation
-/site
+# mkdocs documentation (commented - we use /site for Astro)
+# /site
 
 # mypy
 .mypy_cache/
@@ -211,3 +211,18 @@ datasets/
 
 # macOS
 .DS_Store
+
+# Node.js / TypeScript
+node_modules/
+*.tsbuildinfo
+
+# Astro
+site/dist/
+site/.astro/
+
+# Generated assets (charts are generated, not source)
+site/public/assets/charts/
+
+# Playwright
+site/playwright-report/
+site/test-results/
