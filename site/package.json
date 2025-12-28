@@ -6,12 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "pdf": "node --experimental-strip-types scripts/generate-pdf.ts",
-    "charts": "npm run charts:dual",
-    "charts:dual": "cd .. && PYTHONPATH=. python charts/generate_dual.py",
-    "charts:altair": "cd .. && PYTHONPATH=. python charts/generate_dual.py --renderer=altair",
-    "charts:plot": "node --experimental-strip-types scripts/generate-plot-charts.ts",
-    "prebuild": "npm run charts:altair || true",
+    "charts": "cd .. && PYTHONPATH=. python charts/generate_dual.py --renderer=altair",
+    "prebuild": "npm run charts || true",
     "astro": "astro"
   },
   "dependencies": {

@@ -49,36 +49,20 @@ Always use **"Indicator"** terminology, never "Series":
 ```
 graphyard/
 ├── CLAUDE.md                    # This file
-├── WDI.md                       # WDI dataset documentation
-├── .gitignore
+├── docs/                        # Built site (GitHub Pages serves this)
 ├── scripts/
 │   ├── wdi_utils.py            # Clean and load WDI data
-│   └── wdi_schema.sql          # Database schema
-├── charts/                      # Python chart framework
-│   ├── __init__.py
-│   ├── spec.py                 # ChartSpec schema (shared with TypeScript)
-│   ├── generate_dual.py        # Dual-package chart generator
-│   ├── altair_renderer/        # Altair (Vega-Lite) renderer
-│   ├── gdp/                    # GDP article charts and data loaders
-│   └── themes/                 # Color palettes
-├── ml/                          # Machine learning framework
-│   ├── __init__.py
-│   ├── preprocessing.py        # Missing data, lag features
-│   └── forecaster.py           # XGBoost, LightGBM, CatBoost wrappers
-├── site/                        # Astro static site
-│   ├── astro.config.mjs
+│   └── validate_reading_time.py # Article word count validator
+├── charts/                      # Python chart generation
+│   ├── generate_dual.py        # Chart generator (Altair)
+│   ├── altair_renderer/        # Altair renderer
+│   └── gdp/                    # GDP article charts and data loaders
+├── ml/                          # Machine learning (XGBoost, LightGBM, CatBoost)
+├── site/                        # Astro source
+│   ├── astro.config.mjs        # Outputs to ../docs/
 │   ├── package.json
-│   ├── src/
-│   │   ├── layouts/
-│   │   ├── components/
-│   │   ├── lib/                # Observable Plot renderer
-│   │   └── pages/
-│   └── scripts/
-│       ├── generate-pdf.ts     # PDF export with Playwright
-│       └── generate-plot-charts.ts
-└── datasets/                    # Git-ignored
-    ├── WDI_CSV/                # Source data (READ-ONLY)
-    └── WDI_CSV_clean/          # Cleaned output
+│   └── src/pages/articles/     # Article pages
+└── datasets/                    # Git-ignored, READ-ONLY source data
 ```
 
 ---
@@ -120,18 +104,9 @@ other_aggregate_data - Other aggregate observations (454K rows)
 
 ## Chart Framework
 
-### Dual-Package System (2025 Best Practices)
+Charts are rendered with **Altair** (Python) using vl-convert for static SVG/PNG export.
 
-Charts are rendered with **both** packages for comparison:
-
-| Package | Language | Strengths |
-|---------|----------|-----------|
-| **Altair** | Python | Declarative grammar, vl-convert for static export |
-| **Observable Plot** | TypeScript | D3-based, excellent TypeScript support, ES modules |
-
-### Chart Type Selection Guide
-
-Based on 2025 data visualization guidelines:
+### Chart Type Selection
 
 | Question | Chart Type |
 |----------|------------|
@@ -146,11 +121,9 @@ Based on 2025 data visualization guidelines:
 
 ```bash
 cd site
-npm run charts              # Generate with both packages
-npm run charts:altair       # Altair only
-npm run charts:plot         # Observable Plot only
-npm run build               # Build site (auto-generates Altair charts)
-npm run pdf                 # Generate PDFs with Playwright
+npm run dev                 # Development server
+npm run build               # Build site (auto-generates charts)
+npm run preview             # Preview production build
 ```
 
 ---
@@ -234,59 +207,27 @@ The data mixes actual countries with aggregate groupings:
 
 ## Static Site
 
-Built with Astro 5.16+ and MDX:
+Built with Astro. Articles organized by domain (economics, technology, climate), sorted reverse chronologically.
 
-```bash
-cd site
-npm run dev         # Development server
-npm run build       # Production build
-npm run preview     # Preview production build
-```
+### Reading Time
 
-### Article Categories
-
-Articles are organized into two categories:
-
-| Category | Description |
-|----------|-------------|
-| **Latest Research** | Analysis grounded in current academic research and data |
-| **Pushing the Boundaries** | Creative synthesis of research, projecting future possibilities |
-
-Articles are organized by domain (economics, technology, climate) and sorted reverse chronologically within each domain.
-
-### Reading Time Requirements
-
-**A true 1-hour read requires approximately 12,000 words** at 200 words per minute for dense technical content.
-
-Use the validator to check reading times:
+**200 words per minute** for technical content. Validate with:
 ```bash
 python scripts/validate_reading_time.py
-python scripts/validate_reading_time.py --article gdp/altair
 ```
-
-Do NOT claim a reading time that the word count doesn't support.
 
 ### Deployment
 
-**Simple main branch deployment** (no GitHub Actions):
-
-1. Build site locally: `cd site && npm run build`
-2. Astro outputs to `docs/` folder at project root
-3. Commit and push `docs/` to main branch
-4. GitHub Pages serves from `main` branch `/docs` folder
+Main branch deployment (GitHub Pages serves from `/docs`):
 
 ```bash
-# Full deployment workflow
 cd site
-npm run charts          # Generate charts with Altair
-npm run build           # Build to ../docs/
+npm run build           # Builds to ../docs/ (charts auto-generated)
 cd ..
-git add docs/
-git commit -m "Build site"
-git push
+git add docs/ && git commit -m "Build site" && git push
 ```
 
-Site URL: `https://bedwards.github.io/graphyard/`
+Site: https://bedwards.github.io/graphyard/
 
 ---
 
