@@ -243,11 +243,28 @@ npm run build       # Production build
 npm run preview     # Preview production build
 ```
 
-### Article Versions
+### Article Categories
 
-Each article has two versions with different chart packages:
-- `/articles/gdp/altair/` - Charts rendered with Altair (Python)
-- `/articles/gdp/plot/` - Charts rendered with Observable Plot (TypeScript)
+Articles are organized into two categories:
+
+| Category | Description |
+|----------|-------------|
+| **Latest Research** | Analysis grounded in current academic research and data |
+| **Pushing the Boundaries** | Creative synthesis of research, projecting future possibilities |
+
+Articles are organized by domain (economics, technology, climate) and sorted reverse chronologically within each domain.
+
+### Reading Time Requirements
+
+**A true 1-hour read requires approximately 12,000 words** at 200 words per minute for dense technical content.
+
+Use the validator to check reading times:
+```bash
+python scripts/validate_reading_time.py
+python scripts/validate_reading_time.py --article gdp/altair
+```
+
+Do NOT claim a reading time that the word count doesn't support.
 
 ### Deployment
 

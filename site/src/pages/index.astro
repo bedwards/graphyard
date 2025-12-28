@@ -2,17 +2,12 @@
 /**
  * Graphyard Home Page
  *
- * Landing page linking to all articles.
+ * Landing page with articles organized by domain.
+ * Articles within each domain are sorted reverse chronologically (latest first).
+ * Category tags distinguish "Latest Research" from "Pushing the Boundaries".
  */
 
-const articles = [
-  {
-    slug: "gdp/altair",
-    title: "GDP: Understanding the Economy's Measuring Stick",
-    description: "A first-principles exploration of Gross Domestic Product—what it measures, how it's calculated, and why it matters.",
-    readingTime: "60 min",
-  },
-];
+import { domains, getAllArticles, getArticlesByDomain, categoryInfo } from "../lib/articles";
 ---
 
 <!doctype html>
@@ -36,6 +31,7 @@ const articles = [
         --color-text-muted: #4a5568;
         --color-background: #ffffff;
         --color-accent: #2563eb;
+        --color-accent-purple: #7c3aed;
         --color-border: #e5e7eb;
         --font-sans: 'Lexend', system-ui, sans-serif;
       }
@@ -74,10 +70,25 @@ const articles = [
         font-size: 1.125rem;
       }
 
+      .domain-section {
+        margin-bottom: 3rem;
+      }
+
+      .domain-header {
+        display: flex;
+        align-items: baseline;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+      }
+
       h2 {
         font-size: 1.25rem;
         font-weight: 600;
-        margin-bottom: 1.5rem;
+        color: var(--color-text);
+      }
+
+      .domain-description {
+        font-size: 0.875rem;
         color: var(--color-text-muted);
       }
 
@@ -105,19 +116,72 @@ const articles = [
         display: block;
       }
 
+      .article-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.5rem;
+      }
+
       .article-card h3 {
         font-size: 1.25rem;
         font-weight: 600;
-        margin-bottom: 0.5rem;
         color: var(--color-accent);
+        flex: 1;
+      }
+
+      .category-tag {
+        font-size: 0.7rem;
+        font-weight: 500;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+        white-space: nowrap;
+      }
+
+      .category-tag.latest-research {
+        background: rgba(37, 99, 235, 0.1);
+        color: var(--color-accent);
+      }
+
+      .category-tag.pushing-boundaries {
+        background: rgba(124, 58, 237, 0.1);
+        color: var(--color-accent-purple);
       }
 
       .article-card p {
         color: var(--color-text-muted);
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
+        line-height: 1.5;
       }
 
-      .article-card .meta {
+      .article-meta {
+        display: flex;
+        gap: 1rem;
+        font-size: 0.875rem;
+        color: var(--color-text-muted);
+      }
+
+      .article-meta span {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
+
+      .no-articles {
+        padding: 2rem;
+        text-align: center;
+        color: var(--color-text-muted);
+        background: #f9fafb;
+        border-radius: 8px;
+      }
+
+      footer {
+        margin-top: 4rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--color-border);
+        text-align: center;
         font-size: 0.875rem;
         color: var(--color-text-muted);
       }
@@ -131,20 +195,46 @@ const articles = [
         <p class="tagline">Data-driven explorations of economics and the world.</p>
       </header>
 
-      <section>
-        <h2>Articles</h2>
-        <div class="articles">
-          {articles.map((article) => (
-            <article class="article-card">
-              <a href={`/graphyard/articles/${article.slug}/`}>
-                <h3>{article.title}</h3>
-                <p>{article.description}</p>
-                <span class="meta">{article.readingTime} read</span>
-              </a>
-            </article>
-          ))}
-        </div>
-      </section>
+      {domains.map((domain) => {
+        const domainArticles = getArticlesByDomain(domain.id);
+        if (domainArticles.length === 0) return null;
+
+        return (
+          <section class="domain-section">
+            <div class="domain-header">
+              <h2>{domain.name}</h2>
+              <span class="domain-description">{domain.description}</span>
+            </div>
+            <div class="articles">
+              {domainArticles.map((article) => (
+                <article class="article-card">
+                  <a href={`/graphyard/articles/${article.slug}/`}>
+                    <div class="article-header">
+                      <h3>{article.title}</h3>
+                      <span class={`category-tag ${article.category}`}>
+                        {categoryInfo[article.category].label}
+                      </span>
+                    </div>
+                    <p>{article.description}</p>
+                    <div class="article-meta">
+                      <span>{article.readingTime} read</span>
+                      <span>{new Date(article.publishDate).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                      })}</span>
+                    </div>
+                  </a>
+                </article>
+              ))}
+            </div>
+          </section>
+        );
+      })}
+
+      <footer>
+        <p>Charts powered by Altair + Vega-Lite. Built with Astro.</p>
+      </footer>
     </main>
   </body>
 </html>

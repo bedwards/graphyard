@@ -36,6 +36,7 @@ from charts.gdp.data import (
     load_regional_gdp,
     load_country_gdp_timeseries,
 )
+# ML forecasting available in charts.gdp.forecast if needed
 
 OUTPUT_DIR_ALTAIR = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "altair"
 OUTPUT_DIR_PLOT = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "plot"
@@ -130,6 +131,8 @@ def get_gdp_chart_specs() -> list[ChartSpec]:
             y_format="trillions",
             color="country",  # Color by country for multi-line
         ),
+        # Note: GDP forecast chart requires running ML models
+        # For now, the article discusses forecasting without a dedicated chart
     ]
 
 
