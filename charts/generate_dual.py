@@ -43,6 +43,9 @@ from charts.gdp.data import (
     load_argentina_vs_peers,
     load_ml_feature_importance,
     load_ml_model_comparison,
+    load_gini_timeseries,
+    load_emissions_vs_gdp,
+    load_income_share_top10_timeseries,
 )
 # ML forecasting available in charts.gdp.forecast if needed
 
@@ -239,6 +242,44 @@ def get_gdp_chart_specs() -> list[ChartSpec]:
             y="r_squared",
             x_label="Model",
             y_label="R² Score",
+        ),
+        # Part X: What GDP Doesn't Measure
+        ChartSpec(
+            chart_id="us-inequality-gini",
+            chart_type=ChartType.LINE,
+            title="Rising Inequality: US Gini Coefficient (1963-2023)",
+            data_source=lambda: load_gini_timeseries(["USA"], 1963, 2023),
+            x="year",
+            y="value",
+            x_label="Year",
+            y_label="Gini Coefficient",
+            x_format="year",
+            color="country",
+        ),
+        ChartSpec(
+            chart_id="emissions-vs-gdp",
+            chart_type=ChartType.SCATTER,
+            title="The Environmental Cost: Emissions vs GDP (2020)",
+            data_source=lambda: load_emissions_vs_gdp(2020),
+            x="gdp_per_capita",
+            y="emissions_per_capita",
+            x_label="GDP Per Capita (US$)",
+            y_label="GHG Emissions (tonnes CO2e/capita)",
+            x_format="thousands",
+        ),
+        # Part XII: Distributional National Accounts
+        ChartSpec(
+            chart_id="income-share-top10",
+            chart_type=ChartType.LINE,
+            title="Who Benefits from Growth? Income Share of Top 10%",
+            data_source=lambda: load_income_share_top10_timeseries(["USA", "DEU", "GBR", "FRA"], 1980, 2023),
+            x="year",
+            y="value",
+            x_label="Year",
+            y_label="Income Share (%)",
+            x_format="year",
+            y_format="percent_raw",
+            color="country",
         ),
     ]
 

@@ -354,3 +354,70 @@ def load_ml_model_comparison():
         {'model': 'CatBoost', 'r_squared': 0.95, 'mae_trillion': 0.79},
     ]
     return pd.DataFrame(data)
+
+
+def load_gini_timeseries(countries: list[str], start_year: int = 1980, end_year: int = 2023):
+    """Load Gini coefficient time series for multiple countries."""
+    import pandas as pd
+
+    conn = get_db_connection()
+    placeholders = ','.join(['%s'] * len(countries))
+    query = f"""
+        SELECT e.entity_name as country, cd.year, cd.value
+        FROM country_data cd
+        JOIN entities e ON cd.entity_code = e.entity_code
+        WHERE cd.indicator_code = 'SI.POV.GINI'
+          AND cd.year BETWEEN %s AND %s
+          AND cd.entity_code IN ({placeholders})
+          AND cd.value IS NOT NULL
+        ORDER BY cd.year, e.entity_name
+    """
+    df = pd.read_sql(query, conn, params=[start_year, end_year] + countries)
+    conn.close()
+    return df
+
+
+def load_emissions_vs_gdp(year: int = 2020):
+    """Load GHG emissions per capita vs GDP per capita for scatter plot."""
+    import pandas as pd
+
+    conn = get_db_connection()
+    query = """
+        SELECT
+            e.entity_name as country,
+            gdp.value as gdp_per_capita,
+            ghg.value as emissions_per_capita
+        FROM country_data gdp
+        JOIN country_data ghg ON gdp.entity_code = ghg.entity_code AND gdp.year = ghg.year
+        JOIN entities e ON gdp.entity_code = e.entity_code
+        WHERE gdp.indicator_code = 'NY.GDP.PCAP.CD'
+          AND ghg.indicator_code = 'EN.GHG.ALL.PC.CE.AR5'
+          AND gdp.year = %s
+          AND gdp.value IS NOT NULL
+          AND ghg.value IS NOT NULL
+        ORDER BY gdp.value DESC
+    """
+    df = pd.read_sql(query, conn, params=(year,))
+    conn.close()
+    return df
+
+
+def load_income_share_top10_timeseries(countries: list[str], start_year: int = 1980, end_year: int = 2023):
+    """Load income share held by top 10% over time."""
+    import pandas as pd
+
+    conn = get_db_connection()
+    placeholders = ','.join(['%s'] * len(countries))
+    query = f"""
+        SELECT e.entity_name as country, cd.year, cd.value
+        FROM country_data cd
+        JOIN entities e ON cd.entity_code = e.entity_code
+        WHERE cd.indicator_code = 'SI.DST.10TH.10'
+          AND cd.year BETWEEN %s AND %s
+          AND cd.entity_code IN ({placeholders})
+          AND cd.value IS NOT NULL
+        ORDER BY cd.year, e.entity_name
+    """
+    df = pd.read_sql(query, conn, params=[start_year, end_year] + countries)
+    conn.close()
+    return df

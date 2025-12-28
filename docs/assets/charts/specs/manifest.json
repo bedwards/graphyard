@@ -58,5 +58,17 @@
   {
     "chartId": "ml-model-comparison",
     "specFile": "ml-model-comparison.json"
+  },
+  {
+    "chartId": "us-inequality-gini",
+    "specFile": "us-inequality-gini.json"
+  },
+  {
+    "chartId": "emissions-vs-gdp",
+    "specFile": "emissions-vs-gdp.json"
+  },
+  {
+    "chartId": "income-share-top10",
+    "specFile": "income-share-top10.json"
   }
 ]
