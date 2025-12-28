@@ -1,0 +1,26 @@
+[
+  {
+    "chartId": "world-gdp-trend",
+    "specFile": "world-gdp-trend.json"
+  },
+  {
+    "chartId": "world-gdp-growth",
+    "specFile": "world-gdp-growth.json"
+  },
+  {
+    "chartId": "top-10-gdp",
+    "specFile": "top-10-gdp.json"
+  },
+  {
+    "chartId": "gdp-by-region",
+    "specFile": "gdp-by-region.json"
+  },
+  {
+    "chartId": "gdp-per-capita-income-groups",
+    "specFile": "gdp-per-capita-income-groups.json"
+  },
+  {
+    "chartId": "gdp-components-usa",
+    "specFile": "gdp-components-usa.json"
+  }
+]
