@@ -135,8 +135,13 @@ class AltairRenderer:
             )
 
         elif chart_type == "bar":
+            # For bar charts, x is categorical (nominal) unless it's year data
+            if spec.x_format == "year":
+                bar_x = x_axis  # Use the ordinal year axis with formatting
+            else:
+                bar_x = alt.X(f"{spec.x}:N", title=spec.x_label) if spec.x else alt.X()
             return chart.mark_bar().encode(
-                x=x_axis,
+                x=bar_x,
                 y=y_axis,
                 color=alt.Color(spec.color) if spec.color else alt.value(self.COLORS[0]),
             )
