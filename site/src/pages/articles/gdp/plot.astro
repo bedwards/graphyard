@@ -30,6 +30,7 @@ const renderer = "altair";
   readingTime={frontmatter.readingTime}
 >
   <nav class="version-nav">
+    <a href="/graphyard/" class="home-link">← Home</a>
     <a href="/graphyard/articles/gdp/altair/">Altair (Python)</a>
     <span class="active">Observable Plot (TypeScript)</span>
   </nav>
@@ -209,6 +210,10 @@ const renderer = "altair";
 
     .version-nav a:hover {
       color: var(--color-accent);
+    }
+
+    .version-nav .home-link {
+      margin-right: auto;
     }
 
     .notice {
