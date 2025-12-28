@@ -85,6 +85,12 @@ class AltairRenderer:
         """Render ChartSpec to Altair Chart object."""
         data = spec.load_data()
 
+        # Convert year columns to strings to avoid comma formatting (DRY fix)
+        if spec.x_format == "year" and spec.x:
+            data = [{**row, spec.x: str(row[spec.x])} for row in data]
+        if spec.y_format == "year" and spec.y:
+            data = [{**row, spec.y: str(row[spec.y])} for row in data]
+
         # Build base chart
         chart = alt.Chart(alt.Data(values=data)).properties(
             width=self.width,
@@ -177,9 +183,17 @@ class AltairRenderer:
             raise ValueError(f"Unsupported chart type: {chart_type}")
 
     def _apply_format(self, axis, format_type: str, axis_name: str):
-        """Apply formatting to axis based on format type."""
+        """Apply formatting to axis based on format type.
+
+        This is the single source of truth for all axis formatting (DRY).
+        Changes here propagate to all charts automatically.
+        """
+        # Year format: handled at data level (converted to strings in render())
+        # No additional axis formatting needed
+        if format_type == "year":
+            return axis
+
         format_map = {
-            "year": "d",
             "currency": "$,.0f",
             "trillions": "$,.2s",
             "billions": "$,.2s",

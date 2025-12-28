@@ -53,6 +53,7 @@ def get_gdp_chart_specs() -> list[ChartSpec]:
             y="value",
             x_label="Year",
             y_label="GDP (Current US$)",
+            x_format="year",  # Prevents comma formatting (2025 not 2,025)
             y_format="trillions",
         ),
         ChartSpec(
@@ -64,6 +65,7 @@ def get_gdp_chart_specs() -> list[ChartSpec]:
             y="value",
             x_label="Year",
             y_label="Annual Growth (%)",
+            x_format="year",  # Prevents comma formatting (2025 not 2,025)
             y_format="percent_raw",  # Data already in % form (3.5 = 3.5%), don't multiply
             options={"highlight_negative": True},
         ),
