@@ -143,21 +143,33 @@ graphyard/
 
 ## Database
 
-PostgreSQL is available via Docker:
+PostgreSQL runs in Docker (not locally installed):
 
 ```bash
 # Connection details
 Host: localhost
 Port: 5432
-Database: graphyard
+Database: graphyard (main), hex-index
 User: postgres
 Password: postgres
 Container: hex-index-postgres
+Image: postgres:16-alpine
 ```
 
 Connect via CLI:
 ```bash
 docker exec -it hex-index-postgres psql -U postgres -d graphyard
+```
+
+Backup databases:
+```bash
+docker exec hex-index-postgres pg_dump -U postgres -Fc graphyard > backups/graphyard_$(date +%Y%m%d).dump
+docker exec hex-index-postgres pg_dump -U postgres -Fc hex-index > backups/hex-index_$(date +%Y%m%d).dump
+```
+
+Restore from backup:
+```bash
+docker exec -i hex-index-postgres pg_restore -U postgres -d graphyard < backups/graphyard_YYYYMMDD.dump
 ```
 
 ### Schema: public (WDI Data)
@@ -174,7 +186,7 @@ lending_data        - Lending category observations (348K rows)
 other_aggregate_data - Other aggregate observations (454K rows)
 ```
 
-### Schema: lahman (Baseball Data)
+### Schema: lahman (Baseball Data - Raw Lahman)
 
 ```
 people              - Player biographical data (19,878 rows)
@@ -188,6 +200,72 @@ appearances         - Games by position (107,357 rows)
 ```
 
 See [LAHMAN.md](LAHMAN.md) for full schema documentation.
+
+### Schema: baseball (Unified Baseball Data)
+
+```
+players             - Master player table linking all ID systems (19,878 rows)
+                      Links: lahman_id, retrosheet_id, mlb_id, bbref_id
+statcast_pitches    - Pitch-by-pitch Statcast data 2024-2025 (1,471,491 rows)
+                      Includes: pitch type, velocity, spin, location, exit velo, xBA, xwOBA
+retrosheet_gamelogs - Game summaries 1871-2024 (231,888 games)
+                      Includes: scores, batting stats, attendance, park
+```
+
+Data sources consolidated with foreign key linkage potential across ID systems.
+
+### Schema: master (Cross-dataset Entity Resolution)
+
+```
+countries           - Canonical country data with ISO codes (217 rows)
+country_codes       - Code mappings (WDI, COW, UN codes) (1,000 rows)
+code_systems        - Registry of coding systems
+```
+
+### Schema: pts (Political Terror Scale)
+
+```
+country_year_scores - Human rights violation scores 1976-2024 (10,531 rows)
+```
+
+### Schema: cow (Correlates of War)
+
+```
+wars                - Wars 1816-present (95 inter-state wars)
+war_participants    - War participation records (337 rows)
+national_capabilities - CINC scores 1816-2016 (15,951 rows)
+mids                - Militarized Interstate Disputes
+mid_participants    - MID participation
+alliances           - Formal military alliances
+alliance_members    - Alliance membership
+```
+
+### Schema: ucdp (Uppsala Conflict Data Program)
+
+```
+conflicts           - Armed conflicts 1946-present
+actors              - Conflict parties (governments, rebels)
+dyads               - Pairs of actors in conflict
+ged_events          - Georeferenced conflict events (300K+ events)
+battle_deaths       - Annual battle death aggregates
+one_sided_violence  - Violence against civilians
+```
+
+### Schema: ibc (Iraq Body Count)
+
+```
+incidents           - Documented civilian casualty incidents (51,608 rows)
+individuals         - Individual casualty records
+```
+
+### Schema: health (Health Data)
+
+```
+covid_country_day   - COVID-19 daily data by country (429,435 rows)
+jhu_covid_timeseries - JHU time series data
+indicators          - Health indicator definitions
+indicator_values    - Health indicator values
+```
 
 ---
 

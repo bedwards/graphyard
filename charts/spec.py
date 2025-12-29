@@ -36,6 +36,7 @@ class ChartType(Enum):
     - SCATTER: Correlations between two numeric variables
     - AREA: Cumulative trends, part-to-whole over time
     - HISTOGRAM: Distributions of continuous data
+    - MARIMEKKO: Two-dimensional proportions (width=x share, height=y share)
     """
     LINE = "line"
     BAR = "bar"
@@ -45,6 +46,7 @@ class ChartType(Enum):
     AREA = "area"
     STACKED_AREA = "stacked_area"
     HISTOGRAM = "histogram"
+    MARIMEKKO = "marimekko"
 
 
 @dataclass
@@ -123,5 +125,6 @@ CHART_TYPE_GUIDE = """
 │ How are X and Y related?          │ SCATTER                         │
 │ How does composition change?      │ STACKED_AREA                    │
 │ What is the distribution?         │ HISTOGRAM                       │
+│ Two dimensions of proportion?     │ MARIMEKKO (width+height encode) │
 └───────────────────────────────────┴─────────────────────────────────┘
 """

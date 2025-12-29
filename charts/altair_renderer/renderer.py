@@ -193,8 +193,97 @@ class AltairRenderer:
                 y=alt.Y("count()", title="Count"),
             )
 
+        elif chart_type == "marimekko":
+            # Marimekko chart: width encodes x value, height encodes y value
+            # Data must have: group, width_share, height_share
+            # We compute cumulative positions for stacking
+            return self._render_marimekko(spec)
+
         else:
             raise ValueError(f"Unsupported chart type: {chart_type}")
+
+    def _render_marimekko(self, spec: ChartSpec) -> alt.Chart:
+        """
+        Render a Marimekko chart where bar width and height encode different values.
+
+        Data format expected:
+        - group: category label
+        - width_share: value for bar width (x dimension)
+        - height_share: value for bar height (y dimension)
+
+        The bars are stacked vertically, with each bar's:
+        - Height proportional to height_share
+        - Width extending from 0 to width_share on x-axis
+        """
+        # Load data from spec
+        data = spec.load_data()
+
+        # Calculate cumulative y positions for stacking
+        processed_data = []
+        y_cumulative = 0
+
+        # Sort by height_share descending so largest groups are at top
+        sorted_data = sorted(data, key=lambda x: x.get('height_share', 0), reverse=True)
+
+        for row in sorted_data:
+            height = row.get('height_share', 0)
+            width = row.get('width_share', 0)
+            group = row.get('group', '')
+
+            processed_data.append({
+                'group': group,
+                'x1': 0,
+                'x2': width,
+                'y1': y_cumulative,
+                'y2': y_cumulative + height,
+                'width_share': width,
+                'height_share': height,
+            })
+            y_cumulative += height
+
+        # Create chart with rect marks
+        marimekko = alt.Chart(alt.Data(values=processed_data)).mark_rect(
+            stroke='white',
+            strokeWidth=2,
+        ).encode(
+            x=alt.X('x1:Q', title=spec.x_label, scale=alt.Scale(domain=[0, 100])),
+            x2='x2:Q',
+            y=alt.Y('y1:Q', title=spec.y_label, scale=alt.Scale(domain=[0, 100])),
+            y2='y2:Q',
+            color=alt.Color(
+                'group:N',
+                legend=alt.Legend(title=None, orient='bottom'),
+                scale=alt.Scale(range=self.COLORS[:len(processed_data)])
+            ),
+            tooltip=[
+                alt.Tooltip('group:N', title='Group'),
+                alt.Tooltip('width_share:Q', title=spec.x_label or 'Width', format='.1f'),
+                alt.Tooltip('height_share:Q', title=spec.y_label or 'Height', format='.1f'),
+            ]
+        ).properties(
+            width=self.width,
+            height=self.height,
+            title=spec.title,
+        )
+
+        # Add text labels in center of each bar
+        labels = alt.Chart(alt.Data(values=processed_data)).mark_text(
+            align='left',
+            baseline='middle',
+            dx=5,
+            fontSize=12,
+            fontWeight=500,
+            color='white',
+        ).encode(
+            x=alt.X('x1:Q'),
+            y=alt.Y('y_mid:Q'),
+            text=alt.Text('label:N'),
+        ).transform_calculate(
+            y_mid='(datum.y1 + datum.y2) / 2',
+            label='datum.group + ": " + format(datum.width_share, ".0f") + "%"',
+        )
+
+        return marimekko + labels
 
     def _apply_format(self, axis, format_type: str, axis_name: str):
         """Apply formatting to axis based on format type.

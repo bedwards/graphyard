@@ -319,18 +319,29 @@ def load_world_gdp_growth_long_term():
 
 def load_carbon_inequality_proper():
     """
-    Load carbon inequality data with non-overlapping groups.
+    Load carbon inequality data with non-overlapping groups for Marimekko chart.
 
-    Based on Oxfam research. Groups are mutually exclusive and sum to 100%.
-    Note: The richest 1% is PART OF the richest 10%, responsible for 17 of the 48 points.
+    Based on Oxfam/SEI research. Groups are mutually exclusive and sum to 100%.
+    The richest 1% accounts for 17% of emissions; the next 9% accounts for 31%.
+
+    Returns data formatted for Marimekko chart:
+    - width_share: emissions share (x-axis extent)
+    - height_share: population share (y-axis height)
+
+    Sources:
+    - Oxfam Climate Equality report (2023)
+    - Stockholm Environment Institute Emissions Inequality Dashboard
     """
     import pandas as pd
 
-    # Non-overlapping groups that sum to 100%
+    # Four non-overlapping groups that sum to 100% for both dimensions
+    # Population: 1 + 9 + 40 + 50 = 100%
+    # Emissions: 17 + 31 + 40 + 12 = 100%
     data = [
-        {'group': 'Richest 10%', 'share_of_emissions': 48, 'share_of_population': 10},
-        {'group': 'Middle 40%', 'share_of_emissions': 40, 'share_of_population': 40},
-        {'group': 'Poorest 50%', 'share_of_emissions': 12, 'share_of_population': 50},
+        {'group': 'Richest 1%', 'width_share': 17, 'height_share': 1},
+        {'group': 'Next 9%', 'width_share': 31, 'height_share': 9},
+        {'group': 'Middle 40%', 'width_share': 40, 'height_share': 40},
+        {'group': 'Poorest 50%', 'width_share': 12, 'height_share': 50},
     ]
     return pd.DataFrame(data)
 

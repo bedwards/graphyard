@@ -328,17 +328,17 @@ def get_beyond_growth_chart_specs() -> list[ChartSpec]:
             x_label="Income Group",
             y_label="GHG Emissions (tonnes CO2e/capita)",
         ),
-        # Fixed: Non-overlapping groups that sum to 100%
+        # Marimekko: bar height = population share, bar width = emissions share
+        # Non-overlapping groups that sum to 100% on both dimensions
         ChartSpec(
             chart_id="bg-carbon-inequality",
-            chart_type=ChartType.HORIZONTAL_BAR,
-            title="Who Causes Climate Change? Share of Global Emissions",
+            chart_type=ChartType.MARIMEKKO,
+            title="Who Causes Climate Change? Emissions vs Population Share",
             data_source=load_carbon_inequality_proper,
-            x="group",
-            y="share_of_emissions",
-            x_label="Population Group",
-            y_label="Share of Global Emissions (%)",
-            y_format="percent_raw",
+            x="width_share",
+            y="height_share",
+            x_label="Share of Global Emissions (%)",
+            y_label="Share of World Population (%)",
         ),
         # Emissions per capita ratio - shows magnitude of inequality
         ChartSpec(
