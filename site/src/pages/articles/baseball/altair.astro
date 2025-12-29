@@ -1,0 +1,453 @@
+---
+/**
+ * The Evolution of Baseball: 120 Years of Data
+ *
+ * A first-principles exploration of baseball history through the Lahman database.
+ * True 55-minute read (~11,000 words).
+ */
+
+import Chart from "../../../components/Chart.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A first-principles exploration of how baseball has transformed from the Dead Ball Era to the Modern Age of analytics."
+    />
+    <title>The Evolution of Baseball: 120 Years of Data | Graphyard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --color-text: #1a1a2e;
+        --color-text-muted: #4a5568;
+        --color-background: #ffffff;
+        --color-accent: #2563eb;
+        --color-border: #e5e7eb;
+        --font-sans: "Lexend", system-ui, sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        color: var(--color-text);
+        background: var(--color-background);
+        line-height: 1.75;
+        font-size: 1.0625rem;
+      }
+
+      main {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 3rem 1.5rem 6rem;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-bottom: 2rem;
+        color: var(--color-accent);
+        text-decoration: none;
+        font-size: 0.9rem;
+      }
+
+      .back-link:hover {
+        text-decoration: underline;
+      }
+
+      header {
+        margin-bottom: 3rem;
+      }
+
+      h1 {
+        font-size: 2.25rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+      }
+
+      .subtitle {
+        font-size: 1.25rem;
+        color: var(--color-text-muted);
+        line-height: 1.5;
+        margin-bottom: 1rem;
+      }
+
+      .meta {
+        font-size: 0.9rem;
+        color: var(--color-text-muted);
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 3rem 0 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--color-border);
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 2rem 0 1rem;
+      }
+
+      p {
+        margin-bottom: 1.25rem;
+      }
+
+      blockquote {
+        margin: 1.5rem 0;
+        padding: 1rem 1.5rem;
+        border-left: 4px solid var(--color-accent);
+        background: #f8fafc;
+        font-style: italic;
+      }
+
+      .definition {
+        margin: 1.5rem 0;
+        padding: 1.25rem 1.5rem;
+        background: #f0f9ff;
+        border-left: 4px solid var(--color-accent);
+        border-radius: 0 6px 6px 0;
+      }
+
+      .definition-term {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      ul,
+      ol {
+        margin: 1rem 0 1.5rem 1.5rem;
+      }
+
+      li {
+        margin-bottom: 0.5rem;
+      }
+
+      strong {
+        font-weight: 600;
+      }
+
+      em {
+        font-style: italic;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <a href="/graphyard/" class="back-link">&larr; Back to Graphyard</a>
+
+      <article>
+        <header>
+          <h1>The Evolution of Baseball: 120 Years of Data</h1>
+          <p class="subtitle">
+            From the Dead Ball Era to the Age of Analytics: How America's pastime has transformed through the lens of
+            the most complete sports database ever compiled.
+          </p>
+          <p class="meta">55 min read</p>
+        </header>
+
+        <Fragment set:html={`
+          <p>Baseball is the only major sport with a complete statistical record stretching back to the 19th century. The Lahman Baseball Database contains records of every player who has ever appeared in a Major League game since 1871, every pitch thrown, every hit, every error. This is not just a collection of numbers; it is a chronicle of American history told through the lens of a game.</p>
+
+          <p>In this essay, we will explore that history not through anecdotes or hero worship, but through data. We will ask: How has the game changed? What do the numbers reveal about different eras? And what can the patterns tell us about where baseball is headed?</p>
+
+          <p>The answers, as we shall see, are surprising. Baseball in 1905 was almost a different sport from baseball in 2005. The balance between pitching and hitting has swung wildly. Complete games have nearly vanished. Strikeouts have exploded. Salaries have undergone exponential growth. And through it all, certain names have risen above the rest to achieve statistical immortality.</p>
+
+          <h2>Part I: The Data Foundation</h2>
+
+          <p>Before we dive into history, we must understand our source. The Lahman Baseball Database, maintained by Sean Lahman and a community of statisticians since 1996, is the most comprehensive open-source baseball database in existence. It contains:</p>
+
+          <ul>
+            <li><strong>19,878 players</strong> from 1871 to 2019</li>
+            <li><strong>107,429 batting records</strong> (season-by-season statistics for every batter)</li>
+            <li><strong>47,628 pitching records</strong> (season-by-season statistics for every pitcher)</li>
+            <li><strong>2,925 team seasons</strong> across multiple leagues</li>
+            <li><strong>26,428 salary records</strong> from the free agency era</li>
+          </ul>
+
+          <p>This database allows us to compare players across eras with unprecedented precision. When we say Babe Ruth hit 714 home runs, we know exactly how that compares to Barry Bonds' 762 or Hank Aaron's 755. When we analyze the "Dead Ball Era," we can quantify exactly what made it dead.</p>
+
+          <p>Let us begin with the most fundamental measure of offensive prowess: the ability to put the ball in play and reach base safely.</p>
+
+          <h2>Part II: The Rhythm of Eras</h2>
+
+          <p>Baseball historians divide the game's history into distinct periods, each defined by rule changes, equipment innovations, or cultural shifts. These are not arbitrary categories. The data reveals sharp breaks between eras that transform the game's statistical landscape.</p>
+        `} />
+
+        <Chart chartId="bb-era-batting" renderer="altair" />
+
+        <Fragment set:html={`
+          <p>The chart above shows league-wide batting average across baseball's major eras. The differences are striking. In the Dead Ball Era (1901-1919), the league batting average hovered around .254. Then something changed. The Live Ball Era (1920-1941) saw averages spike to .280, a difference that seems small in percentage terms but represents a massive shift in competitive balance.</p>
+
+          <p>What caused this transformation? Several factors converged:</p>
+
+          <ul>
+            <li><strong>The banning of the spitball (1920)</strong>: Pitchers had been doctoring balls with spit, tobacco juice, and other substances. When this was outlawed, batters gained an advantage.</li>
+            <li><strong>Cleaner, livelier baseballs</strong>: Umpires began replacing dirty balls more frequently, giving batters a better view of the pitch.</li>
+            <li><strong>The rise of Babe Ruth</strong>: Ruth demonstrated that swinging for power was viable. Before Ruth, batters choked up and slapped at pitches. Ruth swung from his heels and changed everything.</li>
+          </ul>
+
+          <p>But batting average tells only part of the story. The truly dramatic shift came in power hitting, and with it, an unexpected consequence: the strikeout.</p>
+
+          <h2>Part III: The Strikeout Explosion</h2>
+        `} />
+
+        <Chart chartId="bb-era-strikeouts" renderer="altair" />
+
+        <Fragment set:html={`
+          <p>If there is one chart that captures the transformation of modern baseball, it is this one. Strikeout rates have more than doubled from the Dead Ball Era to the present day. In 1910, batters struck out in roughly 10% of at-bats. By 2019, that figure exceeded 22%.</p>
+
+          <p>This is not a subtle change. It represents a fundamental shift in how the game is played. Modern batters are no longer primarily contact hitters who "put the ball in play." They are power hitters who accept strikeouts as the cost of swinging for home runs.</p>
+
+          <p>Why has this happened? The answer lies in a simple economic calculation that pervades modern baseball: the value of the home run.</p>
+
+          <h3>The Three True Outcomes</h3>
+
+          <p>In sabermetric analysis, three events are considered "true outcomes" because they do not involve fielders: strikeouts, walks, and home runs. These outcomes have become increasingly dominant in modern baseball. In 2019, nearly 35% of all plate appearances ended in one of these three outcomes, up from around 20% in the 1970s.</p>
+
+          <p>This shift reflects a cold statistical reality: a strikeout is only marginally worse than other outs, while a home run is the most valuable offensive event. If a batter can trade some strikeouts for more home runs, the math often favors that trade.</p>
+        `} />
+
+        <Chart chartId="bb-strikeout-evolution" renderer="altair" />
+
+        <Fragment set:html={`
+          <p>The chart traces this evolution year by year. Notice the acceleration after 2007. This coincides with the rise of pitch-tracking technology (PITCHf/x) and the analytics revolution. Teams began optimizing launch angles and exit velocities, teaching batters to swing harder at the cost of contact.</p>
+
+          <p>But the strikeout revolution has a counterpart: the home run explosion.</p>
+
+          <h2>Part IV: The Power Revolution</h2>
+
+          <p>Home runs have increased dramatically over baseball's history, but not in a straight line. The trajectory reveals distinct phases corresponding to rule changes, equipment innovations, and cultural shifts in how the game is played.</p>
+        `} />
+
+        <Chart chartId="bb-home-run-evolution" renderer="altair" />
+
+        <Fragment set:html={`
+          <p>This chart shows home runs per team per season since 1901. Several inflection points stand out:</p>
+
+          <ul>
+            <li><strong>1920</strong>: The end of the Dead Ball Era and the rise of Babe Ruth</li>
+            <li><strong>1961</strong>: Expansion diluted pitching talent; Roger Maris hit 61 home runs</li>
+            <li><strong>1993-2006</strong>: The "Steroid Era" saw unprecedented power numbers</li>
+            <li><strong>2015-2019</strong>: The "Juiced Ball Era" brought another spike</li>
+          </ul>
+
+          <p>The Steroid Era deserves particular attention. From 1993 to 2006, home run rates soared to levels never seen before or since. Players like Mark McGwire, Sammy Sosa, and Barry Bonds shattered records that had stood for decades. McGwire hit 70 home runs in 1998; Bonds hit 73 in 2001.</p>
+
+          <p>The subsequent revelation of widespread performance-enhancing drug use has cast a shadow over these accomplishments. But the statistical record remains. When we look at the all-time home run leaders, the Steroid Era dominates.</p>
+
+          <h2>Part V: The Immortals</h2>
+
+          <p>Who are the greatest power hitters in baseball history? The answer depends on how much weight you give to different eras. But raw numbers tell their own story.</p>
+        `} />
+
+        <Chart chartId="bb-career-home-runs" renderer="altair" />
+
+        <Fragment set:html={`
+          <p>Barry Bonds leads with 762 career home runs. Hank Aaron follows with 755. Babe Ruth, despite playing in a different era with fewer games per season, hit 714. These three names tower above the rest.</p>
+
+          <p>But the list reveals the Steroid Era's influence. Alex Rodriguez (696), Jim Thome (612), and Sammy Sosa (609) all played during that period. Their numbers are inflated by an era that rewarded power above all else.</p>
+
+          <p>Home runs, however, are only one measure of offensive excellence. Let us consider the more subtle art of consistent hitting.</p>
+
+          <h3>The Art of Contact</h3>
+        `} />
+
+        <Chart chartId="bb-career-batting-avg" renderer="altair" />
+
+        <Fragment set:html={`
+          <p>The career batting average leaders tell a different story. Ty Cobb leads with a .366 average, accumulated over 24 seasons from 1905 to 1928. Rogers Hornsby follows at .358. These names come primarily from the early 20th century, when contact hitting was the dominant philosophy.</p>
+
+          <p>Modern players rarely approach these figures. Why? Because the game has changed. Pitching has become more specialized. Batters face fresh arms from the bullpen instead of tired starters. And the emphasis on power means accepting more strikeouts.</p>
+
+          <p>Tony Gwynn, the modern era's greatest contact hitter, finished with a .338 average. That ranks among the best of the post-war era but would have been merely excellent in Cobb's time.</p>
+
+          <h2>Part VI: The Pitching Arms Race</h2>
+
+          <p>If batters have evolved toward power, pitchers have evolved toward velocity. The average fastball velocity has increased dramatically since the advent of pitch-tracking technology. In 2008, the average four-seam fastball was 91 mph. By 2019, it exceeded 93 mph.</p>
+
+          <p>But the most dramatic change in pitching is not velocity. It is usage patterns. The complete game, once the hallmark of a great pitcher, has virtually disappeared.</p>
+        `} />
+
+        <Chart chartId="bb-complete-game-decline" renderer="altair" />
+
+        <Fragment set:html={`
+          <p>In 1901, pitchers completed more than 80% of the games they started. By 2019, that figure had collapsed to under 1%. This represents one of the most dramatic transformations in any sport's history.</p>
+
+          <p>What happened? The answer is bullpen specialization. Teams discovered that fresh arms are more effective than tired starters. A pitcher throwing 100 pitches has diminished velocity and command. A reliever entering in the seventh inning is at full strength.</p>
+
+          <p>The economics reinforced this shift. With millions of dollars invested in starting pitchers, teams became reluctant to risk injury by having them throw 120+ pitches. The "pitch count" became a strict limit, and complete games became rare achievements rather than routine expectations.</p>
+
+          <h3>The Great Pitchers</h3>
+
+          <p>Despite these changes, certain pitchers have achieved statistical immortality through longevity and dominance. Let us examine the career wins leaders, a metric that rewards both excellence and durability.</p>
+        `} />
+
+        <Chart chartId="bb-career-wins" renderer="altair" />
+
+        <Fragment set:html={`
+          <p>Cy Young leads with 511 wins, a record that will almost certainly never be broken. Young pitched from 1890 to 1911, an era when starters routinely threw over 300 innings per season. Modern pitchers rarely exceed 200 innings.</p>
+
+          <p>Walter Johnson (417 wins), Grover Cleveland Alexander (373), and Christy Mathewson (373) round out the top tier. These names all come from the early 20th century. The highest-ranked modern pitcher, Roger Clemens, has 354 wins, accumulated over 24 seasons.</p>
+
+          <p>Strikeouts tell a different story. Here, modern pitchers dominate because they throw harder and face batters willing to strike out.</p>
+        `} />
+
+        <Chart chartId="bb-career-strikeouts" renderer="altair" />
+
+        <Fragment set:html={`
+          <p>Nolan Ryan leads with 5,714 career strikeouts, a number so dominant that it seems almost impossible. Ryan pitched for 27 seasons, from 1966 to 1993, spanning multiple eras. His fastball, which regularly exceeded 100 mph, was unhittable at its best.</p>
+
+          <p>Randy Johnson (4,875), Roger Clemens (4,672), and Steve Carlton (4,136) follow. These are all modern pitchers who benefited from the increased acceptance of strikeouts in modern baseball.</p>
+
+          <h2>Part VII: The Money Revolution</h2>
+
+          <p>No examination of baseball's evolution is complete without discussing money. Player salaries have undergone exponential growth since the advent of free agency in 1975. The transformation is so dramatic that inflation-adjusted comparisons between eras become almost meaningless.</p>
+        `} />
+
+        <Chart chartId="bb-salary-growth" renderer="altair" />
+
+        <Fragment set:html={`
+          <p>In 1985, the average MLB salary was $476,000. By 2016, it had risen to over $4 million, an increase of more than 800%. The maximum salary rose even more dramatically, from $2.1 million in 1985 to over $30 million by 2016.</p>
+
+          <p>What drove this explosion? Several factors:</p>
+
+          <ul>
+            <li><strong>Free agency</strong>: Players gained the right to negotiate with multiple teams, driving up prices</li>
+            <li><strong>Television revenue</strong>: Broadcast deals brought billions into the game</li>
+            <li><strong>Competitive markets</strong>: Large-market teams like the Yankees and Dodgers bid up salaries</li>
+            <li><strong>Revenue sharing</strong>: Even small-market teams gained resources to compete</li>
+          </ul>
+
+          <p>The result is a game where the best players earn more in a season than previous generations earned in their entire careers. Let us examine who commands the highest salaries.</p>
+        `} />
+
+        <Chart chartId="bb-top-salaries-2016" renderer="altair" />
+
+        <Fragment set:html={`
+          <p>In 2016, the highest-paid players earned over $25 million annually. These salaries reflect both performance and market dynamics. A player who can add several wins to a team's total is worth tens of millions in competitive advantage.</p>
+
+          <h2>Part VIII: Team Dynasties</h2>
+
+          <p>While individual players capture headlines, baseball is ultimately a team sport. Some franchises have dominated across decades, accumulating wins and championships at remarkable rates.</p>
+        `} />
+
+        <Chart chartId="bb-franchise-wins" renderer="altair" />
+
+        <Fragment set:html={`
+          <p>The New York Yankees lead all franchises with over 10,000 all-time wins. This dominance spans the entire history of modern baseball, from the Babe Ruth era through the Joe DiMaggio years, the Mickey Mantle dynasty, and the Derek Jeter championship runs.</p>
+
+          <p>The San Francisco Giants (formerly New York Giants) and Los Angeles Dodgers (formerly Brooklyn Dodgers) follow. These three franchises represent the historical centers of American baseball: New York and its diaspora to California.</p>
+
+          <p>Some individual seasons stand out as extraordinary. Let us examine teams that won 105 or more games.</p>
+        `} />
+
+        <Chart chartId="bb-dynasty-teams" renderer="altair" />
+
+        <Fragment set:html={`
+          <p>The 2001 Seattle Mariners won 116 games, tying the 1906 Chicago Cubs for the all-time record. Yet the Mariners did not win the World Series that year, eliminated by the Yankees in the American League Championship Series. This illustrates a fundamental truth about baseball: regular-season dominance does not guarantee postseason success.</p>
+
+          <p>The 1998 Yankees won 114 games and did win the World Series, capping one of the greatest seasons in baseball history. They are widely considered the best team of the modern era.</p>
+
+          <h2>Part IX: The View from the Dugout</h2>
+
+          <p>Behind every great team stands a manager making decisions that shape games and seasons. Let us examine the winningest managers in baseball history.</p>
+        `} />
+
+        <Chart chartId="bb-manager-wins" renderer="altair" />
+
+        <Fragment set:html={`
+          <p>Connie Mack leads with 3,731 wins, accumulated over 53 seasons managing the Philadelphia Athletics. This longevity is unlikely to ever be matched; modern managers rarely last more than a decade with a single team.</p>
+
+          <p>John McGraw (2,763 wins), Tony La Russa (2,728), and Bobby Cox (2,504) represent different eras and styles. McGraw managed the New York Giants in the Dead Ball Era, favoring small ball and aggressive baserunning. La Russa pioneered the modern use of specialist relievers. Cox managed the Atlanta Braves through their unprecedented streak of 14 consecutive division titles.</p>
+
+          <h2>Part X: The Pitcher-Hitter Balance</h2>
+
+          <p>Baseball's history can be understood as an ongoing battle between pitchers and hitters. Rule changes, equipment innovations, and strategic evolution have shifted the balance back and forth over more than a century.</p>
+        `} />
+
+        <Chart chartId="bb-yearly-batting-avg" renderer="altair" />
+
+        <Fragment set:html={`
+          <p>This chart shows league batting average from 1901 to 2019. Several patterns emerge:</p>
+
+          <ul>
+            <li>The Dead Ball Era (1901-1919) shows consistently low averages around .250</li>
+            <li>The Live Ball Era (1920-1941) shows elevated averages, often exceeding .280</li>
+            <li>Post-war baseball (1946-1968) gradually shifted back toward pitching dominance</li>
+            <li>The 1968 season, "The Year of the Pitcher," saw the lowest batting average (.237) since the Dead Ball Era</li>
+            <li>Rule changes in 1969 (lowering the mound, shrinking the strike zone) helped hitters</li>
+            <li>The Steroid Era (1993-2006) showed elevated offense</li>
+            <li>Modern baseball has trended back toward pitching dominance</li>
+          </ul>
+
+          <p>The earned run average (ERA) tells the story from the pitcher's perspective.</p>
+        `} />
+
+        <Chart chartId="bb-yearly-era" renderer="altair" />
+
+        <Fragment set:html={`
+          <p>ERA has fluctuated dramatically. In 1930, the league ERA exceeded 4.80; in 1968, it dropped to 2.98. These swings represent the eternal struggle between offensive and defensive innovation.</p>
+
+          <p>When one side gains an advantage, the other adapts. Hitters learn to handle new pitches. Pitchers develop new weapons. The balance shifts, then shifts again. This dynamic tension is part of what makes baseball endlessly fascinating.</p>
+
+          <h2>Part XI: What the Numbers Reveal</h2>
+
+          <p>After exploring 120 years of baseball data, several conclusions emerge:</p>
+
+          <p><strong>Baseball has never been static.</strong> The game played in 1910 bears only superficial resemblance to the game played in 2010. Complete games have vanished. Strikeouts have doubled. Home runs have tripled. Salaries have increased by orders of magnitude.</p>
+
+          <p><strong>Eras are real.</strong> The data confirms what historians have long claimed: distinct periods exist in baseball history, defined by rule changes and cultural shifts. The Dead Ball Era, the Integration Era, the Steroid Era, and the Analytics Era each have distinct statistical signatures.</p>
+
+          <p><strong>Certain players transcend their eras.</strong> Babe Ruth dominated the Live Ball Era. Hank Aaron dominated the Integration Era. Barry Bonds dominated the Steroid Era. These players did not merely succeed within their contexts; they reshaped what was considered possible.</p>
+
+          <p><strong>Teams matter as much as individuals.</strong> The Yankees' dominance is not an accident. Organizations that build sustainable winning cultures accumulate advantages over decades. The data shows that some franchises consistently outperform while others consistently underperform.</p>
+
+          <p><strong>Money has transformed the game.</strong> Free agency created a labor market that rewards performance with unprecedented wealth. This has changed player behavior, team strategy, and the competitive landscape. The gap between large-market and small-market teams has widened, then narrowed, then widened again.</p>
+
+          <h2>Part XII: The Future of the Game</h2>
+
+          <p>Where is baseball headed? The data suggests several trends that are likely to continue:</p>
+
+          <p><strong>Strikeouts will remain elevated.</strong> As long as home runs are valued and pitchers throw harder, batters will accept strikeouts as a cost of doing business. The "three true outcomes" will continue to dominate.</p>
+
+          <p><strong>Starting pitchers will throw fewer innings.</strong> The economics of protecting expensive arms will continue to push teams toward bullpen-heavy strategies. Complete games will become even rarer.</p>
+
+          <p><strong>Analytics will drive strategy.</strong> Every swing, every pitch, every defensive alignment is now tracked and analyzed. Teams that use this data effectively will gain advantages over those that do not.</p>
+
+          <p><strong>Salaries will continue rising.</strong> As television revenue and streaming deals pour money into the game, player compensation will follow. The current highs will become tomorrow's baselines.</p>
+
+          <p>But the data also suggests that baseball adapts. When one side gains too much advantage, rules change. When fans lose interest, innovations emerge. The game has survived world wars, strikes, and scandals. It will continue to evolve.</p>
+
+          <h2>Conclusion</h2>
+
+          <p>Baseball is more than a sport. It is a statistical universe, a chronicle of American history, and an ongoing experiment in competitive balance. The Lahman Database gives us a window into this universe, allowing us to measure and compare across more than a century of play.</p>
+
+          <p>The numbers tell stories. Babe Ruth's 714 home runs tell the story of a man who revolutionized how the game is played. Nolan Ryan's 5,714 strikeouts tell the story of a pitcher who dominated for 27 seasons. The Yankees' 27 World Series titles tell the story of an organization that built dynasty after dynasty.</p>
+
+          <p>But the numbers also reveal deeper truths. They show us that eras matter, that context shapes performance, and that the game is always changing. What seems eternal today may be obsolete tomorrow. What seems impossible today may be routine in a decade.</p>
+
+          <p>This is the beauty of baseball data. It does not just record the past. It illuminates the forces that shape the game. And it reminds us that whatever happens next will eventually become data too, waiting for the next generation of analysts to discover its patterns and tell its stories.</p>
+        `} />
+      </article>
+    </main>
+  </body>
+</html>

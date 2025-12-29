@@ -34,6 +34,11 @@ export const domains: Domain[] = [
     description: "Data-driven explorations of economic concepts and indicators",
   },
   {
+    id: "sports",
+    name: "Sports Analytics",
+    description: "Statistical analysis of sports data from first principles",
+  },
+  {
     id: "technology",
     name: "Technology",
     description: "Deep dives into technological trends and innovations",
@@ -82,6 +87,17 @@ export const articles: Article[] = [
     publishDate: "2025-01-15",
     category: "latest-research",
     tags: ["gdp", "macroeconomics", "measurement"],
+  },
+  {
+    slug: "baseball/altair",
+    domain: "sports",
+    title: "The Evolution of Baseball: 120 Years of Data",
+    description:
+      "A first-principles exploration of how baseball has transformed from the Dead Ball Era to the Modern Age of analytics, told through the Lahman database covering every player since 1871.",
+    readingTime: "55 min",
+    publishDate: "2025-01-25",
+    category: "latest-research",
+    tags: ["baseball", "sabermetrics", "sports analytics", "lahman"],
   },
 ];
 

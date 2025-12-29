@@ -126,5 +126,69 @@
   {
     "chartId": "bg-inequality-trends",
     "specFile": "bg-inequality-trends.json"
+  },
+  {
+    "chartId": "bb-career-home-runs",
+    "specFile": "bb-career-home-runs.json"
+  },
+  {
+    "chartId": "bb-career-batting-avg",
+    "specFile": "bb-career-batting-avg.json"
+  },
+  {
+    "chartId": "bb-career-wins",
+    "specFile": "bb-career-wins.json"
+  },
+  {
+    "chartId": "bb-career-strikeouts",
+    "specFile": "bb-career-strikeouts.json"
+  },
+  {
+    "chartId": "bb-era-batting",
+    "specFile": "bb-era-batting.json"
+  },
+  {
+    "chartId": "bb-era-strikeouts",
+    "specFile": "bb-era-strikeouts.json"
+  },
+  {
+    "chartId": "bb-home-run-evolution",
+    "specFile": "bb-home-run-evolution.json"
+  },
+  {
+    "chartId": "bb-strikeout-evolution",
+    "specFile": "bb-strikeout-evolution.json"
+  },
+  {
+    "chartId": "bb-complete-game-decline",
+    "specFile": "bb-complete-game-decline.json"
+  },
+  {
+    "chartId": "bb-salary-growth",
+    "specFile": "bb-salary-growth.json"
+  },
+  {
+    "chartId": "bb-top-salaries-2016",
+    "specFile": "bb-top-salaries-2016.json"
+  },
+  {
+    "chartId": "bb-franchise-wins",
+    "specFile": "bb-franchise-wins.json"
+  },
+  {
+    "chartId": "bb-dynasty-teams",
+    "specFile": "bb-dynasty-teams.json"
+  },
+  {
+    "chartId": "bb-manager-wins",
+    "specFile": "bb-manager-wins.json"
+  },
+  {
+    "chartId": "bb-yearly-batting-avg",
+    "specFile": "bb-yearly-batting-avg.json"
+  },
+  {
+    "chartId": "bb-yearly-era",
+    "specFile": "bb-yearly-era.json"
   }
 ]

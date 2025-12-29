@@ -64,6 +64,7 @@ from charts.beyond_growth.data import (
     load_gdp_threshold_analysis,
     load_cumulative_emissions_by_region,
 )
+from charts.baseball.data import get_loader as get_baseball_loader
 
 OUTPUT_DIR_ALTAIR = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "altair"
 OUTPUT_DIR_PLOT = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "plot"
@@ -479,6 +480,198 @@ def get_beyond_growth_chart_specs() -> list[ChartSpec]:
     ]
 
 
+def get_baseball_chart_specs() -> list[ChartSpec]:
+    """Define all baseball article charts."""
+    loader = get_baseball_loader()
+
+    return [
+        # Career Leaders
+        ChartSpec(
+            chart_id="bb-career-home-runs",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="All-Time Home Run Leaders",
+            data_source=lambda: loader.career_home_run_leaders(15),
+            x="player",
+            y="home_runs",
+            x_label="Player",
+            y_label="Home Runs",
+        ),
+        ChartSpec(
+            chart_id="bb-career-batting-avg",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="All-Time Batting Average Leaders (min 3,000 AB)",
+            data_source=lambda: loader.career_batting_average_leaders(3000, 15),
+            x="player",
+            y="batting_avg",
+            x_label="Player",
+            y_label="Batting Average",
+        ),
+        ChartSpec(
+            chart_id="bb-career-wins",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="All-Time Pitching Wins Leaders",
+            data_source=lambda: loader.career_wins_leaders(15),
+            x="player",
+            y="wins",
+            x_label="Player",
+            y_label="Wins",
+        ),
+        ChartSpec(
+            chart_id="bb-career-strikeouts",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="All-Time Strikeout Leaders (Pitchers)",
+            data_source=lambda: loader.career_strikeout_leaders(15),
+            x="player",
+            y="strikeouts",
+            x_label="Player",
+            y_label="Strikeouts",
+        ),
+
+        # Era Analysis
+        ChartSpec(
+            chart_id="bb-era-batting",
+            chart_type=ChartType.BAR,
+            title="Batting Through the Ages: League Batting Average by Era",
+            data_source=loader.league_batting_by_era,
+            x="era",
+            y="avg_batting_avg",
+            x_label="Era",
+            y_label="League Batting Average",
+        ),
+        ChartSpec(
+            chart_id="bb-era-strikeouts",
+            chart_type=ChartType.BAR,
+            title="The Strikeout Explosion: K Rate by Era",
+            data_source=loader.league_batting_by_era,
+            x="era",
+            y="avg_k_pct",
+            x_label="Era",
+            y_label="Strikeout Rate (%)",
+            y_format="percent_raw",
+        ),
+
+        # Historical Trends
+        ChartSpec(
+            chart_id="bb-home-run-evolution",
+            chart_type=ChartType.LINE,
+            title="The Power Revolution: Home Runs per Team (1901-2019)",
+            data_source=loader.home_run_evolution,
+            x="year",
+            y="hr_per_team",
+            x_label="Year",
+            y_label="Home Runs per Team",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="bb-strikeout-evolution",
+            chart_type=ChartType.LINE,
+            title="The Three True Outcomes: Strikeout Rate (1901-2019)",
+            data_source=loader.strikeout_evolution,
+            x="year",
+            y="k_rate",
+            x_label="Year",
+            y_label="Strikeout Rate (%)",
+            x_format="year",
+            y_format="percent_raw",
+        ),
+        ChartSpec(
+            chart_id="bb-complete-game-decline",
+            chart_type=ChartType.LINE,
+            title="The Death of the Complete Game (1901-2019)",
+            data_source=loader.complete_game_decline,
+            x="year",
+            y="cg_pct",
+            x_label="Year",
+            y_label="Complete Game Rate (%)",
+            x_format="year",
+            y_format="percent_raw",
+        ),
+
+        # Salary Analysis
+        ChartSpec(
+            chart_id="bb-salary-growth",
+            chart_type=ChartType.LINE,
+            title="The Money Era: Average Salary Growth (1985-2016)",
+            data_source=loader.salary_growth,
+            x="year",
+            y="avg_salary",
+            x_label="Year",
+            y_label="Average Salary ($)",
+            x_format="year",
+            y_format="millions",
+        ),
+        ChartSpec(
+            chart_id="bb-top-salaries-2016",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Highest Paid Players (2016)",
+            data_source=lambda: loader.top_salaries_by_year(2016, 10),
+            x="player",
+            y="salary",
+            x_label="Player",
+            y_label="Salary ($)",
+            y_format="millions",
+        ),
+
+        # Team Analysis
+        ChartSpec(
+            chart_id="bb-franchise-wins",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Winningest Franchises of All Time",
+            data_source=lambda: loader.franchise_wins_all_time(15),
+            x="franchise",
+            y="total_wins",
+            x_label="Franchise",
+            y_label="Total Wins",
+        ),
+        ChartSpec(
+            chart_id="bb-dynasty-teams",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="100-Win Seasons: Dynasty Teams",
+            data_source=lambda: loader.dynasty_teams(105),
+            x="team",
+            y="wins",
+            x_label="Team (Year)",
+            y_label="Wins",
+        ),
+
+        # Manager Analysis
+        ChartSpec(
+            chart_id="bb-manager-wins",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Greatest Managers: Career Wins",
+            data_source=lambda: loader.manager_career_wins(15),
+            x="manager",
+            y="wins",
+            x_label="Manager",
+            y_label="Career Wins",
+        ),
+
+        # League-wide yearly trends
+        ChartSpec(
+            chart_id="bb-yearly-batting-avg",
+            chart_type=ChartType.LINE,
+            title="League Batting Average Over Time (1901-2019)",
+            data_source=lambda: loader.yearly_league_batting(1901, 2019),
+            x="year",
+            y="batting_avg",
+            x_label="Year",
+            y_label="League Batting Average",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="bb-yearly-era",
+            chart_type=ChartType.LINE,
+            title="League ERA Over Time (1901-2019)",
+            data_source=lambda: loader.yearly_league_pitching(1901, 2019),
+            x="year",
+            y="era",
+            x_label="Year",
+            y_label="League ERA",
+            x_format="year",
+        ),
+    ]
+
+
 def render_altair(specs: list[ChartSpec]) -> int:
     """Render charts using Altair."""
     from charts.altair_renderer import AltairRenderer
@@ -569,11 +762,13 @@ def main():
     # Combine all chart specs
     gdp_specs = get_gdp_chart_specs()
     beyond_growth_specs = get_beyond_growth_chart_specs()
-    specs = gdp_specs + beyond_growth_specs
+    baseball_specs = get_baseball_chart_specs()
+    specs = gdp_specs + beyond_growth_specs + baseball_specs
 
     print(f"\nFound {len(specs)} chart specifications")
     print(f"  - GDP article: {len(gdp_specs)} charts")
     print(f"  - Beyond Growth article: {len(beyond_growth_specs)} charts")
+    print(f"  - Baseball article: {len(baseball_specs)} charts")
 
     # Export specs for TypeScript (always needed for Plot)
     export_specs_for_plot(specs)

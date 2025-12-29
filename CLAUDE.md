@@ -2,12 +2,20 @@
 
 ## Project Overview
 
-Graphyard is a data analysis and visualization project for economic indicators, primarily using World Development Indicators (WDI) data from the World Bank. The project includes:
+Graphyard is a multi-domain data analysis and visualization project. Each domain has its own data source, data loaders, and essay-style articles:
 
-1. **Data Pipeline**: Clean, normalize, and load WDI data into PostgreSQL
-2. **Chart Framework**: Dual-package visualization with Altair (Python) and Observable Plot (TypeScript)
-3. **ML Analytics**: Time series forecasting with XGBoost, LightGBM, CatBoost, and PyTorch
-4. **Static Site**: Astro-based publication system with GitHub Pages deployment
+| Domain | Data Source | Schema | Articles |
+|--------|-------------|--------|----------|
+| Economics | World Development Indicators (WDI) | `public` | GDP, Beyond Growth |
+| Sports Analytics | Lahman Baseball Database | `lahman` | Baseball Evolution |
+
+The project includes:
+
+1. **Shared Infrastructure**: Database connection management and base loader patterns (`shared/database.py`)
+2. **Data Pipelines**: Domain-specific data loaders that extend `BaseDataLoader`
+3. **Chart Framework**: Dual-package visualization with Altair (Python) and Observable Plot (TypeScript)
+4. **ML Analytics**: Time series forecasting with XGBoost, LightGBM, CatBoost, and PyTorch
+5. **Static Site**: Astro-based publication system with GitHub Pages deployment
 
 ---
 
@@ -50,18 +58,30 @@ Always use **"Indicator"** terminology, never "Series":
 graphyard/
 ├── CLAUDE.md                    # This file
 ├── docs/                        # Built site (GitHub Pages serves this)
+├── shared/                      # Shared infrastructure
+│   ├── __init__.py
+│   └── database.py             # DatabaseConfig, BaseDataLoader
 ├── scripts/
 │   ├── wdi_utils.py            # Clean and load WDI data
+│   ├── load_lahman.py          # Download and load Lahman baseball data
+│   ├── lahman_schema.sql       # PostgreSQL schema for Lahman
 │   └── validate_reading_time.py # Article word count validator
 ├── charts/                      # Python chart generation
-│   ├── generate_dual.py        # Chart generator (Altair)
+│   ├── generate_dual.py        # Chart generator (Altair) - all domains
 │   ├── altair_renderer/        # Altair renderer
-│   └── gdp/                    # GDP article charts and data loaders
+│   ├── gdp/                    # GDP article charts and data loaders
+│   ├── beyond_growth/          # Beyond Growth article data loaders
+│   └── baseball/               # Baseball article data loaders (LahmanLoader)
 ├── ml/                          # Machine learning (XGBoost, LightGBM, CatBoost)
 ├── site/                        # Astro source
 │   ├── astro.config.mjs        # Outputs to ../docs/
 │   ├── package.json
-│   └── src/pages/articles/     # Article pages
+│   └── src/
+│       ├── lib/articles.ts     # Article registry with domains
+│       └── pages/articles/     # Article pages by domain
+│           ├── gdp/            # Economics: GDP article
+│           ├── beyond-growth/  # Economics: Beyond Growth article
+│           └── baseball/       # Sports: Baseball article
 └── datasets/                    # Git-ignored, READ-ONLY source data
 ```
 
@@ -86,7 +106,7 @@ Connect via CLI:
 docker exec -it hex-index-postgres psql -U postgres -d graphyard
 ```
 
-### Database Tables
+### Schema: public (WDI Data)
 
 ```
 indicators          - Indicator metadata (1,513 rows)
@@ -99,6 +119,21 @@ income_data         - Income group observations (207K rows)
 lending_data        - Lending category observations (348K rows)
 other_aggregate_data - Other aggregate observations (454K rows)
 ```
+
+### Schema: lahman (Baseball Data)
+
+```
+people              - Player biographical data (19,878 rows)
+teams               - Team statistics by year (2,925 rows)
+teams_franchises    - Franchise metadata (120 rows)
+batting             - Batting statistics (107,429 rows)
+pitching            - Pitching statistics (47,628 rows)
+salaries            - Player salaries 1985-2016 (26,428 rows)
+managers            - Manager records (3,536 rows)
+appearances         - Games by position (107,357 rows)
+```
+
+See [LAHMAN.md](LAHMAN.md) for full schema documentation.
 
 ---
 
