@@ -17,7 +17,7 @@ import Chart from "../../../components/Chart.astro";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="How the Cubs used analytics and machine learning to end a 108-year drought, why they only won one championship, and what the data reveals about building a dynasty."
+      content="How Theo Epstein's analytics staff—Chris Moore, Jeff Greenberg, Ryan Kruse—and the Ivy database ended a 108-year drought. The trades, metrics, and systems behind the 2016 championship."
     />
     <title>Breaking the Curse: How Analytics Built the 2016 Cubs | Graphyard</title>
 
@@ -192,8 +192,8 @@ import Chart from "../../../components/Chart.astro";
       <article>
         <h1>Breaking the Curse: How Analytics Built the 2016 Cubs</h1>
         <p class="subtitle">
-          How Theo Epstein, Tom Tango, and Ryan Kruse used data science
-          to end baseball's longest championship drought and build a historic team.
+          How Theo Epstein's analytics staff—Chris Moore, Jeff Greenberg, Ryan Kruse—built
+          the infrastructure that ended baseball's longest championship drought.
         </p>
 
         <p class="lead">
@@ -281,17 +281,38 @@ import Chart from "../../../components/Chart.astro";
 
         <p>
           The Cubs' rebuild wasn't just about acquiring talent. It was about evaluating talent
-          differently than their competitors. Central to this effort was <strong>Tom Tango</strong>,
-          one of the most influential baseball analysts of the 21st century, who joined the Cubs
-          as a consultant in 2013.
+          differently than their competitors. When Epstein arrived, the Cubs were behind—under
+          previous GM Jim Hendry, they had employed just one full-time advanced statistician.
+          Epstein had to build an analytics infrastructure from scratch, without even the
+          customized software ("Carmine") he had developed in Boston.
         </p>
 
         <p>
-          Tango, whose real name is Tom Tango (he originally used just his first name as a
-          pseudonym in the sabermetric community), had co-authored "The Book: Playing the
-          Percentages in Baseball" in 2006, which became a foundational text in modern baseball
-          analytics. The book introduced or refined several concepts that the Cubs would use
-          extensively:
+          Central to this effort was <strong>Chris Moore</strong>, who joined as Director of
+          Research and Development in October 2013. Moore held a PhD in psychology and
+          neuroscience from Princeton, and he built and led a 10-person analytics staff.
+          His team developed statistical models for win probability, pitch prediction, and
+          player evaluation. When the Cubs drafted Kyle Schwarber in 2014—a pick many
+          considered a reach—Moore's models had identified value others missed.
+        </p>
+
+        <p>
+          The Cubs also brought in <strong>Tom Tango</strong> as a part-time consultant in
+          2013. Tango, who had co-authored "The Book: Playing the Percentages in Baseball"
+          (2006), worked nights and weekends while maintaining a day job elsewhere. The Cubs
+          licensed his expertise exclusively, preventing him from consulting for other MLB
+          teams. He departed for MLB Advanced Media in 2016.
+        </p>
+
+        <p>
+          Tango's metrics—wOBA, FIP, Leverage Index—are well-documented because he published
+          them publicly. The Cubs' proprietary methods developed by Moore's staff remain
+          secret. We know about Tango's contributions because he wrote about them; we know
+          far less about what the Cubs' full-time analysts actually built. This creates a
+          distorted picture where the published consultant gets credit while the internal
+          team's innovations stay hidden. What follows describes Tango's public concepts,
+          which influenced the Cubs' approach—but the day-to-day analytical work was driven
+          by Moore's 10-person staff using methods we may never fully understand:
         </p>
 
         <h3>wOBA: Weighted On-Base Average</h3>
@@ -414,17 +435,28 @@ import Chart from "../../../components/Chart.astro";
         <h2>Part III: Ivy—The Scouting Revolution</h2>
 
         <p>
-          While Tango provided the analytical framework, <strong>Ryan Kruse</strong> built the
-          technological infrastructure. Kruse, a former minor league pitcher with a computer
-          science degree, developed what became known internally as "Ivy"—a comprehensive
-          database and analytics platform that revolutionized how the Cubs evaluated talent.
+          The Cubs' most significant technological advantage was "Ivy," an internal operating
+          system that became the backbone of their baseball operations. <strong>Ryan Kruse</strong>,
+          who spent nearly seven years with the organization, was the "creator and architect"
+          of the system. <strong>Jeff Greenberg</strong>, who joined as an intern in 2011 and
+          rose to Assistant GM, was at "the vanguard of Ivy"—present for its developmental
+          stages and witnessing the three-year buildout that transformed how the Cubs evaluated
+          talent.
         </p>
 
         <p>
-          Ivy aggregated data from multiple sources: traditional scouting reports, video analysis,
-          biomechanical data, minor league statistics, and proprietary metrics. But its real
-          innovation was in synthesis. Rather than treating scouting and analytics as separate
-          disciplines, Ivy forced them to talk to each other.
+          Ivy was organized around player names rather than teams or leagues, eliminating
+          bias from the evaluation process. According to Matt Dorey, then the Cubs' Director
+          of Amateur Scouting: "Once you hit that player page, there's tabs for every piece
+          of information on that player you could ever want, whether it's pro or amateur,
+          on the field or off."
+        </p>
+
+        <p>
+          The system aggregated data from multiple sources: traditional scouting reports, video
+          analysis, biomechanical data, minor league statistics, and proprietary metrics. But
+          its real innovation was in synthesis. Rather than treating scouting and analytics as
+          separate disciplines, Ivy forced them to talk to each other.
         </p>
 
         <p>
@@ -458,11 +490,19 @@ import Chart from "../../../components/Chart.astro";
         </p>
 
         <p>
-          Kruse's system was so effective that after the Cubs' championship, he was hired by
-          the Chicago Blackhawks to build a similar platform for hockey, called "Madhouse."
-          The cross-pollination of sports analytics had begun in earnest. Other MLB teams tried
-          to poach Cubs analytics staff, recognizing that the infrastructure was as valuable
-          as the specific insights it generated.
+          The system's effectiveness is demonstrated by what happened next. After the Cubs'
+          championship, the Blackhawks hired both Greenberg and Kruse to build a similar
+          platform for hockey, dubbed "Madhouse." Greenberg had finished as runner-up in the
+          Blackhawks' GM search before accepting a role building out their analytics infrastructure.
+          The Cubs' analytics staff became a talent pipeline for other organizations—both
+          within baseball and across sports—a testament to the infrastructure Epstein built.
+        </p>
+
+        <p>
+          Like Moore's analytical methods, Ivy's specific algorithms and models remain proprietary.
+          We know its structure from interviews, but not its substance. The Cubs never published
+          how they weighted different data sources or what predictive models powered their
+          evaluations. That intellectual property walked out the door with the staff who built it.
         </p>
 
         <h2>Part IV: The Trades That Built a Champion</h2>

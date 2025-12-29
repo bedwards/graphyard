@@ -142,11 +142,11 @@ export const articles: Article[] = [
     domain: "sports",
     title: "Breaking the Curse: How Analytics Built the 2016 Cubs",
     description:
-      "How Theo Epstein, Tom Tango, and Ryan Kruse used data science to end baseball's longest championship drought. A deep dive into the trades, metrics, and systems behind the title.",
+      "How Theo Epstein's analytics staff—Chris Moore, Jeff Greenberg, Ryan Kruse—built the infrastructure that ended a 108-year drought. A deep dive into Ivy, the trades, and the data behind the title.",
     readingTime: "30 min",
     publishDate: "2025-02-01",
     category: "pushing-boundaries",
-    tags: ["baseball", "cubs", "sabermetrics", "tom tango", "analytics", "moneyball"],
+    tags: ["baseball", "cubs", "sabermetrics", "analytics", "moneyball", "ivy"],
   },
 ];
 
