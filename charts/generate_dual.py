@@ -100,6 +100,17 @@ from charts.education.data import (
     load_homework_effect_by_grade,
     load_effect_size_comparison,
 )
+from charts.ncaa_basketball.data import (
+    load_first_round_upset_rates,
+    load_seed_advancement_rates,
+    load_model_accuracy_comparison,
+    load_kenpom_vs_seed_success,
+    load_one_seed_strength_history,
+    load_upset_totals_by_seed,
+    load_volatility_factors,
+    load_champion_profile,
+    load_transfer_portal_era,
+)
 
 OUTPUT_DIR_ALTAIR = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "altair"
 OUTPUT_DIR_PLOT = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "plot"
@@ -1050,6 +1061,119 @@ def get_education_chart_specs() -> list[ChartSpec]:
     ]
 
 
+def get_ncaa_basketball_chart_specs() -> list[ChartSpec]:
+    """Define all NCAA Basketball / March Madness article charts."""
+    return [
+        # First Round Upset Rates by Matchup
+        ChartSpec(
+            chart_id="ncaa-first-round-upsets",
+            chart_type=ChartType.BAR,
+            title="First Round Upset Rates by Seed Matchup (1985-2024)",
+            data_source=load_first_round_upset_rates,
+            x="matchup",
+            y="upset_rate_pct",
+            x_label="Matchup",
+            y_label="Upset Rate (%)",
+        ),
+        # Seed Advancement Rates
+        ChartSpec(
+            chart_id="ncaa-seed-advancement",
+            chart_type=ChartType.LINE,
+            title="How Far Each Seed Advances (1985-2024)",
+            data_source=lambda: load_seed_advancement_rates().melt(
+                id_vars=["seed"],
+                value_vars=["round_of_32_pct", "sweet_16_pct", "elite_8_pct", "final_four_pct"],
+                var_name="round",
+                value_name="advancement_pct"
+            ),
+            x="seed",
+            y="advancement_pct",
+            color="round",
+            x_label="Seed",
+            y_label="Advancement Rate (%)",
+        ),
+        # Model Accuracy Comparison
+        ChartSpec(
+            chart_id="ncaa-model-accuracy",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Prediction Model Accuracy: The 73% Ceiling",
+            data_source=load_model_accuracy_comparison,
+            x="model",
+            y="accuracy_pct",
+            x_label="Model",
+            y_label="Accuracy (%)",
+        ),
+        # KenPom vs Seed Success - show when KenPom disagrees with seed, who wins
+        ChartSpec(
+            chart_id="ncaa-kenpom-vs-seed",
+            chart_type=ChartType.BAR,
+            title="When Analytics Disagree with Seeds: KenPom Advantage",
+            data_source=load_kenpom_vs_seed_success,
+            x="round",
+            y="when_disagree_kenpom_better",
+            x_label="Tournament Round",
+            y_label="KenPom Pick Wins When Disagrees (%)",
+        ),
+        # 1-Seed Strength History
+        ChartSpec(
+            chart_id="ncaa-one-seed-strength",
+            chart_type=ChartType.LINE,
+            title="Strength of 1-Seeds Over Time (AdjEM)",
+            data_source=load_one_seed_strength_history,
+            x="year",
+            y="avg_adj_em",
+            x_label="Year",
+            y_label="Average Adjusted Efficiency Margin",
+            x_format="year",
+        ),
+        # Upset Totals by Underdog Seed
+        ChartSpec(
+            chart_id="ncaa-upset-totals",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Total Upset Wins by Underdog Seed (1985-2024)",
+            data_source=load_upset_totals_by_seed,
+            x="seed",
+            y="total_upset_wins",
+            x_label="Seed",
+            y_label="Total Upset Wins",
+        ),
+        # Volatility Factors
+        ChartSpec(
+            chart_id="ncaa-volatility-factors",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Factors That Increase Upset Probability",
+            data_source=load_volatility_factors,
+            x="factor",
+            y="upset_rate_increase_pct",
+            x_label="Factor",
+            y_label="Upset Rate Increase (%)",
+        ),
+        # Champion Profile
+        ChartSpec(
+            chart_id="ncaa-champion-profile",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="What Do Champions Have in Common? (2002-2024)",
+            data_source=load_champion_profile,
+            x="metric",
+            y="percentage",
+            x_label="Criterion",
+            y_label="Champions Meeting Criterion (%)",
+        ),
+        # Transfer Portal Era
+        ChartSpec(
+            chart_id="ncaa-transfer-portal",
+            chart_type=ChartType.LINE,
+            title="The Transfer Portal Era: Roster Turnover Over Time",
+            data_source=load_transfer_portal_era,
+            x="year",
+            y="avg_portal_players_per_team",
+            x_label="Year",
+            y_label="Average Transfer Players per Team",
+            x_format="year",
+        ),
+    ]
+
+
 def render_altair(specs: list[ChartSpec]) -> int:
     """Render charts using Altair."""
     from charts.altair_renderer import AltairRenderer
@@ -1144,7 +1268,8 @@ def main():
     marx_specs = get_marx_chart_specs()
     sabermetrics_specs = get_sabermetrics_chart_specs()
     education_specs = get_education_chart_specs()
-    specs = gdp_specs + beyond_growth_specs + baseball_specs + marx_specs + sabermetrics_specs + education_specs
+    ncaa_basketball_specs = get_ncaa_basketball_chart_specs()
+    specs = gdp_specs + beyond_growth_specs + baseball_specs + marx_specs + sabermetrics_specs + education_specs + ncaa_basketball_specs
 
     print(f"\nFound {len(specs)} chart specifications")
     print(f"  - GDP article: {len(gdp_specs)} charts")
@@ -1153,6 +1278,7 @@ def main():
     print(f"  - Marx article: {len(marx_specs)} charts")
     print(f"  - Sabermetrics article: {len(sabermetrics_specs)} charts")
     print(f"  - Education article: {len(education_specs)} charts")
+    print(f"  - NCAA Basketball article: {len(ncaa_basketball_specs)} charts")
 
     # Export specs for TypeScript (always needed for Plot)
     export_specs_for_plot(specs)

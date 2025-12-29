@@ -121,10 +121,21 @@ export const articles: Article[] = [
     title: "The Learning Styles Myth: What the Data Actually Shows About Education",
     description:
       "Ninety percent of educators believe students learn better when taught in their preferred style. The research shows the effect is essentially zero. A data-driven investigation into education's most persistent myth.",
-    readingTime: "17 min",
+    readingTime: "30 min",
     publishDate: "2025-01-30",
     category: "latest-research",
     tags: ["learning styles", "education research", "meta-analysis", "PISA", "evidence-based education"],
+  },
+  {
+    slug: "march-madness/altair",
+    domain: "sports",
+    title: "March Madness and the Limits of Prediction",
+    description:
+      "Despite sophisticated analytics and ML models, March Madness remains stubbornly unpredictable. Understanding why reveals deep truths about sports, probability, and the illusion of expertise.",
+    readingTime: "30 min",
+    publishDate: "2025-01-31",
+    category: "pushing-boundaries",
+    tags: ["ncaa", "march madness", "prediction", "machine learning", "kenpom", "analytics"],
   },
 ];
 

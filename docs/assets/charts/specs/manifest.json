@@ -290,5 +290,41 @@
   {
     "chartId": "edu-effect-size-comparison",
     "specFile": "edu-effect-size-comparison.json"
+  },
+  {
+    "chartId": "ncaa-first-round-upsets",
+    "specFile": "ncaa-first-round-upsets.json"
+  },
+  {
+    "chartId": "ncaa-seed-advancement",
+    "specFile": "ncaa-seed-advancement.json"
+  },
+  {
+    "chartId": "ncaa-model-accuracy",
+    "specFile": "ncaa-model-accuracy.json"
+  },
+  {
+    "chartId": "ncaa-kenpom-vs-seed",
+    "specFile": "ncaa-kenpom-vs-seed.json"
+  },
+  {
+    "chartId": "ncaa-one-seed-strength",
+    "specFile": "ncaa-one-seed-strength.json"
+  },
+  {
+    "chartId": "ncaa-upset-totals",
+    "specFile": "ncaa-upset-totals.json"
+  },
+  {
+    "chartId": "ncaa-volatility-factors",
+    "specFile": "ncaa-volatility-factors.json"
+  },
+  {
+    "chartId": "ncaa-champion-profile",
+    "specFile": "ncaa-champion-profile.json"
+  },
+  {
+    "chartId": "ncaa-transfer-portal",
+    "specFile": "ncaa-transfer-portal.json"
   }
 ]
