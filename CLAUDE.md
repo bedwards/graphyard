@@ -8,6 +8,9 @@ Graphyard is a multi-domain data analysis and visualization project. Each domain
 |--------|-------------|--------|----------|
 | Economics | World Development Indicators (WDI) | `public` | GDP, Beyond Growth |
 | Sports Analytics | Lahman Baseball Database | `lahman` | Baseball Evolution |
+| Sports Analytics | NCAA Basketball (Kaggle March Madness) | TBD | TBD |
+
+See also: [WDI.md](WDI.md), [LAHMAN.md](LAHMAN.md), [NCAA_BASKETBALL.md](NCAA_BASKETBALL.md)
 
 The project includes:
 
@@ -33,10 +36,14 @@ datasets/                    # All source data - GITIGNORED
 │   └── ...
 ├── WDI_CSV_clean/           # Processed WDI files
 ├── lahman/                  # Lahman Baseball Database (raw download)
-│   ├── baseballdatabank-master/
-│   │   └── core/            # CSV files (People.csv, Batting.csv, etc.)
-│   └── lahman.zip           # Original download
-└── lahman_clean/            # Processed Lahman files (if needed)
+│   └── baseballdatabank-master/
+│       └── core/            # CSV files (People.csv, Batting.csv, etc.)
+├── ncaa_basketball/         # Kaggle March Madness data
+│   ├── MTeams.csv           # Men's teams
+│   ├── MRegularSeasonDetailedResults.csv  # Box scores (118K games)
+│   ├── MMasseyOrdinals.csv  # Computer rankings (5.5M rows, 194 systems)
+│   └── ...                  # 36 CSV files total
+└── *_clean/                 # Processed files (as needed)
 ```
 
 **NEVER use `chmod +w` on these files. NEVER modify them directly.**
