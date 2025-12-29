@@ -1,9 +1,10 @@
 ---
 /**
- * The Evolution of Baseball: 120 Years of Data
+ * The Numbers Game: How Bill James Changed Baseball
  *
- * A first-principles exploration of baseball history through the Lahman database.
- * True 55-minute read (~11,000 words).
+ * A tribute to the sabermetrics pioneers who taught a generation
+ * that the numbers could reveal what the eyes missed.
+ * True 60-minute read (~12,000 words).
  */
 
 import Chart from "../../../components/Chart.astro";
@@ -16,9 +17,9 @@ import Chart from "../../../components/Chart.astro";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="A first-principles exploration of how baseball has transformed from the Dead Ball Era to the Modern Age of analytics."
+      content="How Bill James, Mike Gimbel, and STATS, Inc. revolutionized baseball analysis. A tribute to the pioneers who proved that data could see what scouts couldn't."
     />
-    <title>The Evolution of Baseball: 120 Years of Data | Graphyard</title>
+    <title>The Numbers Game: How Bill James Changed Baseball | Graphyard</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -118,7 +119,7 @@ import Chart from "../../../components/Chart.astro";
         font-style: italic;
       }
 
-      .definition {
+      .callout {
         margin: 1.5rem 0;
         padding: 1.25rem 1.5rem;
         background: #f0f9ff;
@@ -126,7 +127,7 @@ import Chart from "../../../components/Chart.astro";
         border-radius: 0 6px 6px 0;
       }
 
-      .definition-term {
+      .callout-title {
         font-weight: 600;
         margin-bottom: 0.5rem;
       }
@@ -147,306 +148,502 @@ import Chart from "../../../components/Chart.astro";
       em {
         font-style: italic;
       }
+
+      a {
+        color: var(--color-accent);
+      }
     </style>
   </head>
 
   <body>
     <main>
-      <a href="/graphyard/" class="back-link">&larr; Back to Graphyard</a>
+      <a href="/graphyard/" class="back-link">← Home</a>
+
+      <header>
+        <h1>The Numbers Game: How Bill James Changed Baseball</h1>
+        <p class="subtitle">
+          A tribute to the sabermetrics pioneers—Bill James, Mike Gimbel, and STATS, Inc.—who proved that careful analysis could reveal truths hidden in plain sight. And a validation of their findings using 120 years of data.
+        </p>
+        <p class="meta">30 min read</p>
+      </header>
 
       <article>
-        <header>
-          <h1>The Evolution of Baseball: 120 Years of Data</h1>
-          <p class="subtitle">
-            From the Dead Ball Era to the Age of Analytics: How America's pastime has transformed through the lens of
-            the most complete sports database ever compiled.
+        <p>
+          In the spring of 1977, a night watchman at a pork and beans factory in Lawrence, Kansas, began typing. Bill James was 27 years old. He had a degree in English and economics from the University of Kansas. He had bounced between jobs—teacher, baseball coach, would-be writer. He had sent articles to every baseball publication that might accept them and had been rejected by all of them. So he decided to publish himself.
+        </p>
+
+        <p>
+          The result was the first <em>Bill James Baseball Abstract</em>, a 68-page photocopied booklet that James sold by mail order for $3.50. He printed 75 copies. He sold 68 of them. It was, by any conventional measure, a complete failure. And yet those 68 copies contained ideas that would eventually transform professional sports forever.
+        </p>
+
+        <p>
+          I was two years old when James published that first Abstract. By the time I was seven, I was reading his annual editions obsessively. By twelve, I understood that this man from Kansas had discovered something profound: that the accumulated wisdom of baseball's establishment—scouts, managers, general managers, the entire apparatus of professional judgment—was often wrong. Not sometimes wrong. Systematically wrong. Wrong in ways that data could reveal and that eyes could not.
+        </p>
+
+        <p>
+          This is the story of the sabermetrics revolution—how a handful of outsiders used numbers to challenge an entire industry. It is a tribute to Bill James, Mike Gimbel, and STATS, Inc., the pioneers who taught a generation that the truth was in the data, if you knew how to look. And it is a validation, using 120 years of baseball statistics, of the methods they developed. The numbers they were right about. The predictions that held up. The revolution that changed everything.
+        </p>
+
+        <h2>I. The Heretic of Lawrence, Kansas</h2>
+
+        <p>
+          Bill James did not set out to start a revolution. He set out to understand baseball. He was frustrated by the poverty of baseball writing—the endless recycling of conventional wisdom, the reflexive deference to authority, the absence of rigor. When a manager said a player was "clutch," no one asked what the data showed. When a scout said a pitcher had a "live arm," no one questioned whether that observation translated to actual performance. Baseball was run on intuition, and intuition was not subject to verification.
+        </p>
+
+        <p>
+          James decided to verify. He began with a simple question: What actually makes a baseball team win games? The conventional answer was obvious—you need good hitting, good pitching, good defense. But James wanted something more precise. He wanted a formula. And in 1980, he found one.
+        </p>
+
+        <div class="callout">
+          <div class="callout-title">The Pythagorean Expectation</div>
+          <p>
+            Expected Win% = Runs Scored² / (Runs Scored² + Runs Allowed²)
           </p>
-          <p class="meta">55 min read</p>
-        </header>
+          <p>
+            James called this the Pythagorean Expectation because of its resemblance to the Pythagorean theorem. He discovered that a team's winning percentage could be predicted with remarkable accuracy simply by knowing how many runs they scored and how many they allowed.
+          </p>
+        </div>
+
+        <p>
+          The beauty of the Pythagorean Expectation was its simplicity. You didn't need to know about clutch hitting or chemistry or heart. You didn't need to evaluate leadership or clubhouse presence. You just needed two numbers—runs scored and runs allowed—and you could predict a team's record within a few games.
+        </p>
+
+        <p>
+          But the deeper insight was what the formula implied about luck. If a team's actual record differed substantially from its Pythagorean prediction, James reasoned, the difference was probably due to random variation rather than some unmeasurable quality. A team that won more games than the formula predicted wasn't "clutch"—it was lucky. And luck, unlike talent, tends not to persist.
+        </p>
+
+        <p>
+          This was heresy. The baseball establishment believed profoundly in clutch performance, in players who rose to the occasion when it mattered most. James was saying that clutch performance was largely a myth—that a player who hit .280 with runners in scoring position one year was no more likely to do so the next year than a player who hit .250 in those situations. The apparent heroes were simply the beneficiaries of random variation.
+        </p>
+
+        <p>
+          The Pythagorean Expectation has now been tested across more than a century of baseball data. The results vindicate James completely. Across thousands of team-seasons from 1901 to 2019, the formula predicts actual wins with an average error of less than four games per season. Teams that dramatically over- or underperform their Pythagorean record almost always regress toward the prediction the following year.
+        </p>
+
+        <Chart
+          chartId="saber-pythagorean-scatter"
+          title="Pythagorean Expectation: Predicted vs Actual Wins"
+          caption="Bill James' Pythagorean formula predicts team wins with remarkable accuracy. Each dot represents a team-season from 2015-2019. The tight clustering around the diagonal line shows how well runs scored and allowed predict actual performance."
+        />
+
+        <p>
+          The teams that deviate most from their Pythagorean projection—the alleged "clutch" teams and "unlucky" losers—provide the strongest evidence for James's thesis. When we examine the greatest overperformers in baseball history, we find no consistent pattern. They don't win their close games the following year. They don't maintain their edge in "clutch" situations. They simply regress, as random variation always does.
+        </p>
+
+        <Chart
+          chartId="saber-pythagorean-outliers"
+          title="Luck vs Skill: Greatest Pythagorean Overperformers"
+          caption="These teams won far more games than their run differential suggested they should. Baseball lore treats them as 'clutch' or 'winners.' But most regressed sharply the following season, suggesting luck rather than skill."
+        />
+
+        <h2>II. The Invention of Runs Created</h2>
+
+        <p>
+          The Pythagorean Expectation told you how many games a team should win given its runs scored and allowed. But it didn't tell you how to score runs in the first place. For that, James needed a theory of offensive production—a way to measure what individual players contributed to run-scoring.
+        </p>
+
+        <p>
+          The conventional statistics of the era—batting average, runs batted in, home runs—were deeply flawed for this purpose. Batting average ignored walks entirely, treating a player who walked 100 times as no more valuable than one who walked zero times. RBIs depended heavily on where you batted in the lineup and who was on base when you came to the plate. Home runs captured only one form of offensive production.
+        </p>
+
+        <p>
+          James wanted a single number that captured how many runs a player created through his offensive actions. After years of experimentation, he developed the Runs Created formula:
+        </p>
+
+        <div class="callout">
+          <div class="callout-title">Runs Created (Basic Version)</div>
+          <p>
+            RC = (Hits + Walks) × Total Bases / (At Bats + Walks)
+          </p>
+          <p>
+            The logic: (Hits + Walks) approximates times on base. Total Bases measures advancement power. The product of these, divided by plate appearances, estimates runs produced.
+          </p>
+        </div>
+
+        <p>
+          The intuition was elegant. Scoring runs requires two things: getting on base and advancing runners who are already on base. The numerator—(Hits + Walks) × Total Bases—multiplies these two factors together. A player who gets on base frequently and hits for power will generate a large product. A player who does neither will generate a small one.
+        </p>
+
+        <p>
+          James tested the formula against actual team run totals and found that it predicted runs with stunning accuracy—typically within 5% of the actual figure. A team's total Runs Created, summed across all players, almost exactly equaled the runs that team actually scored.
+        </p>
+
+        <Chart
+          chartId="saber-runs-created-accuracy"
+          title="Bill James Was Right: Runs Created Formula Accuracy"
+          caption="The basic Runs Created formula predicts actual team runs scored with 97-99% accuracy across 119 seasons of baseball. James developed this formula in the early 1980s, and it remains remarkably robust today."
+        />
+
+        <p>
+          What made Runs Created revolutionary was not just its accuracy but its implications. For the first time, teams could objectively measure what each player contributed to the offense. They could compare a power hitter who walked rarely to a contact hitter who walked frequently. They could identify undervalued players whose contributions were obscured by conventional statistics.
+        </p>
+
+        <p>
+          Consider a player who hits .250 with 30 home runs and 50 walks versus a player who hits .300 with 10 home runs and 80 walks. Conventional wisdom would favor the high-average hitter—.300 hitters were "pure" hitters, while .250 hitters were merely power threats. But Runs Created revealed that these players might be similarly valuable, because the first player's power compensated for his lower average, while the second player's on-base ability compensated for his lack of power.
+        </p>
+
+        <p>
+          This insight would eventually reshape how teams valued players. It would lead to the on-base percentage revolution, to the decline of the sacrifice bunt and the stolen base, to the entire modern analytical apparatus. But in 1983, when James published his most detailed explanation of Runs Created, almost no one in professional baseball was paying attention.
+        </p>
+
+        <h2>III. The Game They Were Measuring</h2>
+
+        <p>
+          To understand what James and his fellow pioneers discovered, you need to understand how profoundly baseball has changed over the past century. The game Ruth played was not the game Bonds played. The game Bonds played was not the game Judge plays. The evolution is visible in every statistic, if you know how to read them.
+        </p>
+
+        <p>
+          Consider the most basic measure of offensive production: runs scored per game. In 1901, at the dawn of the American League, teams scored an average of 4.7 runs per game. By 1908, that figure had fallen to 3.4—the depths of the Dead Ball Era. Then Babe Ruth came, and the game transformed. By 1930, teams were averaging 5.5 runs per game. The live ball, the banned spitball, the smaller ballparks—all contributed to an offensive explosion that made the Dead Ball Era seem like a different sport.
+        </p>
+
+        <p>
+          The home run tells the story most dramatically. In the Dead Ball Era, home runs were rare—many players went entire seasons without hitting one. The league leader in home runs often had fewer than 10. Then Ruth emerged, hitting 29 home runs in 1919, 54 in 1920, 59 in 1921. He didn't just break records; he obliterated them. He changed what was possible.
+        </p>
+
+        <Chart
+          chartId="saber-hr-evolution"
+          title="The Long Ball Era: Home Runs Per Game"
+          caption="Home runs per game have risen dramatically over baseball history. The Dead Ball Era (1901-1919) saw fewer than one home run per game. Today's game regularly exceeds two. The 2019 season set an all-time record of nearly three home runs per game."
+        />
 
-        <Fragment set:html={`
-          <p>Baseball is the only major sport with a complete statistical record stretching back to the 19th century. The Lahman Baseball Database contains records of every player who has ever appeared in a Major League game since 1871, every pitch thrown, every hit, every error. This is not just a collection of numbers; it is a chronicle of American history told through the lens of a game.</p>
+        <p>
+          The chart reveals several distinct eras. The Dead Ball Era ends abruptly around 1920—you can see the sudden jump as the live ball and the departure of the spitball transformed the game. The expansion of the strike zone in the 1960s temporarily suppressed offense. The 1990s and 2000s saw home runs climb again, culminating in 2019's record-breaking season. Each era demanded different skills from players and different strategies from managers.
+        </p>
 
-          <p>In this essay, we will explore that history not through anecdotes or hero worship, but through data. We will ask: How has the game changed? What do the numbers reveal about different eras? And what can the patterns tell us about where baseball is headed?</p>
+        <p>
+          Bill James was one of the first analysts to systematically account for these era effects. A .300 batting average in 1968, when the league hit .237, was far more impressive than a .300 average in 1930, when the league hit .288. A 20-win pitcher in 1968 faced different challenges than a 20-win pitcher in 2000. James developed methods to adjust player statistics for the era in which they played, allowing meaningful comparisons across decades.
+        </p>
 
-          <p>The answers, as we shall see, are surprising. Baseball in 1905 was almost a different sport from baseball in 2005. The balance between pitching and hitting has swung wildly. Complete games have nearly vanished. Strikeouts have exploded. Salaries have undergone exponential growth. And through it all, certain names have risen above the rest to achieve statistical immortality.</p>
+        <Chart
+          chartId="saber-batting-avg"
+          title="The Hitter's Game: League Batting Average"
+          caption="League batting average reveals the ebb and flow of offense across eras. The Dead Ball Era's low averages gave way to the high-scoring 1920s and 1930s. The pitcher-dominated 1960s preceded decades of gradual change. Note the recent decline as strikeout rates have soared."
+        />
 
-          <h2>Part I: The Data Foundation</h2>
+        <p>
+          The modern era has brought its own transformation, one that James has watched with a mixture of fascination and concern. The "three true outcomes"—home runs, strikeouts, and walks—now dominate the game as never before. Batters swing harder and more often, accepting strikeouts as the price of power. Pitchers throw harder than ever, making contact increasingly difficult. The ball in play—once the fundamental unit of baseball action—has become almost secondary.
+        </p>
 
-          <p>Before we dive into history, we must understand our source. The Lahman Baseball Database, maintained by Sean Lahman and a community of statisticians since 1996, is the most comprehensive open-source baseball database in existence. It contains:</p>
+        <Chart
+          chartId="saber-k-bb-rates"
+          title="The Strikeout Revolution: K% and BB%"
+          caption="Strikeout rates have exploded since 2008, reaching historic highs. Walk rates have remained relatively stable, meaning the increase in strikeouts comes directly at the expense of balls in play. The game has become a battle between power pitchers and power hitters."
+        />
+
+        <p>
+          James has been critical of this evolution. In his original work, he championed on-base percentage and power as undervalued skills—and teams listened, eventually overvaluing them at the expense of contact ability. The law of unintended consequences applies even to analytical revolutions. The game James helped transform has transformed again, in ways he didn't anticipate and doesn't always appreciate.
+        </p>
+
+        <h2>IV. Range Factor and the Defense Problem</h2>
 
-          <ul>
-            <li><strong>19,878 players</strong> from 1871 to 2019</li>
-            <li><strong>107,429 batting records</strong> (season-by-season statistics for every batter)</li>
-            <li><strong>47,628 pitching records</strong> (season-by-season statistics for every pitcher)</li>
-            <li><strong>2,925 team seasons</strong> across multiple leagues</li>
-            <li><strong>26,428 salary records</strong> from the free agency era</li>
-          </ul>
+        <p>
+          Offense was the easy part. Runs Created worked because offensive events were discrete and countable—every hit, walk, and home run was recorded in the box score. Defense was harder. Much harder.
+        </p>
 
-          <p>This database allows us to compare players across eras with unprecedented precision. When we say Babe Ruth hit 714 home runs, we know exactly how that compares to Barry Bonds' 762 or Hank Aaron's 755. When we analyze the "Dead Ball Era," we can quantify exactly what made it dead.</p>
+        <p>
+          The traditional defensive statistic was fielding percentage: errors divided by total chances. A shortstop who handled 500 chances with 10 errors had a .980 fielding percentage. The problem was immediately obvious to anyone who watched baseball carefully. A slow shortstop with limited range might get to only 400 balls, handling them cleanly for a .990 fielding percentage. A faster shortstop might get to 500 balls, making 15 errors for a .970 fielding percentage. Who was better? Fielding percentage said the slow shortstop. Common sense said the opposite.
+        </p>
 
-          <p>Let us begin with the most fundamental measure of offensive prowess: the ability to put the ball in play and reach base safely.</p>
+        <p>
+          James proposed Range Factor as an alternative: (Putouts + Assists) / Games. The faster shortstop who got to more balls would have a higher Range Factor, regardless of how many errors he made. The insight was simple but revolutionary—what mattered was not how cleanly you handled the balls you reached, but how many balls you reached in the first place.
+        </p>
 
-          <h2>Part II: The Rhythm of Eras</h2>
+        <p>
+          Range Factor had obvious limitations. A shortstop on a team with heavy groundball pitchers would have more chances than one on a flyball staff. A shortstop in a large ballpark would have more territory to cover than one in a bandbox. James acknowledged these limitations but argued that Range Factor, for all its flaws, was more informative than fielding percentage.
+        </p>
 
-          <p>Baseball historians divide the game's history into distinct periods, each defined by rule changes, equipment innovations, or cultural shifts. These are not arbitrary categories. The data reveals sharp breaks between eras that transform the game's statistical landscape.</p>
-        `} />
+        <p>
+          The defensive analytics that followed—Zone Rating, Ultimate Zone Rating, Defensive Runs Saved—all built on James's fundamental insight. What matters is not the errors you make but the plays you don't make. What matters is not looking good on the balls you reach but reaching the balls that others can't. The flashy shortstop who dives for balls hit in the hole may be less valuable than the quiet one who positions himself so he doesn't need to dive.
+        </p>
 
-        <Chart chartId="bb-era-batting" renderer="altair" />
+        <p>
+          This insight had profound implications for player evaluation. Certain players—notably Ozzie Smith of the Cardinals, whom James championed—had been underrated because their defensive contributions weren't captured by traditional statistics. Smith's extraordinary range meant that balls that would be hits against other shortstops became outs against him. Every out he recorded was a hit prevented. Every hit prevented was a run saved. The value was real, even if the box score couldn't see it.
+        </p>
 
-        <Fragment set:html={`
-          <p>The chart above shows league-wide batting average across baseball's major eras. The differences are striking. In the Dead Ball Era (1901-1919), the league batting average hovered around .254. Then something changed. The Live Ball Era (1920-1941) saw averages spike to .280, a difference that seems small in percentage terms but represents a massive shift in competitive balance.</p>
+        <h2>V. The Outsider: Mike Gimbel</h2>
 
-          <p>What caused this transformation? Several factors converged:</p>
+        <p>
+          If Bill James was the prophet of sabermetrics, Mike Gimbel was its most eccentric apostle. Gimbel was a New York City water department employee who taught himself statistics and developed his own system for evaluating players. He had no advanced degrees. He had no connections to baseball. He had only data and the conviction that he could find truth in it.
+        </p>
 
-          <ul>
-            <li><strong>The banning of the spitball (1920)</strong>: Pitchers had been doctoring balls with spit, tobacco juice, and other substances. When this was outlawed, batters gained an advantage.</li>
-            <li><strong>Cleaner, livelier baseballs</strong>: Umpires began replacing dirty balls more frequently, giving batters a better view of the pitch.</li>
-            <li><strong>The rise of Babe Ruth</strong>: Ruth demonstrated that swinging for power was viable. Before Ruth, batters choked up and slapped at pitches. Ruth swung from his heels and changed everything.</li>
-          </ul>
+        <p>
+          Gimbel's methodology differed from James's in important ways. Where James focused on individual statistics, Gimbel emphasized what he called "Run Production Average"—a comprehensive measure of a player's total contribution to run-scoring. He published annual guides ranking every player in baseball, sold by mail order like James's early Abstracts. His rankings often diverged sharply from conventional wisdom, identifying undervalued players that teams were overlooking.
+        </p>
 
-          <p>But batting average tells only part of the story. The truly dramatic shift came in power hitting, and with it, an unexpected consequence: the strikeout.</p>
+        <p>
+          In 1991, Montreal Expos general manager Dan Duquette began consulting with Gimbel. The Expos were a small-market team with limited resources, competing against the wealthy franchises of New York and Los Angeles. They couldn't afford to overpay for established stars. They needed to find value where others weren't looking.
+        </p>
 
-          <h2>Part III: The Strikeout Explosion</h2>
-        `} />
+        <p>
+          Gimbel advised Duquette on several key moves. The Expos traded Andres Galarraga, a popular but declining first baseman, for pitcher Ken Hill. They acquired John Wetteland from the Dodgers' organization for a package of minor leaguers. These weren't blockbuster trades—they were exactly the kind of undervalued acquisitions that sabermetric analysis could identify.
+        </p>
 
-        <Chart chartId="bb-era-strikeouts" renderer="altair" />
+        <p>
+          The results were dramatic. The 1991 Expos had finished last in their division. The 1992 Expos, rebuilt with Gimbel's guidance, finished second with 87 wins. Wetteland became an elite closer, saving 37 games with a 2.92 ERA. Hill won 16 games and made the All-Star team. The acquisitions that conventional analysis might have dismissed as minor proved transformational.
+        </p>
 
-        <Fragment set:html={`
-          <p>If there is one chart that captures the transformation of modern baseball, it is this one. Strikeout rates have more than doubled from the Dead Ball Era to the present day. In 1910, batters struck out in roughly 10% of at-bats. By 2019, that figure exceeded 22%.</p>
+        <p>
+          When Duquette left Montreal to become general manager of the Boston Red Sox in 1994, Gimbel was the only Expos staffer he was allowed to take with him. Gimbel became a paid consultant to the Red Sox, providing weekly performance updates and input on player acquisitions. For a brief moment, the eccentric outsider had penetrated the inner circle.
+        </p>
 
-          <p>This is not a subtle change. It represents a fundamental shift in how the game is played. Modern batters are no longer primarily contact hitters who "put the ball in play." They are power hitters who accept strikeouts as the cost of swinging for home runs.</p>
+        <p>
+          But the story didn't end happily. In 1997, a Boston Globe article exposed Gimbel's role with the team. The local media reacted with mockery. Gimbel, with his unconventional appearance and his self-taught methods, made an easy target. He was dismissed as a "homeless computer geek" and ridiculed for his lack of conventional credentials. His contract expired at season's end and was not renewed.
+        </p>
 
-          <p>Why has this happened? The answer lies in a simple economic calculation that pervades modern baseball: the value of the home run.</p>
+        <p>
+          Michael Lewis, in his book <em>Moneyball</em>, called Gimbel's treatment an "'Elephant Man' moment"—the industry's rejection of anyone who didn't look and sound like a baseball insider. The phrase "Gimbelized" became shorthand among analytically-minded baseball people for unwanted publicity about statistical methods. It was a warning: be careful what you reveal, or you'll be made a laughingstock.
+        </p>
 
-          <h3>The Three True Outcomes</h3>
+        <p>
+          Gimbel's story reveals the resistance that sabermetrics faced even as it began to prove itself. The baseball establishment didn't want to be told it was wrong by outsiders—especially not by outsiders who didn't look the part. It would take another decade, and a book by Michael Lewis, before the industry fully embraced the methods Gimbel had championed.
+        </p>
 
-          <p>In sabermetric analysis, three events are considered "true outcomes" because they do not involve fielders: strikeouts, walks, and home runs. These outcomes have become increasingly dominant in modern baseball. In 2019, nearly 35% of all plate appearances ended in one of these three outcomes, up from around 20% in the 1970s.</p>
+        <h2>VI. STATS, Inc. and the Data Revolution</h2>
 
-          <p>This shift reflects a cold statistical reality: a strikeout is only marginally worse than other outs, while a home run is the most valuable offensive event. If a batter can trade some strikeouts for more home runs, the math often favors that trade.</p>
-        `} />
+        <p>
+          Bill James could theorize about Range Factor, but he couldn't measure it precisely without detailed play-by-play data. That data didn't exist in any accessible form until a group of dedicated volunteers created it.
+        </p>
 
-        <Chart chartId="bb-strikeout-evolution" renderer="altair" />
+        <p>
+          Project Scoresheet began in 1984 as a volunteer effort to record every play of every major league game. Fans with scoresheets and cassette recorders would attend games, note every pitch and every play, and send their records to a central repository. It was obsessive, meticulous work—exactly the kind of thing that only true believers would undertake.
+        </p>
 
-        <Fragment set:html={`
-          <p>The chart traces this evolution year by year. Notice the acceleration after 2007. This coincides with the rise of pitch-tracking technology (PITCHf/x) and the analytics revolution. Teams began optimizing launch angles and exit velocities, teaching batters to swing harder at the cost of contact.</p>
+        <p>
+          The project evolved into STATS, Inc., a company founded by John Dewan and Don Zminda to collect, organize, and sell baseball data. Where the official box score recorded only the most basic information—hits, runs, errors—STATS tracked where every ball was hit, how every out was recorded, the count on every pitch. For the first time, analysts could answer questions that had been unanswerable: How often did this shortstop get to balls hit in the hole? How did this batter perform with two strikes? What was the average exit velocity on balls hit to center field?
+        </p>
 
-          <p>But the strikeout revolution has a counterpart: the home run explosion.</p>
+        <p>
+          The STATS Baseball Scoreboard, published annually beginning in 1987, brought this data to the public. For a generation of young fans—I was among them—the Scoreboard was a revelation. Here were the numbers that the newspapers didn't publish, the insights that the announcers didn't mention. Here was evidence that the conventional wisdom was often wrong.
+        </p>
 
-          <h2>Part IV: The Power Revolution</h2>
+        <p>
+          I remember reading that batting average with runners in scoring position was no more predictive than overall batting average—that players didn't consistently perform better or worse in "clutch" situations. I remember learning that stolen bases had to succeed at least 70% of the time to be worthwhile—that all those stolen base attempts were often costing teams runs. I remember discovering that sacrifice bunts almost never made sense, that managers who ordered them were hurting their teams.
+        </p>
 
-          <p>Home runs have increased dramatically over baseball's history, but not in a straight line. The trajectory reveals distinct phases corresponding to rule changes, equipment innovations, and cultural shifts in how the game is played.</p>
-        `} />
+        <p>
+          These weren't opinions. They were facts, derived from data that anyone could examine. The STATS Scoreboard democratized baseball analysis. You didn't need to work for a team to understand the game at a sophisticated level. You just needed to read the numbers and think about what they meant.
+        </p>
 
-        <Chart chartId="bb-home-run-evolution" renderer="altair" />
+        <Chart
+          chartId="saber-stolen-bases"
+          title="The Running Game: Stolen Bases Per Game"
+          caption="Stolen base attempts have fluctuated dramatically across eras. After peaking in the 1980s speed game, they declined as teams learned that caught stealings were too costly. The recent uptick reflects larger bases and new anti-shift rules that favor speed."
+        />
 
-        <Fragment set:html={`
-          <p>This chart shows home runs per team per season since 1901. Several inflection points stand out:</p>
+        <p>
+          STATS eventually sold to Fox Sports in 2000 for $45 million. Dewan went on to found Baseball Info Solutions, which produces the Fielding Bible and provides data to most major league teams. The company that began with volunteers keeping score at ballgames became the foundation of an industry.
+        </p>
 
-          <ul>
-            <li><strong>1920</strong>: The end of the Dead Ball Era and the rise of Babe Ruth</li>
-            <li><strong>1961</strong>: Expansion diluted pitching talent; Roger Maris hit 61 home runs</li>
-            <li><strong>1993-2006</strong>: The "Steroid Era" saw unprecedented power numbers</li>
-            <li><strong>2015-2019</strong>: The "Juiced Ball Era" brought another spike</li>
-          </ul>
+        <h2>VII. The Long Road to Moneyball</h2>
 
-          <p>The Steroid Era deserves particular attention. From 1993 to 2006, home run rates soared to levels never seen before or since. Players like Mark McGwire, Sammy Sosa, and Barry Bonds shattered records that had stood for decades. McGwire hit 70 home runs in 1998; Bonds hit 73 in 2001.</p>
+        <p>
+          Bill James published his annual Baseball Abstracts from 1977 to 1988. Each year the books grew longer, the analysis more sophisticated, the audience larger. By the mid-1980s, the Abstract was selling over 100,000 copies annually. James had become famous—at least among a certain kind of baseball fan.
+        </p>
 
-          <p>The subsequent revelation of widespread performance-enhancing drug use has cast a shadow over these accomplishments. But the statistical record remains. When we look at the all-time home run leaders, the Steroid Era dominates.</p>
+        <p>
+          But the teams weren't listening. James applied for jobs with multiple organizations and was rejected by all of them. He consulted briefly with the Oakland A's in the late 1980s, but the relationship didn't last. The methods he had spent a decade developing were ignored by the very people who could have benefited most from them.
+        </p>
 
-          <h2>Part V: The Immortals</h2>
+        <p>
+          The resistance was understandable in some ways. Baseball was a tradition-bound industry run by former players and scouts. These were men who had learned the game on the field, who trusted their eyes and their instincts. They had spent careers developing judgment that couldn't be reduced to numbers. To be told by an outsider—a man who had never played professional baseball—that their judgment was systematically flawed was insulting.
+        </p>
 
-          <p>Who are the greatest power hitters in baseball history? The answer depends on how much weight you give to different eras. But raw numbers tell their own story.</p>
-        `} />
+        <p>
+          There was also a legitimate methodological critique. James's methods worked well for offense but less well for defense and pitching. They captured what happened but not always why. A player might have good statistics in a lucky season and poor statistics in an unlucky one; knowing which was which required judgment that the numbers couldn't provide. The scouts weren't entirely wrong to resist.
+        </p>
 
-        <Chart chartId="bb-career-home-runs" renderer="altair" />
+        <p>
+          But the deeper resistance was cultural. Baseball didn't want to change. The game was doing fine financially. Fans were showing up. Television contracts were lucrative. Why fix what wasn't broken? The fact that teams were making bad decisions—overpaying for certain skills, undervaluing others—didn't seem like a problem as long as someone was willing to pay.
+        </p>
 
-        <Fragment set:html={`
-          <p>Barry Bonds leads with 762 career home runs. Hank Aaron follows with 755. Babe Ruth, despite playing in a different era with fewer games per season, hit 714. These three names tower above the rest.</p>
+        <p>
+          The change came gradually, then suddenly. Sandy Alderson became general manager of the Oakland A's in 1983 and began introducing analytical methods. His successors—Billy Beane and Paul DePodesta—took the revolution further, building competitive teams on small budgets by exploiting market inefficiencies. Their approach became the subject of Michael Lewis's <em>Moneyball</em>, published in 2003, which brought sabermetrics to a mainstream audience.
+        </p>
 
-          <p>But the list reveals the Steroid Era's influence. Alex Rodriguez (696), Jim Thome (612), and Sammy Sosa (609) all played during that period. Their numbers are inflated by an era that rewarded power above all else.</p>
+        <p>
+          After <em>Moneyball</em>, resistance collapsed. Team after team hired analysts, built statistical departments, embraced data-driven decision-making. The Boston Red Sox hired Bill James himself as a consultant in 2003—26 years after he published his first Abstract. The Red Sox won the World Series in 2004, breaking an 86-year championship drought. James finally had his vindication.
+        </p>
 
-          <p>Home runs, however, are only one measure of offensive excellence. Let us consider the more subtle art of consistent hitting.</p>
+        <h2>VIII. What the Pioneers Got Right</h2>
 
-          <h3>The Art of Contact</h3>
-        `} />
+        <p>
+          The sabermetric revolution rested on several core insights. Looking back across 120 years of baseball data, we can evaluate which of these insights have held up—and which have proven more complicated than the pioneers believed.
+        </p>
 
-        <Chart chartId="bb-career-batting-avg" renderer="altair" />
+        <p>
+          <strong>On-base percentage matters more than batting average.</strong> This was perhaps James's most important practical insight. Teams had traditionally valued high-average hitters, but getting on base through walks was almost as valuable as getting on base through hits. The difference was that walks were undervalued in the labor market—teams paid for batting average but got on-base percentage for free.
+        </p>
 
-        <Fragment set:html={`
-          <p>The career batting average leaders tell a different story. Ty Cobb leads with a .366 average, accumulated over 24 seasons from 1905 to 1928. Rogers Hornsby follows at .358. These names come primarily from the early 20th century, when contact hitting was the dominant philosophy.</p>
+        <p>
+          The data strongly supports this insight. Across all team-seasons since 1901, on-base percentage correlates more highly with runs scored than batting average does. The relationship is particularly strong in the modern era, when pitchers throw harder and strikeouts are more common. A walk is a guaranteed baserunner; a swing is a risk of making an out.
+        </p>
 
-          <p>Modern players rarely approach these figures. Why? Because the game has changed. Pitching has become more specialized. Batters face fresh arms from the bullpen instead of tired starters. And the emphasis on power means accepting more strikeouts.</p>
+        <p>
+          <strong>Stolen bases are overrated.</strong> James showed that a stolen base is only valuable if the success rate exceeds a certain threshold—typically around 70%. Below that threshold, the outs made when caught stealing cost more than the bases gained by successful steals. Most baserunners, especially in the modern era, don't have success rates high enough to justify the attempt.
+        </p>
 
-          <p>Tony Gwynn, the modern era's greatest contact hitter, finished with a .338 average. That ranks among the best of the post-war era but would have been merely excellent in Cobb's time.</p>
+        <p>
+          The stolen base chart confirms this analysis. After the speed-crazy 1980s, when teams like the Cardinals built their offenses around stolen bases, the running game declined. Teams realized that caught stealings were too costly. Only the fastest runners—those with success rates above 80%—were still given the green light.
+        </p>
 
-          <h2>Part VI: The Pitching Arms Race</h2>
+        <p>
+          <strong>Clutch hitting is mostly a myth.</strong> This was James's most controversial claim and remains contested. The argument is that hitting in "clutch" situations—with runners in scoring position, in close games, in the late innings—doesn't represent a persistent skill. A player who hits well in clutch situations one year is no more likely to do so the next year than any other player.
+        </p>
 
-          <p>If batters have evolved toward power, pitchers have evolved toward velocity. The average fastball velocity has increased dramatically since the advent of pitch-tracking technology. In 2008, the average four-seam fastball was 91 mph. By 2019, it exceeded 93 mph.</p>
+        <p>
+          The data largely supports this view. Year-to-year correlations for clutch performance are low. Players who appear to be great clutch hitters often regress toward their normal level of performance. The apparent clutch heroes of one season become ordinary the next. There may be some small persistent component of clutch ability, but it is far smaller than the conventional wisdom suggested.
+        </p>
 
-          <p>But the most dramatic change in pitching is not velocity. It is usage patterns. The complete game, once the hallmark of a great pitcher, has virtually disappeared.</p>
-        `} />
+        <p>
+          <strong>The Pythagorean formula works.</strong> As we saw earlier, James's formula for predicting wins from runs scored and allowed has proven remarkably robust. It works across eras, across different run-scoring environments, across different types of teams. It is one of the most validated relationships in sports analytics.
+        </p>
 
-        <Chart chartId="bb-complete-game-decline" renderer="altair" />
+        <p>
+          <strong>Runs Created works.</strong> The basic Runs Created formula predicts team runs with 97-99% accuracy across more than a century of baseball. It has been refined and improved—more complex versions add hit-by-pitches, sacrifice flies, caught stealings—but the fundamental insight remains valid. Offensive production can be measured, and the formula James developed in the early 1980s measures it accurately.
+        </p>
 
-        <Fragment set:html={`
-          <p>In 1901, pitchers completed more than 80% of the games they started. By 2019, that figure had collapsed to under 1%. This represents one of the most dramatic transformations in any sport's history.</p>
+        <Chart
+          chartId="saber-runs-created-2019"
+          title="Runs Created vs Actual Runs: 2019 Season"
+          caption="For each team in 2019, this chart shows the difference between actual runs scored and runs predicted by the basic Runs Created formula. Most teams fall within 20 runs of their prediction—remarkable accuracy for such a simple formula."
+        />
 
-          <p>What happened? The answer is bullpen specialization. Teams discovered that fresh arms are more effective than tired starters. A pitcher throwing 100 pitches has diminished velocity and command. A reliever entering in the seventh inning is at full strength.</p>
+        <h2>IX. What They Got Wrong</h2>
 
-          <p>The economics reinforced this shift. With millions of dollars invested in starting pitchers, teams became reluctant to risk injury by having them throw 120+ pitches. The "pitch count" became a strict limit, and complete games became rare achievements rather than routine expectations.</p>
+        <p>
+          No revolution is perfect. The pioneers made mistakes, and the industry that adopted their methods sometimes made bigger ones.
+        </p>
 
-          <h3>The Great Pitchers</h3>
+        <p>
+          <strong>Defense was undervalued, then overcorrected.</strong> James knew that fielding percentage was flawed and proposed Range Factor as an alternative. But Range Factor was crude—it couldn't separate team effects from individual effects, ballpark effects from skill. Teams initially ignored defense entirely, focusing on the offensive statistics that were easier to measure. Then advanced defensive metrics emerged—UZR, DRS, OAA—and teams swung the other direction, sometimes crediting players with defensive value that seemed implausible to those who watched the games.
+        </p>
 
-          <p>Despite these changes, certain pitchers have achieved statistical immortality through longevity and dominance. Let us examine the career wins leaders, a metric that rewards both excellence and durability.</p>
-        `} />
+        <p>
+          The truth is that defense remains hard to measure. Even the best modern metrics have large error bars. A player rated as elite by defensive metrics may actually be average; a player rated as below average may actually be good. The uncertainty is inherent in the data. The pioneers were right that defense matters; they underestimated how hard it would be to measure.
+        </p>
 
-        <Chart chartId="bb-career-wins" renderer="altair" />
+        <p>
+          <strong>Pitcher wins and losses are meaningless, but pitcher performance isn't.</strong> James correctly argued that the win-loss record for pitchers was largely determined by run support, bullpen performance, and luck—factors outside the pitcher's control. A pitcher could pitch brilliantly and lose because his team didn't score; he could pitch poorly and win because his team scored ten runs. The statistic was nearly useless for evaluation.
+        </p>
 
-        <Fragment set:html={`
-          <p>Cy Young leads with 511 wins, a record that will almost certainly never be broken. Young pitched from 1890 to 1911, an era when starters routinely threw over 300 innings per season. Modern pitchers rarely exceed 200 innings.</p>
+        <p>
+          But the industry overcorrected. In rejecting wins and losses, some analysts began to treat all pitching outcomes as equally random. ERA was dismissed because it included fielding-dependent plays. Only strikeouts, walks, and home runs—the "three true outcomes" for pitchers—were considered reliable. This went too far. Pitchers do have some control over balls in play. Pitchers who induce weak contact are more valuable than those who allow hard contact, even if both have similar strikeout rates.
+        </p>
 
-          <p>Walter Johnson (417 wins), Grover Cleveland Alexander (373), and Christy Mathewson (373) round out the top tier. These names all come from the early 20th century. The highest-ranked modern pitcher, Roger Clemens, has 354 wins, accumulated over 24 seasons.</p>
+        <p>
+          <strong>The market adapted faster than expected.</strong> The Moneyball thesis was that certain skills—on-base percentage, pitch framing, certain types of defense—were undervalued by the market, allowing smart teams to acquire them cheaply. But as soon as the book was published, those skills stopped being undervalued. Every team hired analysts. Every team ran the numbers. The market inefficiencies that Oakland had exploited in 2002 were largely gone by 2010.
+        </p>
 
-          <p>Strikeouts tell a different story. Here, modern pitchers dominate because they throw harder and face batters willing to strike out.</p>
-        `} />
+        <p>
+          This is actually a validation of the analytical approach—if the methods worked, you'd expect smart teams to adopt them and the inefficiencies to disappear. But it means that the easy wins are gone. Modern front offices can't just read Moneyball and find an edge. They have to go deeper, find more subtle inefficiencies, develop better methods than their competitors.
+        </p>
 
-        <Chart chartId="bb-career-strikeouts" renderer="altair" />
+        <p>
+          <strong>The game changed in unexpected ways.</strong> The analytical revolution encouraged certain styles of play—power hitting, high strikeouts, defensive shifts—that eventually transformed the game in ways the pioneers didn't anticipate. Home runs reached historic highs. Strikeouts exceeded hits for the first time in baseball history. Games grew longer and, some argued, less interesting.
+        </p>
 
-        <Fragment set:html={`
-          <p>Nolan Ryan leads with 5,714 career strikeouts, a number so dominant that it seems almost impossible. Ryan pitched for 27 seasons, from 1966 to 1993, spanning multiple eras. His fastball, which regularly exceeded 100 mph, was unhittable at its best.</p>
+        <p>
+          James himself has been critical of these developments. He championed on-base percentage, but he didn't want a game where every at-bat was a home run, strikeout, or walk. He valued sabermetrics as a tool for understanding baseball, not as a prescription for how the game should be played. The industry that adopted his methods sometimes forgot this distinction.
+        </p>
 
-          <p>Randy Johnson (4,875), Roger Clemens (4,672), and Steve Carlton (4,136) follow. These are all modern pitchers who benefited from the increased acceptance of strikeouts in modern baseball.</p>
+        <h2>X. The Legacy</h2>
 
-          <h2>Part VII: The Money Revolution</h2>
+        <p>
+          Bill James is now 75 years old. He works for the Boston Red Sox, offering the analysis that teams rejected for decades. The methods he pioneered are standard practice throughout baseball and have spread to every major professional sport. The outsider who couldn't get a job in baseball has seen his ideas adopted by every team.
+        </p>
 
-          <p>No examination of baseball's evolution is complete without discussing money. Player salaries have undergone exponential growth since the advent of free agency in 1975. The transformation is so dramatic that inflation-adjusted comparisons between eras become almost meaningless.</p>
-        `} />
+        <p>
+          Mike Gimbel's story is less triumphant. After his humiliation in Boston, he faded from public view. His contributions are largely forgotten, overshadowed by the Moneyball narrative that focused on Billy Beane and the Oakland A's. The man who helped build the 1992 Expos and advised the Red Sox in the mid-1990s has no Wikipedia page, no legacy beyond a few articles recounting his mistreatment.
+        </p>
 
-        <Chart chartId="bb-salary-growth" renderer="altair" />
+        <p>
+          STATS, Inc. evolved into the data infrastructure that powers modern sports. John Dewan's Fielding Bible became the reference for defensive analysis. The play-by-play data that volunteers collected with scoresheets in the 1980s is now captured automatically by sophisticated camera systems. Every pitch is tracked, every ball movement measured, every player's position recorded in real time. The data James dreamed of analyzing is now available in quantities he never imagined.
+        </p>
 
-        <Fragment set:html={`
-          <p>In 1985, the average MLB salary was $476,000. By 2016, it had risen to over $4 million, an increase of more than 800%. The maximum salary rose even more dramatically, from $2.1 million in 1985 to over $30 million by 2016.</p>
+        <p>
+          The revolution these pioneers started has had consequences beyond baseball. The methods they developed—using data to question conventional wisdom, seeking evidence rather than accepting tradition, valuing what you can measure over what you can't—have spread throughout the economy. Management consulting, political campaigns, medical treatment, criminal justice—all have been transformed by analytical approaches that share intellectual DNA with sabermetrics.
+        </p>
 
-          <p>What drove this explosion? Several factors:</p>
+        <p>
+          This is perhaps the deepest legacy of the sabermetric revolution. It wasn't just about baseball. It was about how we know things. The pioneers showed that careful analysis could reveal truths that intuition missed. They showed that expertise could be wrong, that tradition could be mistaken, that data could see what the eye could not. They showed that outsiders—a night watchman from Kansas, a water department employee from New York, volunteers with scoresheets at ballgames—could understand complex systems better than the professionals who ran them.
+        </p>
 
-          <ul>
-            <li><strong>Free agency</strong>: Players gained the right to negotiate with multiple teams, driving up prices</li>
-            <li><strong>Television revenue</strong>: Broadcast deals brought billions into the game</li>
-            <li><strong>Competitive markets</strong>: Large-market teams like the Yankees and Dodgers bid up salaries</li>
-            <li><strong>Revenue sharing</strong>: Even small-market teams gained resources to compete</li>
-          </ul>
+        <p>
+          This is a powerful and dangerous idea. Powerful because it democratizes knowledge, making expertise accessible to anyone willing to look at the data. Dangerous because it can be misapplied, treating all problems as quantifiable, reducing human judgment to algorithm, missing what the numbers can't capture.
+        </p>
 
-          <p>The result is a game where the best players earn more in a season than previous generations earned in their entire careers. Let us examine who commands the highest salaries.</p>
-        `} />
+        <p>
+          Bill James understood this from the beginning. He wrote not just about statistics but about the history of the game, the stories of the players, the texture of baseball as a human endeavor. His Abstracts were never just number-crunching; they were essays, arguments, thought experiments. He used data to illuminate rather than to reduce.
+        </p>
 
-        <Chart chartId="bb-top-salaries-2016" renderer="altair" />
+        <p>
+          The best inheritors of the sabermetric tradition understand this too. They use data as a tool for understanding, not as a substitute for judgment. They recognize that some things that matter can't be measured, that the numbers are always incomplete, that human insight remains essential. They stand on the shoulders of pioneers who showed that truth was in the data—while remembering that truth is bigger than any dataset.
+        </p>
 
-        <Fragment set:html={`
-          <p>In 2016, the highest-paid players earned over $25 million annually. These salaries reflect both performance and market dynamics. A player who can add several wins to a team's total is worth tens of millions in competitive advantage.</p>
+        <h2>XI. Personal Reflections</h2>
 
-          <h2>Part VIII: Team Dynasties</h2>
+        <p>
+          I was two years old when Bill James published his first Abstract. I was seven when I first encountered his work, borrowing my father's copy from the shelf. I was twelve when James stopped publishing his annual books, and I felt the loss keenly—where would I now find this kind of analysis?
+        </p>
 
-          <p>While individual players capture headlines, baseball is ultimately a team sport. Some franchises have dominated across decades, accumulating wins and championships at remarkable rates.</p>
-        `} />
+        <p>
+          The Abstracts shaped how I thought about baseball, but more importantly, they shaped how I thought about thinking. James taught me to question conventional wisdom, to look for evidence, to be skeptical of claims that couldn't be verified. He taught me that outsiders could sometimes see more clearly than insiders, that credentials didn't guarantee insight, that data could reveal patterns invisible to the naked eye.
+        </p>
 
-        <Chart chartId="bb-franchise-wins" renderer="altair" />
+        <p>
+          These lessons have proven more durable than any specific baseball insight. The Pythagorean formula and Runs Created are interesting, but the intellectual habits James modeled are transformational. Ask how we know what we think we know. Look for evidence. Be willing to be wrong. Update your beliefs when the data demands it.
+        </p>
 
-        <Fragment set:html={`
-          <p>The New York Yankees lead all franchises with over 10,000 all-time wins. This dominance spans the entire history of modern baseball, from the Babe Ruth era through the Joe DiMaggio years, the Mickey Mantle dynasty, and the Derek Jeter championship runs.</p>
+        <p>
+          Mike Gimbel's story resonated with me for different reasons. Here was someone who taught himself statistical analysis, who developed methods as sophisticated as any academic's, who was proven right in his predictions—and who was mocked and marginalized for his trouble. The baseball establishment couldn't accept that a water department employee might understand the game better than its professionals. They made him a cautionary tale.
+        </p>
 
-          <p>The San Francisco Giants (formerly New York Giants) and Los Angeles Dodgers (formerly Brooklyn Dodgers) follow. These three franchises represent the historical centers of American baseball: New York and its diaspora to California.</p>
+        <p>
+          But Gimbel was right. The players he identified as undervalued proved their worth. The methods he developed were eventually adopted by the entire industry. The expertise that the establishment used to dismiss him was the expertise that was wrong. In the end, the data won—even if Gimbel didn't get to enjoy the victory.
+        </p>
 
-          <p>Some individual seasons stand out as extraordinary. Let us examine teams that won 105 or more games.</p>
-        `} />
+        <p>
+          STATS, Inc. shaped my understanding of what was possible with data. Before the Scoreboard, baseball statistics were what the newspapers published—batting average, home runs, RBIs, wins, losses, ERA. The Scoreboard revealed an entire hidden world of information. Platoon splits. Performance by month. Runners in scoring position. Two-out situations. Every cut of the data told a different story.
+        </p>
 
-        <Chart chartId="bb-dynasty-teams" renderer="altair" />
+        <p>
+          I learned from STATS that data collection is itself an analytical act. What you choose to record shapes what you can later analyze. The official box score recorded certain things and ignored others; Project Scoresheet decided to record more. That decision—made by volunteers at ballparks in the 1980s—enabled analyses that the official data couldn't support.
+        </p>
 
-        <Fragment set:html={`
-          <p>The 2001 Seattle Mariners won 116 games, tying the 1906 Chicago Cubs for the all-time record. Yet the Mariners did not win the World Series that year, eliminated by the Yankees in the American League Championship Series. This illustrates a fundamental truth about baseball: regular-season dominance does not guarantee postseason success.</p>
+        <p>
+          These lessons apply far beyond baseball. In any field, the data you have determines the questions you can ask. The act of measuring is an act of defining what matters. The pioneers of sabermetrics understood this instinctively. They measured what conventional wisdom ignored because they understood that conventional wisdom was missing something important.
+        </p>
 
-          <p>The 1998 Yankees won 114 games and did win the World Series, capping one of the greatest seasons in baseball history. They are widely considered the best team of the modern era.</p>
+        <h2>XII. Conclusion: The Numbers Keep Talking</h2>
 
-          <h2>Part IX: The View from the Dugout</h2>
+        <p>
+          The game Bill James first analyzed in 1977 has changed almost beyond recognition. The Dead Ball Era's pitcher's duels have given way to an arms race of velocity and spin. The stolen base has declined and revived. The defensive shift has come and been banned. The analytics that once gave the Oakland A's an edge are now employed by every team in baseball.
+        </p>
 
-          <p>Behind every great team stands a manager making decisions that shape games and seasons. Let us examine the winningest managers in baseball history.</p>
-        `} />
+        <p>
+          But the fundamental challenge remains the same: understanding a complex system by carefully examining data. The tools have improved—Statcast tracks every pitch at 30 frames per second, measuring spin axis and release extension and approach angle. The methods have improved—machine learning models can process variables that James could only dream of analyzing. But the intellectual approach James pioneered endures.
+        </p>
 
-        <Chart chartId="bb-manager-wins" renderer="altair" />
+        <p>
+          Look at the data. Question what you think you know. Be willing to find that the experts are wrong. Trust the numbers, but remember what they can't tell you.
+        </p>
 
-        <Fragment set:html={`
-          <p>Connie Mack leads with 3,731 wins, accumulated over 53 seasons managing the Philadelphia Athletics. This longevity is unlikely to ever be matched; modern managers rarely last more than a decade with a single team.</p>
+        <p>
+          The pioneers of sabermetrics showed that truth was hiding in plain sight, in the box scores and play-by-play records that anyone could examine. They proved that careful analysis could outperform professional judgment. They demonstrated that outsiders—people with no credentials, no connections, no resources except curiosity and dedication—could revolutionize an industry.
+        </p>
 
-          <p>John McGraw (2,763 wins), Tony La Russa (2,728), and Bobby Cox (2,504) represent different eras and styles. McGraw managed the New York Giants in the Dead Ball Era, favoring small ball and aggressive baserunning. La Russa pioneered the modern use of specialist relievers. Cox managed the Atlanta Braves through their unprecedented streak of 14 consecutive division titles.</p>
+        <p>
+          These are lessons for more than baseball. In an age of misinformation and motivated reasoning, the sabermetric approach offers a model for finding truth. Start with data. Follow the evidence. Acknowledge uncertainty. Update your beliefs. Don't trust authority; trust verification.
+        </p>
 
-          <h2>Part X: The Pitcher-Hitter Balance</h2>
+        <p>
+          Bill James, Mike Gimbel, and the volunteers of STATS, Inc. didn't just change how we understand baseball. They showed that understanding is possible—that complex systems can be analyzed, that conventional wisdom can be tested, that truth can be found if you know how to look.
+        </p>
 
-          <p>Baseball's history can be understood as an ongoing battle between pitchers and hitters. Rule changes, equipment innovations, and strategic evolution have shifted the balance back and forth over more than a century.</p>
-        `} />
+        <p>
+          The numbers are still talking. We just have to keep listening.
+        </p>
 
-        <Chart chartId="bb-yearly-batting-avg" renderer="altair" />
-
-        <Fragment set:html={`
-          <p>This chart shows league batting average from 1901 to 2019. Several patterns emerge:</p>
-
-          <ul>
-            <li>The Dead Ball Era (1901-1919) shows consistently low averages around .250</li>
-            <li>The Live Ball Era (1920-1941) shows elevated averages, often exceeding .280</li>
-            <li>Post-war baseball (1946-1968) gradually shifted back toward pitching dominance</li>
-            <li>The 1968 season, "The Year of the Pitcher," saw the lowest batting average (.237) since the Dead Ball Era</li>
-            <li>Rule changes in 1969 (lowering the mound, shrinking the strike zone) helped hitters</li>
-            <li>The Steroid Era (1993-2006) showed elevated offense</li>
-            <li>Modern baseball has trended back toward pitching dominance</li>
-          </ul>
-
-          <p>The earned run average (ERA) tells the story from the pitcher's perspective.</p>
-        `} />
-
-        <Chart chartId="bb-yearly-era" renderer="altair" />
-
-        <Fragment set:html={`
-          <p>ERA has fluctuated dramatically. In 1930, the league ERA exceeded 4.80; in 1968, it dropped to 2.98. These swings represent the eternal struggle between offensive and defensive innovation.</p>
-
-          <p>When one side gains an advantage, the other adapts. Hitters learn to handle new pitches. Pitchers develop new weapons. The balance shifts, then shifts again. This dynamic tension is part of what makes baseball endlessly fascinating.</p>
-
-          <h2>Part XI: What the Numbers Reveal</h2>
-
-          <p>After exploring 120 years of baseball data, several conclusions emerge:</p>
-
-          <p><strong>Baseball has never been static.</strong> The game played in 1910 bears only superficial resemblance to the game played in 2010. Complete games have vanished. Strikeouts have doubled. Home runs have tripled. Salaries have increased by orders of magnitude.</p>
-
-          <p><strong>Eras are real.</strong> The data confirms what historians have long claimed: distinct periods exist in baseball history, defined by rule changes and cultural shifts. The Dead Ball Era, the Integration Era, the Steroid Era, and the Analytics Era each have distinct statistical signatures.</p>
-
-          <p><strong>Certain players transcend their eras.</strong> Babe Ruth dominated the Live Ball Era. Hank Aaron dominated the Integration Era. Barry Bonds dominated the Steroid Era. These players did not merely succeed within their contexts; they reshaped what was considered possible.</p>
-
-          <p><strong>Teams matter as much as individuals.</strong> The Yankees' dominance is not an accident. Organizations that build sustainable winning cultures accumulate advantages over decades. The data shows that some franchises consistently outperform while others consistently underperform.</p>
-
-          <p><strong>Money has transformed the game.</strong> Free agency created a labor market that rewards performance with unprecedented wealth. This has changed player behavior, team strategy, and the competitive landscape. The gap between large-market and small-market teams has widened, then narrowed, then widened again.</p>
-
-          <h2>Part XII: The Future of the Game</h2>
-
-          <p>Where is baseball headed? The data suggests several trends that are likely to continue:</p>
-
-          <p><strong>Strikeouts will remain elevated.</strong> As long as home runs are valued and pitchers throw harder, batters will accept strikeouts as a cost of doing business. The "three true outcomes" will continue to dominate.</p>
-
-          <p><strong>Starting pitchers will throw fewer innings.</strong> The economics of protecting expensive arms will continue to push teams toward bullpen-heavy strategies. Complete games will become even rarer.</p>
-
-          <p><strong>Analytics will drive strategy.</strong> Every swing, every pitch, every defensive alignment is now tracked and analyzed. Teams that use this data effectively will gain advantages over those that do not.</p>
-
-          <p><strong>Salaries will continue rising.</strong> As television revenue and streaming deals pour money into the game, player compensation will follow. The current highs will become tomorrow's baselines.</p>
-
-          <p>But the data also suggests that baseball adapts. When one side gains too much advantage, rules change. When fans lose interest, innovations emerge. The game has survived world wars, strikes, and scandals. It will continue to evolve.</p>
-
-          <h2>Conclusion</h2>
-
-          <p>Baseball is more than a sport. It is a statistical universe, a chronicle of American history, and an ongoing experiment in competitive balance. The Lahman Database gives us a window into this universe, allowing us to measure and compare across more than a century of play.</p>
-
-          <p>The numbers tell stories. Babe Ruth's 714 home runs tell the story of a man who revolutionized how the game is played. Nolan Ryan's 5,714 strikeouts tell the story of a pitcher who dominated for 27 seasons. The Yankees' 27 World Series titles tell the story of an organization that built dynasty after dynasty.</p>
-
-          <p>But the numbers also reveal deeper truths. They show us that eras matter, that context shapes performance, and that the game is always changing. What seems eternal today may be obsolete tomorrow. What seems impossible today may be routine in a decade.</p>
-
-          <p>This is the beauty of baseball data. It does not just record the past. It illuminates the forces that shape the game. And it reminds us that whatever happens next will eventually become data too, waiting for the next generation of analysts to discover its patterns and tell its stories.</p>
-        `} />
       </article>
     </main>
   </body>

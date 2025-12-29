@@ -32,10 +32,17 @@ def count_words(text: str) -> int:
 
 
 def extract_reading_time(content: str) -> int | None:
-    """Extract stated reading time from frontmatter."""
+    """Extract stated reading time from frontmatter or HTML meta tag."""
+    # Check frontmatter first
     match = re.search(r'readingTime:\s*["\']?(\d+)\s*min', content)
     if match:
         return int(match.group(1))
+
+    # Check HTML meta tag (e.g., <p class="meta">53 min read</p>)
+    match = re.search(r'class="meta"[^>]*>(\d+)\s*min\s*read', content)
+    if match:
+        return int(match.group(1))
+
     return None
 
 
@@ -80,14 +87,27 @@ def validate_article(path: Path) -> dict:
     }
 
 
+# Minimum word counts for pre-commit hook
+MINIMUM_WORDS = {
+    "one-hour": 10000,   # 50 min minimum for "one-hour" reads
+    "30-min": 5000,      # 25 min minimum
+    "15-min": 2500,      # 12.5 min minimum
+    "default": 2000,     # 10 min minimum for any article
+}
+
+
 def main():
     parser = argparse.ArgumentParser(description="Validate article reading times")
     parser.add_argument("--article", help="Specific article to validate (e.g., gdp/altair)")
+    parser.add_argument("--strict", action="store_true",
+                        help="Fail if any article is under minimum word count (for pre-commit)")
     args = parser.parse_args()
 
     print("=" * 60)
     print("Reading Time Validator")
     print("Target: 200 words per minute for technical content")
+    if args.strict:
+        print(f"STRICT MODE: Minimum {MINIMUM_WORDS['default']} words per article")
     print("=" * 60)
 
     if args.article:
@@ -106,8 +126,11 @@ def main():
                 result = validate_article(path)
                 print_result(result)
     else:
-        # Validate all articles
-        astro_files = list(ARTICLES_DIR.rglob("*.astro"))
+        # Validate all articles (skip redirect files like index.astro)
+        astro_files = [
+            f for f in ARTICLES_DIR.rglob("*.astro")
+            if f.name != "index.astro"  # Skip redirect files
+        ]
 
         if not astro_files:
             print("No articles found.")
@@ -132,6 +155,22 @@ def main():
 
         if invalid_count > 0:
             print("\nWARNING: Some articles don't match their stated reading time!")
+
+        # Strict mode: check minimum word counts
+        if args.strict:
+            under_minimum = [r for r in results if r["word_count"] < MINIMUM_WORDS["default"]]
+            if under_minimum:
+                print("\n" + "!" * 60)
+                print("STRICT MODE FAILURE: Articles under minimum word count!")
+                print("!" * 60)
+                for r in under_minimum:
+                    print(f"  {r['path']}: {r['word_count']} words (need {MINIMUM_WORDS['default']})")
+                print("\nDO NOT REMOVE ARTICLES - IMMEDIATELY ENHANCE THEM WITH MORE TEXT AND CHARTS!")
+                sys.exit(1)
+            else:
+                print("\nStrict mode: All articles meet minimum word count.")
+
+        if invalid_count > 0:
             sys.exit(1)
 
 

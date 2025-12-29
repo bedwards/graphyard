@@ -1,5 +1,112 @@
 # Claude Code Instructions for Graphyard
 
+## About the Author
+
+**Brian Edwards**
+- Email: brian.mabry.edwards@gmail.com
+- Location: Waco, Texas, USA
+- Born: 1975
+
+### Personal Context
+
+Brian grew up during the golden age of sabermetrics. His childhood heroes include:
+
+- **Bill James**: The godfather of sabermetrics. Brian was 2 when James published the first Baseball Abstract (1977), 7-13 during its peak years (1982-1988), and 12 when James published the final annual edition (1987). James's work taught Brian that careful analysis could reveal truths hidden in plain sight.
+
+- **Mike Gimbel**: The maverick sabermetrician who worked for the Montreal Expos. Brian was in his late teens during Gimbel's most influential work in the 1990s. Gimbel's story—an outsider who used data to beat the establishment—resonated deeply.
+
+- **STATS, Inc.**: The company that democratized baseball data. Founded 1981 (when Brian was 6), STATS provided the raw material that made amateur sabermetrics possible. Their annual handbooks were Brian's childhood obsession.
+
+This background explains the project's emphasis on sports analytics and the desire to write long-form, data-driven narratives in the tradition of these pioneers.
+
+---
+
+## Article Writing Philosophy
+
+**THE READER CARES ABOUT THE DOMAIN, NOT THE METHODOLOGY.**
+
+This is the single most important principle. Every article must:
+
+### 1. Be Domain-First, Always
+
+- **Wrong**: "Using XGBoost with 5-fold cross-validation, we achieved 94% accuracy predicting..."
+- **Right**: "The 1927 Yankees weren't just good—they were historically dominant. Here's why Ruth and Gehrig's combination has never been replicated."
+
+The reader came to learn about baseball, or economics, or climate. They didn't come to read about our data pipeline or ML framework. Methodology is invisible infrastructure—never the story.
+
+### 2. Thrill the Reader
+
+Every article should be **world-class writing** that:
+- Opens with a hook that makes readers want to continue
+- Uses vivid, concrete language (not abstract jargon)
+- Tells stories through the data, not about the data
+- Varies sentence and paragraph length
+- Surprises and delights with unexpected insights
+
+### 3. Charts Must Match Text
+
+**Before publishing, verify that every chart agrees with the surrounding text.**
+- If the text says "47% in 2023", the chart must show 47% in 2023
+- If the chart shows a decline, the text must discuss the decline
+- Never reference "the data" or "your data"—be specific: "American incomes", "World Bank figures"
+
+### 4. Reading Time Must Be Accurate
+
+| Target | Words | Validation |
+|--------|-------|------------|
+| One-hour read | ~12,000 words | `python scripts/validate_reading_time.py` |
+| 30-minute read | ~6,000 words | Check actual word count |
+| 15-minute read | ~3,000 words | Never round up |
+
+**Never declare an essay as 60 minutes if it's only 5,000 words.** Be truthful about reading times.
+
+**Pre-commit hook enforces minimum word counts:**
+```bash
+# The hook runs automatically on commit
+# If articles are under 2,000 words, commit is BLOCKED
+
+# Manual validation:
+python scripts/validate_reading_time.py
+python scripts/validate_reading_time.py --strict  # Pre-commit mode
+```
+
+**DO NOT REMOVE ARTICLES - IMMEDIATELY ENHANCE THEM WITH MORE TEXT AND CHARTS!**
+
+### 5. More Charts, Integrated Charts
+
+Charts are not decorations—they're essential to the argument:
+- A one-hour essay should have 8-12 charts minimum
+- Each chart must be introduced and discussed in the surrounding text
+- Place charts where they naturally support the narrative
+- Use captions to add context the reader needs
+
+### 6. Article Structure
+
+| Section | Purpose |
+|---------|---------|
+| Opening hook | Grab attention, establish stakes |
+| Historical/contextual foundation | Build understanding |
+| Core analysis with charts | The heart of the essay |
+| Synthesis and implications | What does it mean? |
+| Forward-looking conclusion | What's next? |
+
+### Current Articles
+
+| Article | Domain | Words | Reading Time | Status |
+|---------|--------|-------|--------------|--------|
+| Beyond Growth | Economics | 8,087 | 40 min | Complete |
+| GDP | Economics | 9,392 | 47 min | Complete |
+| Marx | Economics | 10,666 | 53 min | Complete |
+| Baseball | Sports | 6,080 | 30 min | **Needs expansion to 60 min** |
+
+**Note on Baseball Article**: A tribute to Bill James, Mike Gimbel, and STATS, Inc.
+Should be expanded to true one-hour read (12,000 words) with more content on:
+- More detailed player case studies
+- Extended sections on each pioneer
+- Additional chart integration
+
+---
+
 ## Project Overview
 
 Graphyard is a multi-domain data analysis and visualization project. Each domain has its own data source, data loaders, and essay-style articles:

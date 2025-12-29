@@ -72,7 +72,7 @@ export const articles: Article[] = [
     title: "Capital in the Twenty-First Century: A Ghost's Perspective",
     description:
       "What would Karl Marx say if he could examine modern economic data? A retrospective analysis of capitalism's evolution through Marxist theory—concentration of capital, financialization, periodic crises, and what the data reveals about the future.",
-    readingTime: "60 min",
+    readingTime: "53 min",
     publishDate: "2025-01-28",
     category: "pushing-boundaries",
     tags: ["marxism", "inequality", "capitalism", "political economy", "financialization"],
@@ -83,7 +83,7 @@ export const articles: Article[] = [
     title: "Beyond Growth: Rethinking Progress for a Finite Planet",
     description:
       "Drawing on the work of Jason Hickel and David Graeber, an exploration of why endless growth is impossible, what economies are actually for, and what comes after the growth imperative.",
-    readingTime: "55 min",
+    readingTime: "40 min",
     publishDate: "2025-01-20",
     category: "pushing-boundaries",
     tags: ["degrowth", "ecological economics", "post-growth", "inequality"],
@@ -102,13 +102,13 @@ export const articles: Article[] = [
   {
     slug: "baseball/altair",
     domain: "sports",
-    title: "The Evolution of Baseball: 120 Years of Data",
+    title: "The Numbers Game: How Bill James Changed Baseball",
     description:
-      "A first-principles exploration of how baseball has transformed from the Dead Ball Era to the Modern Age of analytics, told through the Lahman database covering every player since 1871.",
-    readingTime: "55 min",
-    publishDate: "2025-01-25",
-    category: "latest-research",
-    tags: ["baseball", "sabermetrics", "sports analytics", "lahman"],
+      "A tribute to the sabermetrics pioneers—Bill James, Mike Gimbel, and STATS, Inc.—who proved that careful analysis could reveal truths hidden in plain sight.",
+    readingTime: "30 min",
+    publishDate: "2025-01-29",
+    category: "pushing-boundaries",
+    tags: ["sabermetrics", "bill james", "baseball analytics", "moneyball"],
   },
 ];
 

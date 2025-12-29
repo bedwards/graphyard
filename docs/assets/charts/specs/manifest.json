@@ -222,5 +222,37 @@
   {
     "chartId": "marx-manufacturing-decline",
     "specFile": "marx-manufacturing-decline.json"
+  },
+  {
+    "chartId": "saber-hr-evolution",
+    "specFile": "saber-hr-evolution.json"
+  },
+  {
+    "chartId": "saber-batting-avg",
+    "specFile": "saber-batting-avg.json"
+  },
+  {
+    "chartId": "saber-k-bb-rates",
+    "specFile": "saber-k-bb-rates.json"
+  },
+  {
+    "chartId": "saber-stolen-bases",
+    "specFile": "saber-stolen-bases.json"
+  },
+  {
+    "chartId": "saber-runs-created-accuracy",
+    "specFile": "saber-runs-created-accuracy.json"
+  },
+  {
+    "chartId": "saber-pythagorean-scatter",
+    "specFile": "saber-pythagorean-scatter.json"
+  },
+  {
+    "chartId": "saber-pythagorean-outliers",
+    "specFile": "saber-pythagorean-outliers.json"
+  },
+  {
+    "chartId": "saber-runs-created-2019",
+    "specFile": "saber-runs-created-2019.json"
   }
 ]

@@ -78,6 +78,17 @@ from charts.marx.data import (
     load_us_financialization,
     load_global_inequality_comparison,
 )
+from charts.sabermetrics.data import (
+    load_pythagorean_validation,
+    load_pythagorean_accuracy_by_decade,
+    load_runs_created_validation,
+    load_runs_created_historical,
+    load_home_run_evolution,
+    load_batting_average_evolution,
+    load_strikeout_walk_evolution,
+    load_stolen_base_evolution,
+    load_pythagorean_outliers,
+)
 
 OUTPUT_DIR_ALTAIR = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "altair"
 OUTPUT_DIR_PLOT = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "plot"
@@ -809,6 +820,113 @@ def get_marx_chart_specs() -> list[ChartSpec]:
     ]
 
 
+def get_sabermetrics_chart_specs() -> list[ChartSpec]:
+    """Define all Sabermetrics Pioneers article charts."""
+    return [
+        # Home run evolution - shows game transformation
+        ChartSpec(
+            chart_id="saber-hr-evolution",
+            chart_type=ChartType.LINE,
+            title="The Long Ball Era: Home Runs Per Game (1901-2019)",
+            data_source=load_home_run_evolution,
+            x="year_id",
+            y="hr_per_game",
+            x_label="Year",
+            y_label="Home Runs Per Game",
+            x_format="year",
+        ),
+        # Batting average evolution - Dead Ball to Modern
+        ChartSpec(
+            chart_id="saber-batting-avg",
+            chart_type=ChartType.LINE,
+            title="The Hitter's Game: League Batting Average (1901-2019)",
+            data_source=load_batting_average_evolution,
+            x="year_id",
+            y="league_avg",
+            x_label="Year",
+            y_label="League Batting Average",
+            x_format="year",
+        ),
+        # Strikeout/Walk evolution - Three True Outcomes
+        ChartSpec(
+            chart_id="saber-k-bb-rates",
+            chart_type=ChartType.LINE,
+            title="The Strikeout Revolution: K% and BB% (1901-2019)",
+            data_source=lambda: load_strikeout_walk_evolution().melt(
+                id_vars=['year_id'],
+                value_vars=['k_rate', 'bb_rate'],
+                var_name='stat_type',
+                value_name='rate'
+            ).replace({'k_rate': 'Strikeout Rate', 'bb_rate': 'Walk Rate'}),
+            x="year_id",
+            y="rate",
+            color="stat_type",
+            x_label="Year",
+            y_label="Rate (%)",
+            x_format="year",
+        ),
+        # Stolen base evolution
+        ChartSpec(
+            chart_id="saber-stolen-bases",
+            chart_type=ChartType.LINE,
+            title="The Running Game: Stolen Bases Per Game (1920-2019)",
+            data_source=load_stolen_base_evolution,
+            x="year_id",
+            y="sb_per_game",
+            x_label="Year",
+            y_label="Stolen Bases Per Game",
+            x_format="year",
+        ),
+        # Runs Created historical accuracy
+        ChartSpec(
+            chart_id="saber-runs-created-accuracy",
+            chart_type=ChartType.LINE,
+            title="Bill James Was Right: Runs Created Formula Accuracy (1901-2019)",
+            data_source=load_runs_created_historical,
+            x="year_id",
+            y="accuracy_pct",
+            x_label="Year",
+            y_label="Prediction Accuracy (%)",
+            x_format="year",
+        ),
+        # Pythagorean validation scatter plot
+        ChartSpec(
+            chart_id="saber-pythagorean-scatter",
+            chart_type=ChartType.SCATTER,
+            title="Pythagorean Expectation: Predicted vs Actual Wins (2015-2019)",
+            data_source=lambda: load_pythagorean_validation(2015, 2019),
+            x="expected_wins",
+            y="wins",
+            x_label="Pythagorean Expected Wins",
+            y_label="Actual Wins",
+        ),
+        # Pythagorean outliers - lucky/unlucky teams
+        ChartSpec(
+            chart_id="saber-pythagorean-outliers",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Luck vs Skill: Greatest Pythagorean Over/Underperformers",
+            data_source=lambda: load_pythagorean_outliers().assign(
+                label=lambda df: df['year_id'].astype(str) + ' ' + df['name']
+            ).nlargest(10, 'pythagorean_diff'),
+            x="label",
+            y="pythagorean_diff",
+            x_label="Team-Season",
+            y_label="Wins Over Expected",
+        ),
+        # Runs Created vs Actual (bar comparison for 2019)
+        ChartSpec(
+            chart_id="saber-runs-created-2019",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Runs Created vs Actual Runs (2019 Season)",
+            data_source=lambda: load_runs_created_validation(2019).head(15),
+            x="name",
+            y="rc_error",
+            x_label="Team",
+            y_label="Actual - Predicted Runs",
+        ),
+    ]
+
+
 def render_altair(specs: list[ChartSpec]) -> int:
     """Render charts using Altair."""
     from charts.altair_renderer import AltairRenderer
@@ -901,13 +1019,15 @@ def main():
     beyond_growth_specs = get_beyond_growth_chart_specs()
     baseball_specs = get_baseball_chart_specs()
     marx_specs = get_marx_chart_specs()
-    specs = gdp_specs + beyond_growth_specs + baseball_specs + marx_specs
+    sabermetrics_specs = get_sabermetrics_chart_specs()
+    specs = gdp_specs + beyond_growth_specs + baseball_specs + marx_specs + sabermetrics_specs
 
     print(f"\nFound {len(specs)} chart specifications")
     print(f"  - GDP article: {len(gdp_specs)} charts")
     print(f"  - Beyond Growth article: {len(beyond_growth_specs)} charts")
     print(f"  - Baseball article: {len(baseball_specs)} charts")
     print(f"  - Marx article: {len(marx_specs)} charts")
+    print(f"  - Sabermetrics article: {len(sabermetrics_specs)} charts")
 
     # Export specs for TypeScript (always needed for Plot)
     export_specs_for_plot(specs)
