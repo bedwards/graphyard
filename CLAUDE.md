@@ -7,13 +7,14 @@ Graphyard is a multi-domain data analysis and visualization project. Each domain
 | Domain | Data Source | Schema | Articles |
 |--------|-------------|--------|----------|
 | Economics | World Development Indicators (WDI) | `public` | GDP, Beyond Growth |
+| Economics | Our World in Data (OWID) | TBD | TBD |
 | Sports Analytics | Lahman Baseball Database | `lahman` | Baseball Evolution |
 | Sports Analytics | NCAA Basketball (Kaggle March Madness) | TBD | TBD |
 | Education | Census School Finance (F-33) | TBD | TBD |
 | Education | Census SAIPE (School District Poverty) | TBD | TBD |
 | Reference | Census Geographic Codes | - | - |
 
-See also: [WDI.md](WDI.md), [LAHMAN.md](LAHMAN.md), [NCAA_BASKETBALL.md](NCAA_BASKETBALL.md), [CENSUS_SCHOOL_FINANCE.md](CENSUS_SCHOOL_FINANCE.md), [CENSUS_SAIPE.md](CENSUS_SAIPE.md), [CENSUS_GEO.md](CENSUS_GEO.md)
+See also: [WDI.md](WDI.md), [OWID.md](OWID.md), [LAHMAN.md](LAHMAN.md), [NCAA_BASKETBALL.md](NCAA_BASKETBALL.md), [CENSUS_SCHOOL_FINANCE.md](CENSUS_SCHOOL_FINANCE.md), [CENSUS_SAIPE.md](CENSUS_SAIPE.md), [CENSUS_GEO.md](CENSUS_GEO.md)
 
 The project includes:
 
@@ -56,6 +57,10 @@ datasets/                    # All source data - GITIGNORED
 │   ├── national_county2020.txt  # County FIPS codes (3,235 counties)
 │   ├── cbsa_delineation_2020.xls  # Metro/micro area definitions
 │   └── all-geocodes-v2023.xlsx   # Complete geographic hierarchy
+├── owid/                    # Our World in Data charts
+│   ├── chart_index.json     # Index of all published charts (4,513)
+│   ├── charts/              # CSV data for each chart
+│   └── metadata/            # JSON metadata for each chart
 └── *_clean/                 # Processed files (as needed)
 ```
 
