@@ -9,12 +9,14 @@ Graphyard is a multi-domain data analysis and visualization project. Each domain
 | Economics | World Development Indicators (WDI) | `public` | GDP, Beyond Growth |
 | Economics | Our World in Data (OWID) | TBD | TBD |
 | Sports Analytics | Lahman Baseball Database | `lahman` | Baseball Evolution |
+| Sports Analytics | Retrosheet (Game Logs + Events) | TBD | TBD |
+| Sports Analytics | Statcast / Baseball Savant | TBD | TBD |
 | Sports Analytics | NCAA Basketball (Kaggle March Madness) | TBD | TBD |
 | Education | Census School Finance (F-33) | TBD | TBD |
 | Education | Census SAIPE (School District Poverty) | TBD | TBD |
 | Reference | Census Geographic Codes | - | - |
 
-See also: [WDI.md](WDI.md), [OWID.md](OWID.md), [LAHMAN.md](LAHMAN.md), [NCAA_BASKETBALL.md](NCAA_BASKETBALL.md), [CENSUS_SCHOOL_FINANCE.md](CENSUS_SCHOOL_FINANCE.md), [CENSUS_SAIPE.md](CENSUS_SAIPE.md), [CENSUS_GEO.md](CENSUS_GEO.md)
+See also: [WDI.md](WDI.md), [OWID.md](OWID.md), [LAHMAN.md](LAHMAN.md), [RETROSHEET.md](RETROSHEET.md), [STATCAST.md](STATCAST.md), [NCAA_BASKETBALL.md](NCAA_BASKETBALL.md), [CENSUS_SCHOOL_FINANCE.md](CENSUS_SCHOOL_FINANCE.md), [CENSUS_SAIPE.md](CENSUS_SAIPE.md), [CENSUS_GEO.md](CENSUS_GEO.md)
 
 The project includes:
 
@@ -61,19 +63,42 @@ datasets/                    # All source data - GITIGNORED
 │   ├── chart_index.json     # Index of all published charts (4,513)
 │   ├── charts/              # CSV data for each chart
 │   └── metadata/            # JSON metadata for each chart
+├── retrosheet/              # Retrosheet baseball data
+│   ├── gamelogs/            # Game summaries 1871-2024 (224 MB, 159 files)
+│   └── events/              # Play-by-play 1910-2024 (882 MB, 5,413 files)
+├── statcast/                # Baseball Savant Statcast data
+│   └── statcast_YYYY.csv    # Pitch-by-pitch data (~500 MB/season)
 └── *_clean/                 # Processed files (as needed)
 ```
 
 **NEVER use `chmod +w` on these files. NEVER modify them directly.**
 
-### 2. Naming Conventions
+**Sample vs Full Downloads**: Some large datasets (OWID, Statcast) may only have samples downloaded initially. Do not hesitate to download additional data when needed for an essay. Use the download scripts in `scripts/`.
+
+### 2. Database Architecture
+
+Each domain uses its own PostgreSQL schema in the `graphyard` database:
+
+| Schema | Domain | Tables |
+|--------|--------|--------|
+| `public` | WDI Economics | indicators, entities, country_data, etc. |
+| `lahman` | Baseball (Lahman) | people, batting, pitching, teams, etc. |
+| `baseball` | Baseball (unified) | Consolidated tables with FK constraints |
+
+**Design Principles**:
+- **Normalized**: No duplicate data; use foreign keys
+- **Master Entity Tables**: Resolve keys across datasets (e.g., countries, players)
+- **Prefix tables by source** when consolidating: `lahman_batting`, `retrosheet_events`
+- **Foreign key constraints** enforce referential integrity
+
+### 3. Naming Conventions
 
 Always use **"Indicator"** terminology, never "Series":
 - Column names: `indicator_code`, `indicator_name`
 - Variable names: `indicator`, not `series`
 - **WDICSV.csv is the source of truth** for indicator names (not WDISeries.csv)
 
-### 3. Output Locations
+### 4. Output Locations
 
 - **Cleaned CSV files**: `datasets/WDI_CSV_clean/`
 - **Database**: PostgreSQL `graphyard` database
