@@ -137,6 +137,17 @@ export const articles: Article[] = [
     category: "pushing-boundaries",
     tags: ["ncaa", "march madness", "prediction", "machine learning", "kenpom", "analytics"],
   },
+  {
+    slug: "cubs-2016/altair",
+    domain: "sports",
+    title: "The 2016 Chicago Cubs: A Data-Driven Dynasty That Wasn't",
+    description:
+      "How Theo Epstein, Tom Tango, and Ryan Kruse used analytics to end a 108-year drought, and why one of baseball's most talented rosters won only a single championship.",
+    readingTime: "30 min",
+    publishDate: "2025-02-01",
+    category: "pushing-boundaries",
+    tags: ["baseball", "cubs", "sabermetrics", "tom tango", "analytics", "moneyball"],
+  },
 ];
 
 /**

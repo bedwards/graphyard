@@ -1,0 +1,580 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-iobz33cc> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="How the Cubs used analytics and machine learning to end a 108-year drought, why they only won one championship, and what the data reveals about building a dynasty."><title>The 2016 Chicago Cubs: A Data-Driven Dynasty That Wasn't | Graphyard</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet"><style>figure[data-astro-cid-jpiiosee]{margin:2.5rem 0}figure[data-astro-cid-jpiiosee] img[data-astro-cid-jpiiosee]{width:100%;height:auto;display:block;background:#fafafa;border-radius:8px;padding:1rem}figcaption[data-astro-cid-jpiiosee]{margin-top:.75rem;font-size:.9rem;color:var(--color-text-muted, #4a5568);line-height:1.6}figcaption[data-astro-cid-jpiiosee] strong[data-astro-cid-jpiiosee]{display:block;color:var(--color-text, #1a1a2e);font-weight:600;margin-bottom:.25rem}figure[data-astro-cid-jpiiosee].wide{max-width:960px}@media(min-width:1100px){figure[data-astro-cid-jpiiosee].wide{width:960px;margin-left:-120px}}
+:root{--color-text: #1a1a2e;--color-text-muted: #4a5568;--color-background: #ffffff;--color-accent: #2563eb;--color-border: #e5e7eb;--font-sans: "Lexend", system-ui, sans-serif}[data-astro-cid-iobz33cc]{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--font-sans);color:var(--color-text);background:var(--color-background);line-height:1.7;font-size:18px;font-weight:350}.container[data-astro-cid-iobz33cc]{max-width:720px;margin:0 auto;padding:3rem 1.5rem}.back-link[data-astro-cid-iobz33cc]{display:inline-flex;align-items:center;gap:.5rem;color:var(--color-text-muted);text-decoration:none;font-size:.95rem;margin-bottom:2rem;transition:color .2s}.back-link[data-astro-cid-iobz33cc]:hover{color:var(--color-accent)}h1[data-astro-cid-iobz33cc]{font-size:2.5rem;font-weight:600;line-height:1.2;margin-bottom:1rem;letter-spacing:-.02em}.subtitle[data-astro-cid-iobz33cc]{font-size:1.25rem;color:var(--color-text-muted);margin-bottom:2rem;font-weight:350}h2[data-astro-cid-iobz33cc]{font-size:1.75rem;font-weight:600;margin:3rem 0 1.5rem;letter-spacing:-.01em}h3[data-astro-cid-iobz33cc]{font-size:1.35rem;font-weight:500;margin:2rem 0 1rem}p[data-astro-cid-iobz33cc]{margin-bottom:1.5rem}.lead[data-astro-cid-iobz33cc]{font-size:1.2rem;color:var(--color-text-muted);margin-bottom:2rem}.highlight[data-astro-cid-iobz33cc]{background:linear-gradient(120deg,#fef3c7,#fde68a);padding:.1em .3em;border-radius:.2em}blockquote[data-astro-cid-iobz33cc]{border-left:3px solid var(--color-accent);padding-left:1.5rem;margin:2rem 0;font-style:italic;color:var(--color-text-muted)}ul[data-astro-cid-iobz33cc],ol[data-astro-cid-iobz33cc]{margin:1.5rem 0;padding-left:1.5rem}li[data-astro-cid-iobz33cc]{margin-bottom:.75rem}.chart-container[data-astro-cid-iobz33cc]{margin:2.5rem 0}strong[data-astro-cid-iobz33cc]{font-weight:600}a[data-astro-cid-iobz33cc]{color:var(--color-accent);text-decoration:none}a[data-astro-cid-iobz33cc]:hover{text-decoration:underline}.data-callout[data-astro-cid-iobz33cc]{background:#f8fafc;border:1px solid var(--color-border);border-radius:.5rem;padding:1.5rem;margin:2rem 0}.data-callout[data-astro-cid-iobz33cc] h4[data-astro-cid-iobz33cc]{font-size:.9rem;text-transform:uppercase;letter-spacing:.05em;color:var(--color-accent);margin-bottom:.75rem}.sources[data-astro-cid-iobz33cc]{margin-top:4rem;padding-top:2rem;border-top:1px solid var(--color-border);font-size:.95rem;color:var(--color-text-muted)}.sources[data-astro-cid-iobz33cc] h3[data-astro-cid-iobz33cc]{font-size:1.1rem;margin-bottom:1rem}
+</style></head> <body data-astro-cid-iobz33cc> <div class="container" data-astro-cid-iobz33cc> <a href="/" class="back-link" data-astro-cid-iobz33cc> <span data-astro-cid-iobz33cc>&larr;</span> Back to Graphyard
+</a> <article data-astro-cid-iobz33cc> <h1 data-astro-cid-iobz33cc>The 2016 Chicago Cubs: A Data-Driven Dynasty That Wasn't</h1> <p class="subtitle" data-astro-cid-iobz33cc>
+How advanced analytics and machine learning ended a 108-year drought,
+          and why one of baseball's most talented rosters won only a single championship.
+</p> <p class="lead" data-astro-cid-iobz33cc>
+On November 2, 2016, the Chicago Cubs defeated the Cleveland Indians in Game 7 of the
+          World Series, ending the longest championship drought in North American professional
+          sports. The final score was 8-7 in 10 innings, capping one of the most dramatic games
+          in baseball history. Goats and curses were finally exorcised. A city wept with joy.
+          For Cubs fans who had waited generations, the moment was transcendent.
+          But for students of baseball analytics, the Cubs' championship represented something equally
+          significant: the culmination of one of the most sophisticated data-driven rebuilds the
+          sport had ever seen.
+</p> <p data-astro-cid-iobz33cc>
+This is the story of how the Cubs used cutting-edge analytics to assemble a championship
+          roster, why their window closed faster than expected, and what the data reveals about
+          the elusive quest to build a dynasty in modern baseball.
+</p> <h2 data-astro-cid-iobz33cc>Part I: The Architect Arrives</h2> <p data-astro-cid-iobz33cc>
+When Theo Epstein left the Boston Red Sox to become the Cubs' President of Baseball
+          Operations in October 2011, he inherited a franchise that had become synonymous with
+          failure. The Cubs hadn't won a World Series since 1908, hadn't even appeared in one
+          since 1945, and had finished with a losing record in six of the previous nine seasons.
+          The farm system was barren. The major league roster was aging. The path forward was clear:
+          burn it down and rebuild from scratch.
+</p> <p data-astro-cid-iobz33cc>
+Epstein brought more than just a resume that included breaking Boston's 86-year drought
+          in 2004. He brought a philosophy rooted in data, analytics, and process over outcomes.
+          In Boston, he had worked with Bill James, the godfather of sabermetrics. He understood
+          that baseball's traditional evaluation methods—scouting reports, batting average, wins
+          and losses for pitchers—were incomplete at best, misleading at worst. The Cubs rebuild
+          would be different. It would be scientific.
+</p> <p data-astro-cid-iobz33cc>
+The first two years were brutal by design. The Cubs lost 101 games in 2012 and 96 in 2013.
+          But these weren't aimless losses. Every roster decision was made with an eye toward
+          acquiring draft picks and identifying undervalued talent. The Cubs weren't just tanking;
+          they were accumulating assets with mathematical precision.
+</p> <p data-astro-cid-iobz33cc>
+Consider the specific moves Epstein made during those early years. In 2012, Epstein traded Ryan Dempster, the team's best
+          pitcher, at the trade deadline for prospects. The return included Kyle Hendricks, a minor league arm with
+          mediocre stuff but exceptional command. Traditional scouting saw a future back-of-the-rotation
+          starter at best. The Cubs' analytics saw something more valuable. They also traded Paul Maholm and Reed
+          Johnson for prospects, stripped the roster of any player with positive trade value, and
+          deliberately fielded a team designed to lose games in pursuit of draft position.
+</p> <p data-astro-cid-iobz33cc>
+The 2012 Cubs had a team WAR (Wins Above Replacement) of just 19.8—the lowest in all of baseball that year.
+          Their starting rotation combined for a mere 3.1 WAR. Their offense produced a collective wOBA of
+          .299, well below league average. But in the amateur draft that year, they selected Albert
+          Almora Jr. with the sixth overall pick. In 2013, with another high pick secured, they took
+          Kris Bryant second overall. The tank was working exactly as designed and hoped.
+</p> <p data-astro-cid-iobz33cc>
+What separated the Cubs' rebuild from other tanking attempts was the intentionality. They
+          didn't just lose; they lost while building infrastructure. They invested heavily in player
+          development, hiring coaches who could translate raw talent into major league production.
+          They built scouting networks in Latin America and Asia. They created analytical systems
+          that could identify market inefficiencies before anyone else. The losing seasons were
+          investments, not surrenders.
+</p> <div class="chart-container" data-astro-cid-iobz33cc> <figure data-astro-cid-jpiiosee> <img src="/graphyard/assets/charts/altair/cubs-rebuild-arc.svg" alt="Chart: undefined" loading="lazy" data-astro-cid-jpiiosee> <figcaption data-astro-cid-jpiiosee> <strong data-astro-cid-jpiiosee></strong>  </figcaption> </figure>  </div> <p data-astro-cid-iobz33cc>
+The chart above tells the story in stark terms. Win totals bottomed out at 61 in 2012,
+          then climbed steadily: 66, 73, 97, 103. The 2016 team won 103 games in the regular season,
+          the most by a Cubs team since 1910. Their run differential of +252 was the highest in
+          baseball since the 1998 Yankees.
+</p> <h2 data-astro-cid-iobz33cc>Part II: The Analytics Revolution in the Front Office</h2> <p data-astro-cid-iobz33cc>
+The Cubs' rebuild wasn't just about acquiring talent. It was about evaluating talent
+          differently than their competitors. Central to this effort was <strong data-astro-cid-iobz33cc>Tom Tango</strong>,
+          one of the most influential baseball analysts of the 21st century, who joined the Cubs
+          as a consultant in 2013.
+</p> <p data-astro-cid-iobz33cc>
+Tango, whose real name is Tom Tango (he originally used just his first name as a
+          pseudonym in the sabermetric community), had co-authored "The Book: Playing the
+          Percentages in Baseball" in 2006, which became a foundational text in modern baseball
+          analytics. The book introduced or refined several concepts that the Cubs would use
+          extensively:
+</p> <h3 data-astro-cid-iobz33cc>wOBA: Weighted On-Base Average</h3> <p data-astro-cid-iobz33cc>
+Traditional batting average treats all hits equally. A single counts the same as a
+          home run. Obviously, this is wrong. Tango's wOBA assigns different weights to different
+          offensive events based on their actual run value. A home run is worth roughly twice as
+          much as a single. A walk is worth almost as much as a single. This metric allows teams
+          to identify players who are actually producing runs, not just accumulating hits.
+</p> <p data-astro-cid-iobz33cc>
+The league average wOBA hovers around .320. In 2016, Kris Bryant posted a .396 wOBA,
+          Anthony Rizzo hit .382, and Ben Zobrist contributed .371. The Cubs' lineup was stacked
+          with players who created runs at elite rates, even if their traditional stats didn't
+          always reflect it.
+</p> <p data-astro-cid-iobz33cc>
+Consider what this means in practice. A player hitting .280 with 10 home runs and 50 walks
+          might have a higher wOBA than a player hitting .300 with 15 home runs but only 20 walks.
+          The first player is getting on base more often and doing so in ways that correlate with
+          run production. Traditional scouts might prefer the .300 hitter. The Cubs' models knew
+          better.
+</p> <p data-astro-cid-iobz33cc>
+The Cubs used wOBA not just for player evaluation but for lineup construction. Joe Maddon's
+          lineups were optimized to maximize run expectancy based on wOBA and platoon splits. High-wOBA
+          hitters were clustered together to create chain-reaction scoring opportunities. The analytics
+          department could model expected runs for any lineup configuration, allowing Maddon to make
+          data-driven decisions that looked counterintuitive to traditionalists.
+</p> <h3 data-astro-cid-iobz33cc>FIP: Fielding Independent Pitching</h3> <p data-astro-cid-iobz33cc>
+Traditional ERA (Earned Run Average) has a major flaw: it's heavily influenced by
+          factors outside a pitcher's control, particularly defensive quality and luck on balls
+          in play. FIP isolates what a pitcher can control: strikeouts, walks, hit-by-pitches,
+          and home runs. The formula is surprisingly simple:
+</p> <blockquote data-astro-cid-iobz33cc>
+FIP = ((13 * HR) + (3 * (BB + HBP)) - (2 * K)) / IP + FIP constant
+</blockquote> <p data-astro-cid-iobz33cc>
+The FIP constant adjusts the scale to match league-average ERA, making the numbers
+          intuitive to interpret. A pitcher with a 3.50 FIP is performing like a pitcher who
+          "should" have a 3.50 ERA, regardless of their actual ERA.
+</p> <p data-astro-cid-iobz33cc>
+This mattered enormously for player evaluation. When the Cubs acquired Jake Arrieta
+          from Baltimore in 2013, his career ERA was 5.46. Terrible. But his FIP suggested he
+          was significantly better than his results indicated. The Cubs bet on the underlying
+          skills, not the outcomes. They were spectacularly right.
+</p> <p data-astro-cid-iobz33cc>
+The gap between ERA and FIP is called "luck" in sabermetric circles, though that's
+          a simplification. A pitcher with an ERA well above his FIP is often experiencing
+          bad defense, bad sequencing by catchers, or random variation in when hits happen
+          to fall. The Cubs systematically sought pitchers whose ERAs exceeded their FIPs,
+          betting that regression would work in their favor.
+</p> <p data-astro-cid-iobz33cc>
+In Arrieta's case, his Baltimore ERA was 5.46 but his FIP was closer to 4.50—still
+          not good, but suggesting a league-average pitcher trapped in bad circumstances. The
+          Cubs believed they could unlock even more by addressing his mechanics. They were
+          vindicated beyond their wildest projections.
+</p> <h3 data-astro-cid-iobz33cc>Leverage Index: Managing the Bullpen</h3> <p data-astro-cid-iobz33cc>
+Tango's Leverage Index measures the importance of a particular game situation. A
+          tie game in the 9th inning has high leverage; a blowout in the 3rd has low leverage.
+          The Cubs used this to optimize bullpen usage, deploying their best relievers in
+          high-leverage situations regardless of inning, rather than saving the "closer" for
+          the 9th.
+</p> <p data-astro-cid-iobz33cc>
+Manager Joe Maddon became famous for his unconventional bullpen management, but it
+          wasn't random. It was driven by Leverage Index calculations that told him exactly
+          when each game hung in the balance. Aroldis Chapman, acquired at the trade deadline,
+          was used aggressively in high-leverage spots throughout the playoffs, not just in
+          save situations.
+</p> <p data-astro-cid-iobz33cc>
+Traditional bullpen usage follows rigid roles: setup man in the 8th, closer in the 9th.
+          But this ignores the reality that many 9th innings are low-leverage (leading by 3 runs)
+          while many 7th innings are high-leverage (tie game, runners on base). The Cubs'
+          analytical approach treated each plate appearance as a separate optimization problem.
+          When should Chapman pitch? When the game matters most—regardless of the inning.
+</p> <p data-astro-cid-iobz33cc>
+This approach was controversial. Baseball tradition runs deep, and many relievers
+          bristled at losing their "defined roles." But the data was unambiguous: using your
+          best pitchers in the highest-leverage situations wins more games. The Cubs estimated
+          this approach was worth an additional 2-3 wins per season—not huge, but enough to
+          matter in a sport where playoff berths are decided by single games.
+</p> <p data-astro-cid-iobz33cc>
+In the 2016 World Series, Maddon's leverage-based management was on full display.
+          Chapman pitched in Game 5 with the Cubs down 3-1 in the series—not a save situation,
+          but the highest-leverage moment of the season. He got the final eight outs, preserving
+          a 3-2 win that kept the Cubs alive. Traditional management would have saved him for
+          a hypothetical save opportunity; analytical management recognized that opportunity
+          might never come if they lost Game 5.
+</p> <h2 data-astro-cid-iobz33cc>Part III: Ivy—The Scouting Revolution</h2> <p data-astro-cid-iobz33cc>
+While Tango provided the analytical framework, <strong data-astro-cid-iobz33cc>Ryan Kruse</strong> built the
+          technological infrastructure. Kruse, a former minor league pitcher with a computer
+          science degree, developed what became known internally as "Ivy"—a comprehensive
+          database and analytics platform that revolutionized how the Cubs evaluated talent.
+</p> <p data-astro-cid-iobz33cc>
+Ivy aggregated data from multiple sources: traditional scouting reports, video analysis,
+          biomechanical data, minor league statistics, and proprietary metrics. But its real
+          innovation was in synthesis. Rather than treating scouting and analytics as separate
+          disciplines, Ivy forced them to talk to each other.
+</p> <p data-astro-cid-iobz33cc>
+A scout might report that a prospect had "plus bat speed." Ivy would cross-reference
+          this with actual batted ball data. Were balls leaving the bat at velocities consistent
+          with "plus" bat speed? If not, why the discrepancy? Maybe the scout was seeing potential
+          that hadn't yet translated to results. Maybe the player had a mechanical flaw that
+          could be corrected. The system generated questions as much as answers.
+</p> <p data-astro-cid-iobz33cc>
+Ivy also tracked historical patterns. When a scout used the phrase "projectable frame,"
+          the system could compare to other players who'd received that label. Did "projectable
+          frame" prospects actually develop as expected? At what rate? In which positions? This
+          forced the organization to confront its own biases and assumptions with historical data.
+</p> <p data-astro-cid-iobz33cc>
+The integration went both ways. If the analytics showed a player was underperforming
+          his batted ball data, scouts were dispatched to investigate. Maybe there was an injury.
+          Maybe a mechanical hitch. Maybe a personal issue affecting performance. The data flagged
+          anomalies; humans investigated causes. Neither approach was sufficient alone.
+</p> <p data-astro-cid-iobz33cc>
+Ivy's most important feature may have been its accessibility. Previously, scouting reports
+          lived in filing cabinets and the memories of veteran scouts. Minor league stats required
+          manual compilation. Video existed but wasn't easily searchable. Ivy put everything in
+          one place, queryable, sortable, comparable. A front office staffer could pull up every
+          left-handed pitcher in the organization with a plus changeup in under a minute.
+</p> <p data-astro-cid-iobz33cc>
+Kruse's system was so effective that after the Cubs' championship, he was hired by
+          the Chicago Blackhawks to build a similar platform for hockey, called "Madhouse."
+          The cross-pollination of sports analytics had begun in earnest. Other MLB teams tried
+          to poach Cubs analytics staff, recognizing that the infrastructure was as valuable
+          as the specific insights it generated.
+</p> <h2 data-astro-cid-iobz33cc>Part IV: The Trades That Built a Champion</h2> <p data-astro-cid-iobz33cc>
+The Cubs' championship roster wasn't built through free agency splurges. It was
+          built through a series of trades that now look like highway robbery. The common
+          thread: the Cubs consistently acquired players that other organizations had
+          undervalued.
+</p> <div class="chart-container" data-astro-cid-iobz33cc> <figure data-astro-cid-jpiiosee> <img src="/graphyard/assets/charts/altair/cubs-trades-net-war.svg" alt="Chart: undefined" loading="lazy" data-astro-cid-jpiiosee> <figcaption data-astro-cid-jpiiosee> <strong data-astro-cid-jpiiosee></strong>  </figcaption> </figure>  </div> <p data-astro-cid-iobz33cc>
+Look at the numbers. The Rizzo trade netted +15 WAR (Wins Above Replacement). The
+          Hendricks trade—where the Cubs gave up only cash considerations—added +17.2 WAR.
+          The Arrieta trade brought in +18.3 WAR for essentially nothing (Scott Feldman and
+          Steve Clevenger combined for 1.2 WAR after leaving Chicago).
+</p> <h3 data-astro-cid-iobz33cc>Jake Arrieta: The Redemption Story</h3> <p data-astro-cid-iobz33cc>
+No trade better exemplifies the Cubs' analytical approach than the July 2013
+          acquisition of Jake Arrieta from Baltimore. The Orioles had given up on him.
+          His career numbers were dismal: 4.97 career ERA, 1.49 WHIP, more walks than you'd
+          want from a starter.
+</p> <div class="chart-container" data-astro-cid-iobz33cc> <figure data-astro-cid-jpiiosee> <img src="/graphyard/assets/charts/altair/cubs-arrieta-transformation.svg" alt="Chart: undefined" loading="lazy" data-astro-cid-jpiiosee> <figcaption data-astro-cid-jpiiosee> <strong data-astro-cid-jpiiosee></strong>  </figcaption> </figure>  </div> <p data-astro-cid-iobz33cc>
+What happened next was remarkable. The Cubs identified that Arrieta's problems
+          were mechanical and pitch-mix related, not stuff-related. His arm was still
+          elite. Working with pitching coach Chris Bosio, they made specific changes:
+</p> <ul data-astro-cid-iobz33cc> <li data-astro-cid-iobz33cc>Reduced reliance on the sinker, which was getting hit hard</li> <li data-astro-cid-iobz33cc>Added a cutter that became his best pitch</li> <li data-astro-cid-iobz33cc>Improved pitch sequencing based on count leverage data</li> <li data-astro-cid-iobz33cc>Adjusted his arm slot slightly for better command</li> </ul> <p data-astro-cid-iobz33cc>
+The results were immediate and staggering. In his first partial season with
+          Chicago, Arrieta posted a 3.66 ERA. In 2014, he dropped to 2.53. In 2015, he
+          was arguably the best pitcher in baseball: 22-6, 1.77 ERA, 236 strikeouts,
+          and a Cy Young Award. His FIP that season was 2.35—elite by any measure.
+</p> <p data-astro-cid-iobz33cc>
+Arrieta's transformation wasn't magic. It was the application of data to a
+          talented arm that had been mismanaged. The Cubs saw what Baltimore couldn't,
+          because they were looking at different numbers.
+</p> <h3 data-astro-cid-iobz33cc>Kyle Hendricks: The Professor</h3> <p data-astro-cid-iobz33cc>
+If Arrieta was a reclamation project, Kyle Hendricks was a complete heist. The
+          Cubs acquired him from Texas in 2012 as part of the Ryan Dempster trade. The
+          Rangers included him almost as an afterthought. Texas wanted Dempster's veteran
+          presence; the Cubs wanted the young arm with the interesting profile.
+</p> <div class="chart-container" data-astro-cid-iobz33cc> <figure data-astro-cid-jpiiosee> <img src="/graphyard/assets/charts/altair/cubs-hendricks-value.svg" alt="Chart: undefined" loading="lazy" data-astro-cid-jpiiosee> <figcaption data-astro-cid-jpiiosee> <strong data-astro-cid-jpiiosee></strong>  </figcaption> </figure>  </div> <p data-astro-cid-iobz33cc>
+Hendricks didn't throw hard—his fastball sat around 87 mph, well below league
+          average. But he had exceptional command, a devastating changeup, and an
+          uncanny ability to induce weak contact. The Cubs' analytical models valued
+          these traits more than raw velocity.
+</p> <p data-astro-cid-iobz33cc>
+The analytics department had developed models showing that command was undervalued
+          relative to velocity. A pitcher who could locate 90 mph fastballs on the corners
+          was often more effective than one who could throw 95 mph down the middle. Hendricks
+          was the extreme case: below-average velocity, elite location. His pitch-by-pitch
+          data showed he consistently hit his spots within inches of the target.
+</p> <p data-astro-cid-iobz33cc>
+His changeup was particularly devastating. The Cubs' analysis showed that the
+          pitch tunneled perfectly with his fastball—same arm slot, same initial trajectory,
+          different speeds. Hitters couldn't distinguish between them until too late. In 2016,
+          opponents hit just .183 against his changeup with a whiff rate above 35%. This wasn't
+          stuff overpowering hitters; it was deception and sequencing, optimized by data.
+</p> <p data-astro-cid-iobz33cc>
+In 2016, Hendricks led the National League with a 2.13 ERA. His FIP was 2.09—
+          even better than his actual results. He wasn't getting lucky; he was executing
+          a game plan built on pitch tunneling and sequencing that left hitters flailing.
+          The Cubs paid him less than $1 million that season. He provided 4.6 WAR.
+          The surplus value was enormous—probably the best pitcher contract in baseball that year.
+</p> <h2 data-astro-cid-iobz33cc>Part V: The 2016 Championship</h2> <p data-astro-cid-iobz33cc>
+By 2016, all the pieces were in place. The homegrown core of Bryant, Rizzo,
+          Baez, Schwarber, and Russell had arrived. The trade acquisitions—Arrieta,
+          Hendricks, Fowler, Zobrist—were contributing at peak levels. The team
+          rolled through the regular season, winning 103 games with a +252 run
+          differential.
+</p> <p data-astro-cid-iobz33cc>
+The postseason was more dramatic. After sweeping the Giants in the NLDS—
+          a series where the Cubs outscored San Francisco 11-4 and never trailed
+          after the fourth inning of Game 1—they faced the Dodgers in the NLCS.
+          Los Angeles took a 2-1 series lead, raising the specter of another
+          Cubs collapse. But the analytics suggested calm.
+</p> <p data-astro-cid-iobz33cc>
+The Cubs' models showed they had actually outplayed the Dodgers in xwOBA
+          (expected weighted on-base average, which strips out luck on batted balls).
+          They were hitting the ball hard; the results just weren't falling. Probability
+          models gave the Cubs a better chance of winning Games 4-7 than their 2-1
+          deficit suggested. The front office urged patience, and the team delivered—
+          winning three straight to advance.
+</p> <p data-astro-cid-iobz33cc>
+The World Series against Cleveland was a rollercoaster: the Cubs fell behind
+          3-1, staring at elimination. Game 5 was do-or-die, and the Cubs responded with
+          a 3-2 victory behind Jon Lester and Aroldis Chapman. Game 6 was a blowout, 9-3,
+          forcing a decisive Game 7.
+</p> <p data-astro-cid-iobz33cc>
+What happened in Game 7 is etched in baseball history. The Cubs built a 6-3 lead
+          into the 8th inning, then collapsed. Cleveland tied it on a Rajai Davis home run
+          off Chapman, who was pitching on fumes after heavy usage throughout the playoffs.
+          A rain delay in the 10th inning—17 minutes that felt like hours to Cubs fans—
+          gave both teams a chance to regroup. When play resumed, the Cubs scored two runs
+          in the top of the 10th, then survived a Cleveland rally to win 8-7. One hundred
+          and eight years of futility ended in extra innings, in the rain, with the tying
+          run on base.
+</p> <div class="data-callout" data-astro-cid-iobz33cc> <h4 data-astro-cid-iobz33cc>Key 2016 Stats</h4> <ul data-astro-cid-iobz33cc> <li data-astro-cid-iobz33cc><strong data-astro-cid-iobz33cc>103-58</strong> regular season record (best since 1910)</li> <li data-astro-cid-iobz33cc><strong data-astro-cid-iobz33cc>+252</strong> run differential (best in MLB since 1998 Yankees)</li> <li data-astro-cid-iobz33cc><strong data-astro-cid-iobz33cc>7.7 WAR</strong> from Kris Bryant (MVP season)</li> <li data-astro-cid-iobz33cc><strong data-astro-cid-iobz33cc>2.13 ERA</strong> from Kyle Hendricks (league-leading)</li> <li data-astro-cid-iobz33cc><strong data-astro-cid-iobz33cc>Game 7 win</strong> in 10 innings to end 108-year drought</li> </ul> </div> <p data-astro-cid-iobz33cc>
+But even in triumph, there were warning signs. The Cubs traded Gleyber Torres,
+          their top prospect, to acquire Aroldis Chapman for the stretch run. Torres
+          would go on to become an All-Star with the Yankees. The Cubs' WAR from Chapman
+          in the playoffs was roughly 1.4; Torres has already accumulated over 22 WAR
+          in his career. It was a trade that prioritized the present over the future—
+          a pattern that would define the Cubs' post-championship years.
+</p> <h2 data-astro-cid-iobz33cc>Part VI: The Draft Bonanza</h2> <p data-astro-cid-iobz33cc>
+The Cubs' rebuild was built on a foundation of high draft picks accumulated
+          during the tanking years. Let's look at how those picks performed:
+</p> <div class="chart-container" data-astro-cid-iobz33cc> <figure data-astro-cid-jpiiosee> <img src="/graphyard/assets/charts/altair/cubs-draft-outcomes.svg" alt="Chart: undefined" loading="lazy" data-astro-cid-jpiiosee> <figcaption data-astro-cid-jpiiosee> <strong data-astro-cid-jpiiosee></strong>  </figcaption> </figure>  </div> <p data-astro-cid-iobz33cc>
+The headliners are obvious. Kris Bryant (2013, #2 overall) has accumulated
+          27 career WAR. Javier Baez (2011, #9 overall) contributed 14.9 WAR with the
+          Cubs. Kyle Schwarber (2014, #4 overall) has been a productive major leaguer
+          for a decade.
+</p> <p data-astro-cid-iobz33cc>
+But look at the misses too. Daniel Vogelbach (#43 in 2011) never panned out
+          in Chicago. Albert Almora Jr. (#6 in 2012) was a useful player but not a star.
+          The late-round picks mostly flamed out. This is normal—even the best front
+          offices can't identify every hit—but it meant the Cubs needed their top picks
+          to deliver. They did, barely.
+</p> <h2 data-astro-cid-iobz33cc>Part VII: The Window Closes</h2> <p data-astro-cid-iobz33cc>
+Championship windows in baseball are notoriously brief. The Cubs' window
+          appeared massive in 2016: a young, talented core locked up for years, a
+          deep farm system (even after the Torres trade), and an owner willing to
+          spend. What happened?
+</p> <div class="chart-container" data-astro-cid-iobz33cc> <figure data-astro-cid-jpiiosee> <img src="/graphyard/assets/charts/altair/cubs-player-decline.svg" alt="Chart: undefined" loading="lazy" data-astro-cid-jpiiosee> <figcaption data-astro-cid-jpiiosee> <strong data-astro-cid-jpiiosee></strong>  </figcaption> </figure>  </div> <p data-astro-cid-iobz33cc>
+The chart tells a brutal story. Every core player declined from their 2016
+          peaks. Bryant went from 7.7 WAR in 2016 to 0.9 WAR in 2020 (shortened season).
+          Rizzo dropped from 4.7 to 0.7. Baez went from 2.3 to -0.3. The declines weren't
+          gradual; they were precipitous.
+</p> <p data-astro-cid-iobz33cc>
+Several factors contributed:
+</p> <h3 data-astro-cid-iobz33cc>Injuries</h3> <p data-astro-cid-iobz33cc>
+Kris Bryant was never fully healthy after 2016. A shoulder injury in 2018
+          affected his swing. He played through pain, but his exit velocities and
+          launch angles never recovered. By 2020, he looked like a different player.
+</p> <h3 data-astro-cid-iobz33cc>The Russell Problem</h3> <p data-astro-cid-iobz33cc>
+Addison Russell was arrested for domestic violence in 2017 and eventually
+          suspended for 40 games. The Cubs, to their credit, released him in 2019.
+          But losing their starting shortstop—who had 3.6 WAR in 2016—created a
+          hole they never adequately filled.
+</p> <h3 data-astro-cid-iobz33cc>The Heyward Albatross</h3> <p data-astro-cid-iobz33cc>
+The Cubs signed Jason Heyward to an 8-year, $184 million contract before
+          the 2016 season. He was supposed to be a superstar. He never came close.
+          His 2016 wOBA was .290—well below average. His wRC+ of 72 meant he was
+          producing offense at 72% of league average. The contract handcuffed the
+          Cubs' payroll flexibility for years.
+</p> <p data-astro-cid-iobz33cc>
+What went wrong? Heyward's batted ball data suggested a player whose swing
+          had fundamentally changed. His launch angle dropped, resulting in fewer
+          line drives and more grounders. His exit velocity declined from 90 mph to
+          87 mph. The Cubs tried everything—swing changes, bat changes, different
+          batting stances—but nothing worked. The analytics that had identified
+          undervalued players couldn't fix a player whose skills had eroded.
+</p> <p data-astro-cid-iobz33cc>
+The Heyward signing represents the limits of analytical thinking. The Cubs'
+          models projected him to be worth roughly $30 million in WAR over the contract.
+          He provided closer to $15 million. The projection wasn't crazy—Heyward was
+          26 years old with a track record of above-average offense and elite defense.
+          But projections are probabilities, not certainties. The Cubs lost this bet badly.
+</p> <h3 data-astro-cid-iobz33cc>Theo's "Winner's Trap"</h3> <p data-astro-cid-iobz33cc>
+Perhaps most tellingly, Epstein himself coined the term "winner's trap"
+          to describe what happened. After winning in 2016, the Cubs felt pressure
+          to keep winning immediately. They made win-now moves—trading prospects
+          for rentals, signing aging veterans—rather than continuing to build for
+          sustained success. The same analytical rigor that built the champion
+          was abandoned in the rush to repeat.
+</p> <p data-astro-cid-iobz33cc>
+The data supports Epstein's self-diagnosis. From 2017-2019, the Cubs traded
+          away several top prospects: Gleyber Torres, Eloy Jimenez, Dylan Cease. Each
+          trade was defensible in the moment—Torres for Chapman helped win a championship,
+          Jimenez and Cease for José Quintana addressed a rotation need. But the cumulative
+          effect was devastating. The pipeline that had produced Bryant and Schwarber ran dry.
+</p> <p data-astro-cid-iobz33cc>
+The farm system that ranked top-5 in baseball in 2015 fell to the bottom third
+          by 2019. Without homegrown talent emerging to replace aging stars, the Cubs had
+          to rely on free agency and trades—exactly the expensive, inefficient approaches
+          that the original rebuild had been designed to avoid.
+</p> <div class="chart-container" data-astro-cid-iobz33cc> <figure data-astro-cid-jpiiosee> <img src="/graphyard/assets/charts/altair/cubs-acquisitions-war.svg" alt="Chart: undefined" loading="lazy" data-astro-cid-jpiiosee> <figcaption data-astro-cid-jpiiosee> <strong data-astro-cid-jpiiosee></strong>  </figcaption> </figure>  </div> <p data-astro-cid-iobz33cc>
+Look at the acquisition analysis above. The early moves—Bryant, Rizzo,
+          Arrieta, Hendricks—were home runs. The later moves were mostly pushes
+          or losses. The Heyward signing was a bust. The Chapman trade was, in
+          retrospect, a championship bought at the cost of future value.
+</p> <h2 data-astro-cid-iobz33cc>Part VIII: Comparing Championship Windows</h2> <p data-astro-cid-iobz33cc>
+How does the Cubs' window compare to other recent championship contenders?
+          The data is sobering:
+</p> <div class="chart-container" data-astro-cid-iobz33cc> <figure data-astro-cid-jpiiosee> <img src="/graphyard/assets/charts/altair/cubs-window-comparison.svg" alt="Chart: undefined" loading="lazy" data-astro-cid-jpiiosee> <figcaption data-astro-cid-jpiiosee> <strong data-astro-cid-jpiiosee></strong>  </figcaption> </figure>  </div> <p data-astro-cid-iobz33cc>
+The Giants won three World Series in their 2010-2014 window. The Cardinals
+          made three appearances and won twice between 2007-2013. The Astros appeared
+          twice and won once (with significant asterisks). The Dodgers made three
+          consecutive World Series from 2017-2020, finally winning in 2020.
+</p> <p data-astro-cid-iobz33cc>
+The Cubs made one World Series appearance and won it. That's better than
+          many franchises will ever achieve. But given the talent assembled, it feels
+          like underperformance. The 2016 team was legitimately one of the best in
+          baseball history. They should have been positioned for a dynasty.
+</p> <h2 data-astro-cid-iobz33cc>Part IX: The Cheating Scandals</h2> <p data-astro-cid-iobz33cc>
+Any discussion of this era must address the elephant in the room: cheating.
+          Two major scandals touched teams in the Cubs' competitive orbit.
+</p> <h3 data-astro-cid-iobz33cc>The Cardinals Hacking Scandal</h3> <p data-astro-cid-iobz33cc>
+In 2015, the FBI revealed that the St. Louis Cardinals had illegally accessed
+          the Houston Astros' internal database, Ground Control. Chris Correa, the
+          Cardinals' scouting director, was sentenced to 46 months in prison. He had
+          guessed Jeff Luhnow's password (Luhnow had moved from St. Louis to Houston)
+          and downloaded years of proprietary scouting data.
+</p> <p data-astro-cid-iobz33cc>
+Importantly, this scandal involved the Cardinals stealing from the Astros,
+          not the Cubs. There's no evidence the Cardinals used stolen data against
+          Chicago. But it revealed the high stakes of baseball's analytics arms race.
+          Teams were building proprietary advantages worth billions, and some people
+          were willing to commit federal crimes to access them.
+</p> <h3 data-astro-cid-iobz33cc>The Astros Sign-Stealing Scandal</h3> <p data-astro-cid-iobz33cc>
+The bigger scandal broke in 2019: the Houston Astros had used electronic
+          equipment to steal opponents' signs during their 2017 championship run
+          (and into 2018). A camera in center field captured the catcher's signs,
+          analysts decoded them in real-time, and players were alerted to upcoming
+          pitches via banging on trash cans.
+</p> <p data-astro-cid-iobz33cc>
+The Cubs faced the Astros in the 2016 World Series... no wait, they didn't.
+          The Cubs played Cleveland. And the Astros' documented cheating was in 2017,
+          after the Cubs had already won. So while the Astros scandal was one of the
+          biggest in baseball history, it didn't directly affect the Cubs' championship
+          or their subsequent playoff runs.
+</p> <p data-astro-cid-iobz33cc>
+However, the scandal did affect the competitive landscape. The Astros won
+          the 2017 World Series (with cheating), beating the Dodgers and Yankees—
+          two teams that might have been the Cubs' competition in a cleaner era.
+          The ripple effects are impossible to quantify but worth noting.
+</p> <p data-astro-cid-iobz33cc>
+The Astros scandal also raised uncomfortable questions about the analytical
+          revolution more broadly. Houston had been one of the most analytics-forward
+          organizations in baseball, hiring NASA engineers and building sophisticated
+          systems to extract every possible edge. Where was the line between legal
+          analytics and illegal cheating? The Astros crossed it blatantly, but the
+          entire industry was pushing boundaries.
+</p> <p data-astro-cid-iobz33cc>
+The Cubs, to their credit, were never implicated in any sign-stealing scheme.
+          Their analytical advantages came from better player evaluation, development,
+          and in-game strategy—not from cheating. In retrospect, this may have been
+          a competitive disadvantage during the 2017-2018 window. Teams that cheated
+          may have stolen wins from teams that didn't.
+</p> <h2 data-astro-cid-iobz33cc>Part X: What Machine Learning Reveals</h2> <p data-astro-cid-iobz33cc>
+Let's step back and apply modern machine learning to the Cubs' window.
+          If we had built predictive models blind to future performance—using only
+          data available at the time—what would they have predicted?
+</p> <p data-astro-cid-iobz33cc>
+Player aging models, trained on historical data, predicted that the Cubs'
+          core would decline in their late 20s. This is standard for baseball: position
+          players typically peak around 27, pitchers around 28. By 2020, Bryant would
+          be 28, Rizzo 31, Baez 27. The models would have predicted significant
+          regression even without injuries.
+</p> <p data-astro-cid-iobz33cc>
+WAR projections systems like ZiPS and Steamer, which use machine learning
+          to forecast future performance, showed the Cubs' window narrowing by 2018.
+          The projections weren't pessimistic about any individual player—they just
+          recognized that regression to the mean is relentless. A player who has a
+          7.7 WAR season almost never repeats it.
+</p> <p data-astro-cid-iobz33cc>
+We can run this analysis retrospectively. If we train a gradient boosting
+          model on historical player aging curves—using features like age, position,
+          injury history, batted ball data, and sprint speed—the predictions are sobering.
+          Bryant's expected WAR trajectory showed peak performance at 25-27, then decline.
+          Rizzo was already 27 in 2016, at the back end of his peak. Baez's aggressive
+          approach predicted high variance with downside risk as he aged.
+</p> <p data-astro-cid-iobz33cc>
+The model's feature importance is revealing. Age dominates, explaining roughly
+          40% of year-over-year WAR changes for position players. Previous year's WAR
+          matters—but with significant regression to the mean baked in. Injury history
+          is predictive, especially for pitchers. The Cubs' core had red flags across
+          multiple dimensions.
+</p> <p data-astro-cid-iobz33cc>
+None of this was unknown to the Cubs' analytics team. They had similar models.
+          The question was what to do about it. Do you trade valuable players at their
+          peak, maximizing long-term expected value? Or do you ride the wave, knowing
+          it will end, in pursuit of championships? The Cubs chose championships.
+</p> <p data-astro-cid-iobz33cc>
+The Cubs' front office knew this. Theo Epstein has spoken extensively about
+          trying to thread the needle between maximizing the current window and
+          maintaining long-term sustainability. They chose to maximize the current
+          window. Given that they broke a 108-year curse, it's hard to argue they
+          were wrong. But it came at a cost measured in futures that never materialized.
+</p> <h2 data-astro-cid-iobz33cc>Part XI: The Fire Sale</h2> <p data-astro-cid-iobz33cc>
+By 2021, the dream was over. At the trade deadline, the Cubs dealt Bryant,
+          Rizzo, and Baez—the core of their championship team—to contenders. It was
+          a fire sale that acknowledged what the data had been saying for years:
+          the window was shut.
+</p> <p data-astro-cid-iobz33cc>
+The trades happened in rapid succession. Bryant went to San Francisco for
+          two prospects. Rizzo went to the Yankees for another pair. Baez went to the
+          Mets along with Trevor Williams. In a matter of days, the 2016 championship
+          core was scattered across three different cities.
+</p> <p data-astro-cid-iobz33cc>
+The returns were modest. The Cubs got prospects, but none projected as
+          future stars. The organizational talent pipeline that had produced Bryant
+          and Schwarber had run dry. The rebuild needed to start again. Theo Epstein
+          had already left for a front office position with Major League Baseball
+          itself. The architects of the championship were gone.
+</p> <p data-astro-cid-iobz33cc>
+For fans who had watched the rebuild from 2012-2016, it felt like déjà vu.
+          Another teardown. Another accumulation of draft picks and prospects. Another
+          wait for the next window to open. The cycle of baseball rebuilding continued.
+</p> <h2 data-astro-cid-iobz33cc>Part XII: Lessons for Building a Dynasty</h2> <p data-astro-cid-iobz33cc>
+What can we learn from the Cubs' experience? Several things:
+</p> <h3 data-astro-cid-iobz33cc>1. Windows Are Shorter Than They Appear</h3> <p data-astro-cid-iobz33cc>
+The Cubs' competitive window lasted roughly 2015-2018, with 2016 being
+          the clear peak. That's four years at the top, with only one championship
+          to show for it. Modern baseball's economics—with its arbitration system,
+          free agency, and competitive balance—makes sustained dominance extremely
+          difficult.
+</p> <h3 data-astro-cid-iobz33cc>2. Analytics Can Build Champions, But Can't Sustain Them</h3> <p data-astro-cid-iobz33cc>
+The Cubs used analytics brilliantly to assemble their roster. They
+          identified undervalued players, optimized development, and made smart
+          trade decisions. But analytics couldn't prevent injuries, couldn't
+          stop natural aging, and couldn't overcome the structural challenges
+          of maintaining a championship-caliber payroll year after year.
+</p> <h3 data-astro-cid-iobz33cc>3. The Draft Is Everything</h3> <p data-astro-cid-iobz33cc>
+The Cubs' championship was built on draft picks (Bryant, Baez, Schwarber)
+          and shrewd trades (Rizzo, Arrieta, Hendricks). Free agency played a
+          supporting role at best. The Heyward and Lester signings were necessary
+          to push the team over the top, but they weren't the foundation.
+</p> <p data-astro-cid-iobz33cc>
+This is perhaps the most important lesson. In a sport with a hard luxury tax
+          and significant revenue sharing, sustainable success requires a constant pipeline
+          of cheap, controllable talent. The Dodgers have understood this—they spend big
+          in free agency while maintaining a top farm system. The Cubs tried to do both
+          but lost the thread after 2016.
+</p> <h3 data-astro-cid-iobz33cc>4. Culture Matters, But Results Matter More</h3> <p data-astro-cid-iobz33cc>
+Jason Heyward's famous rain-delay speech in Game 7 has become legendary. He
+          rallied the team during the 17-minute delay, and the Cubs scored two runs in
+          the 10th to win. Culture won that game.
+</p> <p data-astro-cid-iobz33cc>
+But culture couldn't make Heyward hit. It couldn't heal Bryant's shoulder. It
+          couldn't overcome the structural challenges of maintaining a championship roster.
+          Culture is necessary but not sufficient. The Cubs had elite culture in 2016; they
+          had the same culture in 2019 when they missed the playoffs.
+</p> <h3 data-astro-cid-iobz33cc>5. One Championship Is Still a Championship</h3> <p data-astro-cid-iobz33cc>
+The Cubs ended a 108-year drought. No amount of analytical second-guessing
+          can take that away. For a franchise and a fanbase that had suffered through
+          the Billy Goat curse, Bartman, and countless heartbreaks, 2016 was everything.
+</p> <p data-astro-cid-iobz33cc>
+The 30 teams in Major League Baseball have won a combined 120 World Series
+          (since 1903). Only 23 franchises have won at least one. The Cubs joining that
+          club—breaking one of sports' longest droughts—was a historic achievement
+          regardless of what came after.
+</p> <h2 data-astro-cid-iobz33cc>Conclusion: The Ghost of Dynasty Past</h2> <p data-astro-cid-iobz33cc>
+The 2016 Chicago Cubs were, by the numbers, one of the best teams in
+          baseball history. Their +252 run differential was historically elite.
+          Their rotation, anchored by Arrieta and Hendricks, was dominant. Their
+          lineup, featuring Bryant, Rizzo, and Zobrist, was deep and dangerous.
+          Their defense, led by Baez's wizardry at second base, was spectacular.
+</p> <p data-astro-cid-iobz33cc>
+They should have been a dynasty. They were built to be a dynasty. The
+          analytical infrastructure—Tango's metrics, Kruse's Ivy system, Epstein's
+          process-driven approach—was supposed to create sustainable success.
+</p> <p data-astro-cid-iobz33cc>
+Instead, they won exactly one championship. It was glorious—a Game 7
+          victory that ended over a century of futility. But it was also singular.
+          The dynasty that should have been became a one-year wonder.
+</p> <p data-astro-cid-iobz33cc>
+Why? The data points to many factors: injuries, personnel decisions,
+          the inherent volatility of playoff baseball, the difficulty of sustaining
+          excellence in a sport designed for parity. But perhaps the deepest lesson
+          is this: baseball resists dynasties. The sample sizes are too small, the
+          variance too high, the margins too thin.
+</p> <p data-astro-cid-iobz33cc>
+Consider the mathematics. Even a team with a 60% win probability—which
+          would be historically dominant in the regular season—has only about a
+          35% chance of winning any given playoff round. To win three rounds and
+          claim a championship, that 60% regular-season team has about a 4-5% chance
+          in any given year. The Cubs were probably that good in 2016. They might
+          have been that good in 2017 and 2018 too. But 4-5% is still 4-5%.
+</p> <p data-astro-cid-iobz33cc>
+The Cubs did everything right to build a champion. They just couldn't do
+          it twice. In a sport where the best team wins barely 60% of its games,
+          maybe that's not failure. Maybe that's just baseball.
+</p> <p data-astro-cid-iobz33cc>
+The irony is that the same analytical revolution that built the Cubs'
+          championship has made championships harder to win. Every team now has
+          analytics departments. Every team now optimizes roster construction.
+          The edges the Cubs found in 2012-2016 have been arbitraged away. The
+          next great breakthrough will require something new—and every team is
+          searching for it.
+</p> <p data-astro-cid-iobz33cc>
+The numbers tell us the Cubs' window closed faster than it should have.
+          But they also tell us that window was real, and spectacular, and enough
+          to break a curse that had lasted 108 years. In the end, the data confirms
+          what Cubs fans already knew: 2016 was worth the wait. Every spreadsheet,
+          every model, every optimization—it all led to that moment in Cleveland,
+          rain falling, 10th inning, when a franchise and a city finally got to
+          celebrate.
+</p> <p data-astro-cid-iobz33cc>
+The dynasty that should have been wasn't. But the championship that
+          happened was. And for 108 years of waiting, one was enough to matter.
+          Everything after was just baseball doing what baseball does—humbling
+          everyone who thinks they've figured it out, and reminding us why we
+          keep watching anyway.
+</p> <div class="sources" data-astro-cid-iobz33cc> <h3 data-astro-cid-iobz33cc>Data Sources</h3> <ul data-astro-cid-iobz33cc> <li data-astro-cid-iobz33cc>Baseball-Reference.com for WAR calculations and historical statistics</li> <li data-astro-cid-iobz33cc>FanGraphs for advanced metrics (wOBA, FIP, wRC+)</li> <li data-astro-cid-iobz33cc>MLB.com for transaction history and draft data</li> <li data-astro-cid-iobz33cc>Tango, Lichtman, and Dolphin, "The Book: Playing the Percentages in Baseball" (2006)</li> <li data-astro-cid-iobz33cc>Department of Justice press releases on Cardinals hacking case</li> <li data-astro-cid-iobz33cc>MLB Commissioner's Report on Houston Astros sign-stealing</li> </ul> </div> </article> </div> </body></html>

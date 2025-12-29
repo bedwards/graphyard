@@ -111,6 +111,17 @@ from charts.ncaa_basketball.data import (
     load_champion_profile,
     load_transfer_portal_era,
 )
+from charts.cubs_2016.data import (
+    load_cubs_rebuild_arc,
+    load_key_acquisitions_war,
+    load_epstein_trades_analysis,
+    load_draft_pick_outcomes,
+    load_tango_metrics_2016,
+    load_championship_window_comparison,
+    load_what_went_wrong,
+    load_arrieta_transformation,
+    load_hendricks_value,
+)
 
 OUTPUT_DIR_ALTAIR = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "altair"
 OUTPUT_DIR_PLOT = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "plot"
@@ -1174,6 +1185,102 @@ def get_ncaa_basketball_chart_specs() -> list[ChartSpec]:
     ]
 
 
+def get_cubs_2016_chart_specs() -> list[ChartSpec]:
+    """Define all Cubs 2016 retrospective article charts."""
+    return [
+        # Cubs Rebuild Arc
+        ChartSpec(
+            chart_id="cubs-rebuild-arc",
+            chart_type=ChartType.LINE,
+            title="The Cubs Rebuild: Wins by Season (2011-2021)",
+            data_source=load_cubs_rebuild_arc,
+            x="year",
+            y="wins",
+            x_label="Year",
+            y_label="Wins",
+            x_format="year",
+        ),
+        # Key Acquisitions WAR
+        ChartSpec(
+            chart_id="cubs-acquisitions-war",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Cubs Acquisitions: WAR Delivered (2015-2020)",
+            data_source=load_key_acquisitions_war,
+            x="player",
+            y="cubs_war_2015_2020",
+            x_label="Player",
+            y_label="Wins Above Replacement",
+        ),
+        # Trades Net WAR
+        ChartSpec(
+            chart_id="cubs-trades-net-war",
+            chart_type=ChartType.BAR,
+            title="Epstein's Trades: Net WAR Impact",
+            data_source=load_epstein_trades_analysis,
+            x="trade_name",
+            y="net_war",
+            x_label="Trade",
+            y_label="Net WAR (+ = Cubs won trade)",
+        ),
+        # Draft Pick Outcomes
+        ChartSpec(
+            chart_id="cubs-draft-outcomes",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Cubs Draft Picks 2011-2015: Career WAR",
+            data_source=lambda: load_draft_pick_outcomes().sort_values("career_war", ascending=True),
+            x="player",
+            y="career_war",
+            x_label="Player",
+            y_label="Career WAR",
+        ),
+        # Arrieta Transformation
+        ChartSpec(
+            chart_id="cubs-arrieta-transformation",
+            chart_type=ChartType.LINE,
+            title="Jake Arrieta: The Analytics Transformation",
+            data_source=load_arrieta_transformation,
+            x="season",
+            y="era",
+            x_label="Season",
+            y_label="ERA",
+        ),
+        # Hendricks Value
+        ChartSpec(
+            chart_id="cubs-hendricks-value",
+            chart_type=ChartType.LINE,
+            title="Kyle Hendricks: Acquired for Cash, Became an Ace",
+            data_source=load_hendricks_value,
+            x="season",
+            y="war",
+            x_label="Season",
+            y_label="WAR",
+            x_format="year",
+        ),
+        # What Went Wrong - Player Decline
+        ChartSpec(
+            chart_id="cubs-player-decline",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="The Window Closes: WAR Decline 2016 to 2020",
+            data_source=load_what_went_wrong,
+            x="player",
+            y="total_decline_pct",
+            x_label="Player",
+            y_label="WAR Decline (%)",
+        ),
+        # Championship Window Comparison
+        ChartSpec(
+            chart_id="cubs-window-comparison",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Championship Windows: Cubs vs Other Dynasties",
+            data_source=load_championship_window_comparison,
+            x="team",
+            y="world_series_wins",
+            x_label="Team",
+            y_label="World Series Wins in Window",
+        ),
+    ]
+
+
 def render_altair(specs: list[ChartSpec]) -> int:
     """Render charts using Altair."""
     from charts.altair_renderer import AltairRenderer
@@ -1269,7 +1376,8 @@ def main():
     sabermetrics_specs = get_sabermetrics_chart_specs()
     education_specs = get_education_chart_specs()
     ncaa_basketball_specs = get_ncaa_basketball_chart_specs()
-    specs = gdp_specs + beyond_growth_specs + baseball_specs + marx_specs + sabermetrics_specs + education_specs + ncaa_basketball_specs
+    cubs_2016_specs = get_cubs_2016_chart_specs()
+    specs = gdp_specs + beyond_growth_specs + baseball_specs + marx_specs + sabermetrics_specs + education_specs + ncaa_basketball_specs + cubs_2016_specs
 
     print(f"\nFound {len(specs)} chart specifications")
     print(f"  - GDP article: {len(gdp_specs)} charts")
@@ -1279,6 +1387,7 @@ def main():
     print(f"  - Sabermetrics article: {len(sabermetrics_specs)} charts")
     print(f"  - Education article: {len(education_specs)} charts")
     print(f"  - NCAA Basketball article: {len(ncaa_basketball_specs)} charts")
+    print(f"  - Cubs 2016 article: {len(cubs_2016_specs)} charts")
 
     # Export specs for TypeScript (always needed for Plot)
     export_specs_for_plot(specs)

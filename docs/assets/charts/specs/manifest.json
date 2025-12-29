@@ -326,5 +326,37 @@
   {
     "chartId": "ncaa-transfer-portal",
     "specFile": "ncaa-transfer-portal.json"
+  },
+  {
+    "chartId": "cubs-rebuild-arc",
+    "specFile": "cubs-rebuild-arc.json"
+  },
+  {
+    "chartId": "cubs-acquisitions-war",
+    "specFile": "cubs-acquisitions-war.json"
+  },
+  {
+    "chartId": "cubs-trades-net-war",
+    "specFile": "cubs-trades-net-war.json"
+  },
+  {
+    "chartId": "cubs-draft-outcomes",
+    "specFile": "cubs-draft-outcomes.json"
+  },
+  {
+    "chartId": "cubs-arrieta-transformation",
+    "specFile": "cubs-arrieta-transformation.json"
+  },
+  {
+    "chartId": "cubs-hendricks-value",
+    "specFile": "cubs-hendricks-value.json"
+  },
+  {
+    "chartId": "cubs-player-decline",
+    "specFile": "cubs-player-decline.json"
+  },
+  {
+    "chartId": "cubs-window-comparison",
+    "specFile": "cubs-window-comparison.json"
   }
 ]
