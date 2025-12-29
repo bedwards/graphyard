@@ -9,8 +9,11 @@ Graphyard is a multi-domain data analysis and visualization project. Each domain
 | Economics | World Development Indicators (WDI) | `public` | GDP, Beyond Growth |
 | Sports Analytics | Lahman Baseball Database | `lahman` | Baseball Evolution |
 | Sports Analytics | NCAA Basketball (Kaggle March Madness) | TBD | TBD |
+| Education | Census School Finance (F-33) | TBD | TBD |
+| Education | Census SAIPE (School District Poverty) | TBD | TBD |
+| Reference | Census Geographic Codes | - | - |
 
-See also: [WDI.md](WDI.md), [LAHMAN.md](LAHMAN.md), [NCAA_BASKETBALL.md](NCAA_BASKETBALL.md)
+See also: [WDI.md](WDI.md), [LAHMAN.md](LAHMAN.md), [NCAA_BASKETBALL.md](NCAA_BASKETBALL.md), [CENSUS_SCHOOL_FINANCE.md](CENSUS_SCHOOL_FINANCE.md), [CENSUS_SAIPE.md](CENSUS_SAIPE.md), [CENSUS_GEO.md](CENSUS_GEO.md)
 
 The project includes:
 
@@ -43,6 +46,16 @@ datasets/                    # All source data - GITIGNORED
 │   ├── MRegularSeasonDetailedResults.csv  # Box scores (118K games)
 │   ├── MMasseyOrdinals.csv  # Computer rankings (5.5M rows, 194 systems)
 │   └── ...                  # 36 CSV files total
+├── census_school_finance/   # Census F-33 school finance data
+│   ├── elsec23.txt          # Main data (14K districts, 183 columns)
+│   └── elsec23f.txt         # Data quality flags
+├── census_saipe/            # Census SAIPE poverty estimates
+│   └── ussd23.txt           # School district poverty (13K districts)
+├── census_geo/              # Census geographic reference files
+│   ├── state.txt            # State FIPS codes (57 states/territories)
+│   ├── national_county2020.txt  # County FIPS codes (3,235 counties)
+│   ├── cbsa_delineation_2020.xls  # Metro/micro area definitions
+│   └── all-geocodes-v2023.xlsx   # Complete geographic hierarchy
 └── *_clean/                 # Processed files (as needed)
 ```
 
