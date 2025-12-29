@@ -140,9 +140,9 @@ export const articles: Article[] = [
   {
     slug: "cubs-2016/altair",
     domain: "sports",
-    title: "The 2016 Chicago Cubs: A Data-Driven Dynasty That Wasn't",
+    title: "Breaking the Curse: How Analytics Built the 2016 Cubs",
     description:
-      "How Theo Epstein, Tom Tango, and Ryan Kruse used analytics to end a 108-year drought, and why one of baseball's most talented rosters won only a single championship.",
+      "How Theo Epstein, Tom Tango, and Ryan Kruse used data science to end baseball's longest championship drought. A deep dive into the trades, metrics, and systems behind the title.",
     readingTime: "30 min",
     publishDate: "2025-02-01",
     category: "pushing-boundaries",
