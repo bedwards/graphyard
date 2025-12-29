@@ -88,11 +88,11 @@ def validate_article(path: Path) -> dict:
 
 
 # Minimum word counts for pre-commit hook
+# All articles must be substantial, long-form pieces
 MINIMUM_WORDS = {
     "one-hour": 10000,   # 50 min minimum for "one-hour" reads
-    "30-min": 5000,      # 25 min minimum
-    "15-min": 2500,      # 12.5 min minimum
-    "default": 2000,     # 10 min minimum for any article
+    "30-min": 6000,      # 30 min minimum
+    "default": 6000,     # 30 min minimum for ALL articles - no short pieces!
 }
 
 
@@ -107,7 +107,7 @@ def main():
     print("Reading Time Validator")
     print("Target: 200 words per minute for technical content")
     if args.strict:
-        print(f"STRICT MODE: Minimum {MINIMUM_WORDS['default']} words per article")
+        print(f"STRICT MODE: Minimum {MINIMUM_WORDS['default']} words (30 min read) per article")
     print("=" * 60)
 
     if args.article:
