@@ -70,5 +70,45 @@
   {
     "chartId": "income-share-top10",
     "specFile": "income-share-top10.json"
+  },
+  {
+    "chartId": "bg-world-gdp-exponential",
+    "specFile": "bg-world-gdp-exponential.json"
+  },
+  {
+    "chartId": "bg-emissions-by-income",
+    "specFile": "bg-emissions-by-income.json"
+  },
+  {
+    "chartId": "bg-carbon-inequality",
+    "specFile": "bg-carbon-inequality.json"
+  },
+  {
+    "chartId": "bg-resource-depletion",
+    "specFile": "bg-resource-depletion.json"
+  },
+  {
+    "chartId": "bg-adjusted-net-savings",
+    "specFile": "bg-adjusted-net-savings.json"
+  },
+  {
+    "chartId": "bg-life-expectancy-diminishing",
+    "specFile": "bg-life-expectancy-diminishing.json"
+  },
+  {
+    "chartId": "bg-latin-america-gini",
+    "specFile": "bg-latin-america-gini.json"
+  },
+  {
+    "chartId": "bg-wellbeing-vs-footprint",
+    "specFile": "bg-wellbeing-vs-footprint.json"
+  },
+  {
+    "chartId": "bg-adjusted-savings-timeseries",
+    "specFile": "bg-adjusted-savings-timeseries.json"
+  },
+  {
+    "chartId": "bg-inequality-trends",
+    "specFile": "bg-inequality-trends.json"
   }
 ]

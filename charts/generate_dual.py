@@ -47,7 +47,19 @@ from charts.gdp.data import (
     load_emissions_vs_gdp,
     load_income_share_top10_timeseries,
 )
-# ML forecasting available in charts.gdp.forecast if needed
+from charts.beyond_growth.data import (
+    load_emissions_by_income_group,
+    load_top10_income_share_timeseries,
+    load_adjusted_savings_comparison,
+    load_resource_depletion_by_income_group,
+    load_life_expectancy_vs_gdp_all,
+    load_latin_america_gini_timeseries,
+    load_wellbeing_vs_footprint,
+    load_adjusted_savings_timeseries,
+    load_bottom50_vs_top10_emissions,
+    load_world_gdp_growth_long_term,
+    load_adjusted_net_savings_by_income_group,
+)
 
 OUTPUT_DIR_ALTAIR = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "altair"
 OUTPUT_DIR_PLOT = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "plot"
@@ -284,6 +296,139 @@ def get_gdp_chart_specs() -> list[ChartSpec]:
     ]
 
 
+def get_beyond_growth_chart_specs() -> list[ChartSpec]:
+    """Define all Beyond Growth article charts."""
+    return [
+        # Part I: The Growth Imperative - exponential growth visualization
+        ChartSpec(
+            chart_id="bg-world-gdp-exponential",
+            chart_type=ChartType.LINE,
+            title="World GDP: Exponential Growth (1960-2023)",
+            data_source=load_world_gdp_growth_long_term,
+            x="year",
+            y="value",
+            x_label="Year",
+            y_label="GDP (Current US$)",
+            x_format="year",
+            y_format="trillions",
+        ),
+        # Part III: The Extraction Machine - carbon colonialism
+        ChartSpec(
+            chart_id="bg-emissions-by-income",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Carbon Inequality: Emissions by Income Group (2020)",
+            data_source=lambda: load_emissions_by_income_group(2020),
+            x="entity_name",
+            y="value",
+            x_label="Income Group",
+            y_label="GHG Emissions (tonnes CO2e/capita)",
+        ),
+        ChartSpec(
+            chart_id="bg-carbon-inequality",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Who Causes Climate Change? Share of Global Emissions",
+            data_source=load_bottom50_vs_top10_emissions,
+            x="group",
+            y="share_of_emissions",
+            x_label="Population Group",
+            y_label="Share of Global Emissions (%)",
+            y_format="percent_raw",
+        ),
+        # Part IV: Hitting the Ceiling - resource depletion
+        ChartSpec(
+            chart_id="bg-resource-depletion",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Natural Resources Depletion by Income Group (2020)",
+            data_source=lambda: load_resource_depletion_by_income_group(2020),
+            x="entity_name",
+            y="value",
+            x_label="Income Group",
+            y_label="Resource Depletion (% of GNI)",
+            y_format="percent_raw",
+        ),
+        # Part V: Drawing the Doughnut - true wealth (adjusted net savings)
+        ChartSpec(
+            chart_id="bg-adjusted-net-savings",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Genuine Wealth Creation: Adjusted Net Savings (2020)",
+            data_source=lambda: load_adjusted_net_savings_by_income_group(2020),
+            x="entity_name",
+            y="value",
+            x_label="Income Group",
+            y_label="Adjusted Net Savings (% of GNI)",
+            y_format="percent_raw",
+        ),
+        # Part VI: Diminishing returns of GDP
+        ChartSpec(
+            chart_id="bg-life-expectancy-diminishing",
+            chart_type=ChartType.SCATTER,
+            title="Diminishing Returns: Life Expectancy vs GDP (2022)",
+            data_source=lambda: load_life_expectancy_vs_gdp_all(2022),
+            x="gdp_per_capita",
+            y="life_expectancy",
+            x_label="GDP Per Capita (US$)",
+            y_label="Life Expectancy (Years)",
+            x_format="thousands",
+        ),
+        # Part VII: Buen Vivir - Latin America
+        ChartSpec(
+            chart_id="bg-latin-america-gini",
+            chart_type=ChartType.LINE,
+            title="Inequality in Latin America: Gini Coefficient (2000-2022)",
+            data_source=lambda: load_latin_america_gini_timeseries(2000, 2022),
+            x="year",
+            y="value",
+            x_label="Year",
+            y_label="Gini Coefficient",
+            x_format="year",
+            color="country",
+        ),
+        # Part X: Economy We Need - wellbeing efficiency
+        ChartSpec(
+            chart_id="bg-wellbeing-vs-footprint",
+            chart_type=ChartType.SCATTER,
+            title="Wellbeing Efficiency: Life Expectancy vs Emissions (2020)",
+            data_source=lambda: load_wellbeing_vs_footprint(2020),
+            x="emissions_per_capita",
+            y="life_expectancy",
+            x_label="GHG Emissions (tonnes CO2e/capita)",
+            y_label="Life Expectancy (Years)",
+        ),
+        # Part XI: Objections - adjusted savings over time
+        ChartSpec(
+            chart_id="bg-adjusted-savings-timeseries",
+            chart_type=ChartType.LINE,
+            title="Genuine Savings: Rich vs Poor Countries (1990-2022)",
+            data_source=lambda: load_adjusted_savings_timeseries(
+                ["USA", "DEU", "NGA", "BGD", "CHN", "IND"], 1990, 2022
+            ),
+            x="year",
+            y="value",
+            x_label="Year",
+            y_label="Adjusted Net Savings (% of GNI)",
+            x_format="year",
+            y_format="percent_raw",
+            color="country",
+        ),
+        # Top 10% income share comparison
+        ChartSpec(
+            chart_id="bg-inequality-trends",
+            chart_type=ChartType.LINE,
+            title="Rising Inequality: Top 10% Income Share",
+            data_source=lambda: load_top10_income_share_timeseries(
+                ["USA", "GBR", "FRA", "DEU"], 1980, 2022
+            ),
+            x="year",
+            y="value",
+            x_label="Year",
+            y_label="Income Share of Top 10% (%)",
+            x_format="year",
+            y_format="percent_raw",
+            color="country",
+        ),
+    ]
+
+
 def render_altair(specs: list[ChartSpec]) -> int:
     """Render charts using Altair."""
     from charts.altair_renderer import AltairRenderer
@@ -371,8 +516,14 @@ def main():
     print("==============================")
     print("Renderers: Altair (Python) + Observable Plot (TypeScript)")
 
-    specs = get_gdp_chart_specs()
+    # Combine all chart specs
+    gdp_specs = get_gdp_chart_specs()
+    beyond_growth_specs = get_beyond_growth_chart_specs()
+    specs = gdp_specs + beyond_growth_specs
+
     print(f"\nFound {len(specs)} chart specifications")
+    print(f"  - GDP article: {len(gdp_specs)} charts")
+    print(f"  - Beyond Growth article: {len(beyond_growth_specs)} charts")
 
     # Export specs for TypeScript (always needed for Plot)
     export_specs_for_plot(specs)

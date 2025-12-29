@@ -62,6 +62,17 @@ export const categoryInfo: Record<ArticleCategory, { label: string; color: strin
 // Article registry - add new articles here
 export const articles: Article[] = [
   {
+    slug: "beyond-growth/altair",
+    domain: "economics",
+    title: "Beyond Growth: Rethinking Progress for a Finite Planet",
+    description:
+      "Drawing on the work of Jason Hickel and David Graeber, an exploration of why endless growth is impossible, what economies are actually for, and what comes after the growth imperative.",
+    readingTime: "55 min",
+    publishDate: "2025-01-20",
+    category: "pushing-boundaries",
+    tags: ["degrowth", "ecological economics", "post-growth", "inequality"],
+  },
+  {
     slug: "gdp/altair",
     domain: "economics",
     title: "GDP: Understanding the Economy's Measuring Stick",
