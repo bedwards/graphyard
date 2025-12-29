@@ -1244,7 +1244,6 @@ def get_cubs_2016_chart_specs() -> list[ChartSpec]:
             x_label="Year",
             y_label="ERA",
             x_format="year",
-            color="team",
         ),
         # Hendricks Value
         ChartSpec(
