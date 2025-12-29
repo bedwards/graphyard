@@ -39,6 +39,11 @@ export const domains: Domain[] = [
     description: "Statistical analysis of sports data from first principles",
   },
   {
+    id: "education",
+    name: "Education",
+    description: "Evidence-based analysis of learning and pedagogy",
+  },
+  {
     id: "technology",
     name: "Technology",
     description: "Deep dives into technological trends and innovations",
@@ -109,6 +114,17 @@ export const articles: Article[] = [
     publishDate: "2025-01-29",
     category: "pushing-boundaries",
     tags: ["sabermetrics", "bill james", "baseball analytics", "moneyball"],
+  },
+  {
+    slug: "learning-styles/altair",
+    domain: "education",
+    title: "The Learning Styles Myth: What the Data Actually Shows About Education",
+    description:
+      "Ninety percent of educators believe students learn better when taught in their preferred style. The research shows the effect is essentially zero. A data-driven investigation into education's most persistent myth.",
+    readingTime: "17 min",
+    publishDate: "2025-01-30",
+    category: "latest-research",
+    tags: ["learning styles", "education research", "meta-analysis", "PISA", "evidence-based education"],
   },
 ];
 

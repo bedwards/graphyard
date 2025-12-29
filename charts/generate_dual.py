@@ -89,6 +89,17 @@ from charts.sabermetrics.data import (
     load_stolen_base_evolution,
     load_pythagorean_outliers,
 )
+from charts.education.data import (
+    load_learning_styles_meta_analysis,
+    load_learning_styles_belief_rates,
+    load_pisa_math_scores_over_time,
+    load_pisa_2022_rankings,
+    load_finland_decline,
+    load_spending_vs_outcomes,
+    load_us_state_spending_outcomes,
+    load_homework_effect_by_grade,
+    load_effect_size_comparison,
+)
 
 OUTPUT_DIR_ALTAIR = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "altair"
 OUTPUT_DIR_PLOT = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "plot"
@@ -927,6 +938,118 @@ def get_sabermetrics_chart_specs() -> list[ChartSpec]:
     ]
 
 
+def get_education_chart_specs() -> list[ChartSpec]:
+    """Define all Education article charts."""
+    return [
+        # Learning Styles Myth - Effect Sizes
+        ChartSpec(
+            chart_id="edu-learning-styles-effect",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="The Learning Styles Myth: Effect Size Essentially Zero",
+            data_source=load_learning_styles_meta_analysis,
+            x="study",
+            y="effect_size_d",
+            x_label="Study",
+            y_label="Effect Size (Cohen's d)",
+        ),
+        # Learning Styles Belief Rates
+        ChartSpec(
+            chart_id="edu-learning-styles-belief",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="The Persistence of a Myth: Educators Who Believe in Learning Styles",
+            data_source=load_learning_styles_belief_rates,
+            x="population",
+            y="belief_rate",
+            x_label="Population",
+            y_label="Belief Rate (%)",
+            y_format="percent_raw",
+        ),
+        # PISA Math Scores Over Time
+        ChartSpec(
+            chart_id="edu-pisa-math-trends",
+            chart_type=ChartType.LINE,
+            title="PISA Mathematics: The Rise and Fall of Nations (2003-2022)",
+            data_source=load_pisa_math_scores_over_time,
+            x="year",
+            y="math_score",
+            color="country",
+            x_label="Year",
+            y_label="PISA Math Score",
+            x_format="year",
+        ),
+        # PISA 2022 Top 20 Rankings
+        ChartSpec(
+            chart_id="edu-pisa-2022-rankings",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="PISA 2022 Mathematics: Top 20 Countries",
+            data_source=load_pisa_2022_rankings,
+            x="country",
+            y="math_score",
+            x_label="Country",
+            y_label="Math Score",
+        ),
+        # Finland Decline
+        ChartSpec(
+            chart_id="edu-finland-decline",
+            chart_type=ChartType.LINE,
+            title="The Fall of Finland: From First to Twentieth (2000-2022)",
+            data_source=load_finland_decline,
+            x="year",
+            y="score",
+            color="subject",
+            x_label="Year",
+            y_label="PISA Score",
+            x_format="year",
+        ),
+        # Spending vs Outcomes
+        ChartSpec(
+            chart_id="edu-spending-vs-outcomes",
+            chart_type=ChartType.SCATTER,
+            title="Money Can't Buy Test Scores: Spending vs PISA Math (2022)",
+            data_source=load_spending_vs_outcomes,
+            x="spending_per_pupil_usd",
+            y="pisa_math_2022",
+            x_label="Spending Per Pupil (USD)",
+            y_label="PISA Math Score",
+            x_format="thousands",
+        ),
+        # US State Spending
+        ChartSpec(
+            chart_id="edu-us-state-spending",
+            chart_type=ChartType.SCATTER,
+            title="US States: No Correlation Between Spending and Achievement",
+            data_source=load_us_state_spending_outcomes,
+            x="spending_per_pupil",
+            y="naep_math_8th_grade",
+            x_label="Spending Per Pupil (USD)",
+            y_label="NAEP 8th Grade Math",
+            x_format="thousands",
+        ),
+        # Homework Effect by Grade
+        ChartSpec(
+            chart_id="edu-homework-effect",
+            chart_type=ChartType.BAR,
+            title="The Homework Question: Effect Size by Grade Level",
+            data_source=load_homework_effect_by_grade,
+            x="grade_band",
+            y="correlation_with_achievement",
+            x_label="Grade Level",
+            y_label="Correlation with Achievement",
+        ),
+        # Effect Size Comparison - What Actually Works
+        ChartSpec(
+            chart_id="edu-effect-size-comparison",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="What Actually Works: Educational Interventions Ranked by Effect Size",
+            data_source=load_effect_size_comparison,
+            x="intervention",
+            y="effect_size_d",
+            x_label="Intervention",
+            y_label="Effect Size (Cohen's d)",
+        ),
+    ]
+
+
 def render_altair(specs: list[ChartSpec]) -> int:
     """Render charts using Altair."""
     from charts.altair_renderer import AltairRenderer
@@ -1020,7 +1143,8 @@ def main():
     baseball_specs = get_baseball_chart_specs()
     marx_specs = get_marx_chart_specs()
     sabermetrics_specs = get_sabermetrics_chart_specs()
-    specs = gdp_specs + beyond_growth_specs + baseball_specs + marx_specs + sabermetrics_specs
+    education_specs = get_education_chart_specs()
+    specs = gdp_specs + beyond_growth_specs + baseball_specs + marx_specs + sabermetrics_specs + education_specs
 
     print(f"\nFound {len(specs)} chart specifications")
     print(f"  - GDP article: {len(gdp_specs)} charts")
@@ -1028,6 +1152,7 @@ def main():
     print(f"  - Baseball article: {len(baseball_specs)} charts")
     print(f"  - Marx article: {len(marx_specs)} charts")
     print(f"  - Sabermetrics article: {len(sabermetrics_specs)} charts")
+    print(f"  - Education article: {len(education_specs)} charts")
 
     # Export specs for TypeScript (always needed for Plot)
     export_specs_for_plot(specs)

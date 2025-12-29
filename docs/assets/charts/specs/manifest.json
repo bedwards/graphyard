@@ -254,5 +254,41 @@
   {
     "chartId": "saber-runs-created-2019",
     "specFile": "saber-runs-created-2019.json"
+  },
+  {
+    "chartId": "edu-learning-styles-effect",
+    "specFile": "edu-learning-styles-effect.json"
+  },
+  {
+    "chartId": "edu-learning-styles-belief",
+    "specFile": "edu-learning-styles-belief.json"
+  },
+  {
+    "chartId": "edu-pisa-math-trends",
+    "specFile": "edu-pisa-math-trends.json"
+  },
+  {
+    "chartId": "edu-pisa-2022-rankings",
+    "specFile": "edu-pisa-2022-rankings.json"
+  },
+  {
+    "chartId": "edu-finland-decline",
+    "specFile": "edu-finland-decline.json"
+  },
+  {
+    "chartId": "edu-spending-vs-outcomes",
+    "specFile": "edu-spending-vs-outcomes.json"
+  },
+  {
+    "chartId": "edu-us-state-spending",
+    "specFile": "edu-us-state-spending.json"
+  },
+  {
+    "chartId": "edu-homework-effect",
+    "specFile": "edu-homework-effect.json"
+  },
+  {
+    "chartId": "edu-effect-size-comparison",
+    "specFile": "edu-effect-size-comparison.json"
   }
 ]
