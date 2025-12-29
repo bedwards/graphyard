@@ -3,7 +3,7 @@
 Download Statcast pitch-by-pitch data from Baseball Savant.
 
 Uses pybaseball to handle the 30,000 row limit per query automatically.
-Full season downloads take ~30-60 minutes due to rate limiting.
+Full season downloads typically complete in under 1 minute.
 
 Usage:
     python scripts/download_statcast.py              # Downloads 2024 season
@@ -34,6 +34,7 @@ SEASON_DATES = {
     2022: ("2022-04-07", "2022-11-05"),
     2023: ("2023-03-30", "2023-11-01"),
     2024: ("2024-03-20", "2024-11-02"),
+    2025: ("2025-03-27", "2025-11-05"),
 }
 
 
@@ -51,7 +52,7 @@ def download_season(year: int) -> None:
         return
 
     print(f"Downloading {year} season ({start_dt} to {end_dt})...")
-    print("This may take 30-60 minutes due to Baseball Savant rate limits.")
+    print("This typically takes under 1 minute.")
 
     try:
         data = pybaseball.statcast(start_dt, end_dt)

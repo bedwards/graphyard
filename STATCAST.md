@@ -190,8 +190,8 @@ print(f"Average HR launch angle: {hr['launch_angle'].mean():.1f}°")
 
 - Baseball Savant limits queries to ~30,000 rows
 - pybaseball handles this by chunking requests automatically
-- Full season download takes 30-60 minutes
-- Use `pybaseball.cache.enable()` to avoid re-downloading
+- Full season download typically completes in under 1 minute
+- Use `pybaseball.cache.enable()` to cache results for repeated queries
 
 ## Notes
 
