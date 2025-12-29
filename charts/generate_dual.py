@@ -116,6 +116,9 @@ from charts.cubs_2016.data import (
     load_key_acquisitions_war,
     load_epstein_trades_analysis,
     load_draft_pick_outcomes,
+    load_woba_2016,
+    load_fip_vs_era_2016,
+    load_leverage_index_2016,
     load_tango_metrics_2016,
     load_championship_window_comparison,
     load_what_went_wrong,
@@ -1232,6 +1235,40 @@ def get_cubs_2016_chart_specs() -> list[ChartSpec]:
             y="career_war",
             x_label="Player",
             y_label="Career WAR",
+        ),
+        # Tango Metrics - wOBA
+        ChartSpec(
+            chart_id="cubs-woba-2016",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="2016 Cubs Hitters: wOBA vs League Average",
+            data_source=lambda: load_woba_2016().sort_values("woba", ascending=True),
+            x="player",
+            y="woba",
+            x_label="Player",
+            y_label="wOBA",
+        ),
+        # Tango Metrics - FIP vs ERA (shows ERA minus FIP: negative = outperformed)
+        ChartSpec(
+            chart_id="cubs-fip-era-2016",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="2016 Cubs Pitchers: ERA minus FIP",
+            data_source=lambda: load_fip_vs_era_2016().sort_values("era_minus_fip"),
+            x="player",
+            y="era_minus_fip",
+            x_label="Pitcher",
+            y_label="ERA - FIP (negative = better than expected)",
+            options={"highlight_negative": True},
+        ),
+        # Tango Metrics - Leverage Index
+        ChartSpec(
+            chart_id="cubs-leverage-2016",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="2016 Cubs Bullpen: Average Leverage Index",
+            data_source=lambda: load_leverage_index_2016().sort_values("avg_leverage", ascending=True),
+            x="pitcher",
+            y="avg_leverage",
+            x_label="Pitcher",
+            y_label="Avg Leverage Index",
         ),
         # Arrieta Transformation
         ChartSpec(

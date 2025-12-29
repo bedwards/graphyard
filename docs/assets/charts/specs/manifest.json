@@ -344,6 +344,18 @@
     "specFile": "cubs-draft-outcomes.json"
   },
   {
+    "chartId": "cubs-woba-2016",
+    "specFile": "cubs-woba-2016.json"
+  },
+  {
+    "chartId": "cubs-fip-era-2016",
+    "specFile": "cubs-fip-era-2016.json"
+  },
+  {
+    "chartId": "cubs-leverage-2016",
+    "specFile": "cubs-leverage-2016.json"
+  },
+  {
     "chartId": "cubs-arrieta-transformation",
     "specFile": "cubs-arrieta-transformation.json"
   },

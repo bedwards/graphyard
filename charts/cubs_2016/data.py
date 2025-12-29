@@ -166,6 +166,62 @@ def load_draft_pick_outcomes() -> pd.DataFrame:
     return pd.DataFrame(data)
 
 
+def load_woba_2016() -> pd.DataFrame:
+    """
+    2016 Cubs hitters wOBA vs league average.
+    Demonstrates Tango's wOBA metric.
+
+    Source: FanGraphs
+    """
+    data = {
+        "player": [
+            "Kris Bryant", "Anthony Rizzo", "Ben Zobrist", "Dexter Fowler",
+            "Kyle Schwarber", "Javier Baez", "Addison Russell", "Jason Heyward",
+            "League Average"
+        ],
+        "woba": [.396, .382, .371, .362, .355, .329, .311, .290, .320],
+        "is_league_avg": [False, False, False, False, False, False, False, False, True],
+    }
+    return pd.DataFrame(data)
+
+
+def load_fip_vs_era_2016() -> pd.DataFrame:
+    """
+    2016 Cubs pitchers ERA vs FIP comparison.
+    Demonstrates how FIP reveals true performance.
+    Shows ERA - FIP differential (negative = outperformed FIP).
+
+    Source: FanGraphs
+    """
+    data = {
+        "player": ["Kyle Hendricks", "Jon Lester", "Jake Arrieta", "John Lackey"],
+        "era": [2.13, 2.44, 3.10, 3.35],
+        "fip": [2.09, 3.44, 3.33, 4.14],
+    }
+    df = pd.DataFrame(data)
+    df["era_minus_fip"] = df["era"] - df["fip"]
+    return df
+
+
+def load_leverage_index_2016() -> pd.DataFrame:
+    """
+    2016 Cubs bullpen usage by leverage index.
+    Demonstrates Tango's Leverage Index concept.
+
+    Source: FanGraphs
+    """
+    data = {
+        "pitcher": [
+            "Aroldis Chapman", "Hector Rondon", "Pedro Strop",
+            "Carl Edwards Jr.", "Mike Montgomery", "Travis Wood"
+        ],
+        "avg_leverage": [1.89, 1.45, 1.32, 1.21, 0.95, 0.78],
+        "high_leverage_pct": [68, 52, 48, 42, 31, 24],
+        "role": ["Closer", "Setup", "Setup", "Middle", "Long", "Long"],
+    }
+    return pd.DataFrame(data)
+
+
 def load_tango_metrics_2016() -> pd.DataFrame:
     """
     Tom Tango's key metrics for 2016 Cubs players.
