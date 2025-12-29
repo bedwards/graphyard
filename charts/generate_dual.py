@@ -65,6 +65,19 @@ from charts.beyond_growth.data import (
     load_cumulative_emissions_by_region,
 )
 from charts.baseball.data import get_loader as get_baseball_loader
+from charts.marx.data import (
+    load_top10_income_share,
+    load_gini_index,
+    load_financial_sector_growth,
+    load_manufacturing_share,
+    load_unemployment_rate,
+    load_world_gdp_growth,
+    load_capital_formation,
+    load_us_sector_transformation,
+    load_us_inequality_timeline,
+    load_us_financialization,
+    load_global_inequality_comparison,
+)
 
 OUTPUT_DIR_ALTAIR = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "altair"
 OUTPUT_DIR_PLOT = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "plot"
@@ -672,6 +685,130 @@ def get_baseball_chart_specs() -> list[ChartSpec]:
     ]
 
 
+def get_marx_chart_specs() -> list[ChartSpec]:
+    """Define all Marx retrospective article charts."""
+    return [
+        # Income Inequality - US Top 10% share over time
+        ChartSpec(
+            chart_id="marx-us-top10-share",
+            chart_type=ChartType.LINE,
+            title="The Return of the Rentier: US Top 10% Income Share",
+            data_source=load_us_inequality_timeline,
+            x="year",
+            y="top_10_share",
+            x_label="Year",
+            y_label="Income Share (%)",
+            x_format="year",
+            y_format="percent_raw",
+        ),
+        # Financialization - US financial sector as % of GDP
+        ChartSpec(
+            chart_id="marx-us-financialization",
+            chart_type=ChartType.LINE,
+            title="The Rise of Finance Capital: US Financial Sector Credit",
+            data_source=load_us_financialization,
+            x="year",
+            y="financial_sector_pct",
+            x_label="Year",
+            y_label="Credit (% of GDP)",
+            x_format="year",
+            y_format="percent_raw",
+        ),
+        # Structural transformation - Manufacturing vs Services
+        ChartSpec(
+            chart_id="marx-us-sectors",
+            chart_type=ChartType.LINE,
+            title="The Hollow Economy: US Manufacturing vs Services",
+            data_source=load_us_sector_transformation,
+            x="year",
+            y="value",
+            color="sector",
+            x_label="Year",
+            y_label="Share of GDP (%)",
+            x_format="year",
+            y_format="percent_raw",
+        ),
+        # World GDP growth - crisis cycles
+        ChartSpec(
+            chart_id="marx-crisis-cycles",
+            chart_type=ChartType.BAR,
+            title="Capitalism's Heartbeat: World GDP Growth (1961-2023)",
+            data_source=load_world_gdp_growth,
+            x="year",
+            y="growth_rate",
+            x_label="Year",
+            y_label="Annual Growth (%)",
+            x_format="year",
+            y_format="percent_raw",
+        ),
+        # Global inequality comparison
+        ChartSpec(
+            chart_id="marx-global-gini",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="The Unequal World: Gini Coefficients by Country (2019)",
+            data_source=lambda: load_global_inequality_comparison(2019).head(15),
+            x="short_name",
+            y="gini",
+            x_label="Country",
+            y_label="Gini Index",
+        ),
+        # Unemployment - reserve army of labor
+        ChartSpec(
+            chart_id="marx-unemployment",
+            chart_type=ChartType.LINE,
+            title="The Reserve Army: Unemployment Across Europe",
+            data_source=lambda: load_unemployment_rate(
+                countries=["ESP", "GRC", "FRA", "DEU", "GBR"],
+                start_year=1991,
+                end_year=2023
+            ),
+            x="year",
+            y="value",
+            color="short_name",
+            x_label="Year",
+            y_label="Unemployment Rate (%)",
+            x_format="year",
+            y_format="percent_raw",
+        ),
+        # Capital formation - investment patterns
+        ChartSpec(
+            chart_id="marx-capital-formation",
+            chart_type=ChartType.LINE,
+            title="The Reproduction of Capital: Investment as % of GDP",
+            data_source=lambda: load_capital_formation(
+                countries=["USA", "CHN", "DEU", "JPN"],
+                start_year=1970,
+                end_year=2023
+            ),
+            x="year",
+            y="value",
+            color="short_name",
+            x_label="Year",
+            y_label="Gross Fixed Capital Formation (% of GDP)",
+            x_format="year",
+            y_format="percent_raw",
+        ),
+        # Manufacturing decline across countries
+        ChartSpec(
+            chart_id="marx-manufacturing-decline",
+            chart_type=ChartType.LINE,
+            title="The Great Hollowing: Manufacturing as % of GDP",
+            data_source=lambda: load_manufacturing_share(
+                countries=["USA", "GBR", "DEU", "CHN"],
+                start_year=1970,
+                end_year=2023
+            ),
+            x="year",
+            y="value",
+            color="short_name",
+            x_label="Year",
+            y_label="Manufacturing (% of GDP)",
+            x_format="year",
+            y_format="percent_raw",
+        ),
+    ]
+
+
 def render_altair(specs: list[ChartSpec]) -> int:
     """Render charts using Altair."""
     from charts.altair_renderer import AltairRenderer
@@ -763,12 +900,14 @@ def main():
     gdp_specs = get_gdp_chart_specs()
     beyond_growth_specs = get_beyond_growth_chart_specs()
     baseball_specs = get_baseball_chart_specs()
-    specs = gdp_specs + beyond_growth_specs + baseball_specs
+    marx_specs = get_marx_chart_specs()
+    specs = gdp_specs + beyond_growth_specs + baseball_specs + marx_specs
 
     print(f"\nFound {len(specs)} chart specifications")
     print(f"  - GDP article: {len(gdp_specs)} charts")
     print(f"  - Beyond Growth article: {len(beyond_growth_specs)} charts")
     print(f"  - Baseball article: {len(baseball_specs)} charts")
+    print(f"  - Marx article: {len(marx_specs)} charts")
 
     # Export specs for TypeScript (always needed for Plot)
     export_specs_for_plot(specs)

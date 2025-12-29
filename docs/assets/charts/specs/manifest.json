@@ -190,5 +190,37 @@
   {
     "chartId": "bb-yearly-era",
     "specFile": "bb-yearly-era.json"
+  },
+  {
+    "chartId": "marx-us-top10-share",
+    "specFile": "marx-us-top10-share.json"
+  },
+  {
+    "chartId": "marx-us-financialization",
+    "specFile": "marx-us-financialization.json"
+  },
+  {
+    "chartId": "marx-us-sectors",
+    "specFile": "marx-us-sectors.json"
+  },
+  {
+    "chartId": "marx-crisis-cycles",
+    "specFile": "marx-crisis-cycles.json"
+  },
+  {
+    "chartId": "marx-global-gini",
+    "specFile": "marx-global-gini.json"
+  },
+  {
+    "chartId": "marx-unemployment",
+    "specFile": "marx-unemployment.json"
+  },
+  {
+    "chartId": "marx-capital-formation",
+    "specFile": "marx-capital-formation.json"
+  },
+  {
+    "chartId": "marx-manufacturing-decline",
+    "specFile": "marx-manufacturing-decline.json"
   }
 ]

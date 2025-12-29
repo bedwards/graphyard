@@ -67,6 +67,17 @@ export const categoryInfo: Record<ArticleCategory, { label: string; color: strin
 // Article registry - add new articles here
 export const articles: Article[] = [
   {
+    slug: "marx/altair",
+    domain: "economics",
+    title: "Capital in the Twenty-First Century: A Ghost's Perspective",
+    description:
+      "What would Karl Marx say if he could examine modern economic data? A retrospective analysis of capitalism's evolution through Marxist theory—concentration of capital, financialization, periodic crises, and what the data reveals about the future.",
+    readingTime: "60 min",
+    publishDate: "2025-01-28",
+    category: "pushing-boundaries",
+    tags: ["marxism", "inequality", "capitalism", "political economy", "financialization"],
+  },
+  {
     slug: "beyond-growth/altair",
     domain: "economics",
     title: "Beyond Growth: Rethinking Progress for a Finite Planet",
