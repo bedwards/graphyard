@@ -8,6 +8,7 @@
  */
 
 import { domains, getAllArticles, getArticlesByDomain, categoryInfo } from "../lib/articles";
+import Nav from "../components/Nav.astro";
 ---
 
 <!doctype html>
@@ -195,12 +196,14 @@ import { domains, getAllArticles, getArticlesByDomain, categoryInfo } from "../l
         <p class="tagline">Data-driven explorations of economics and the world.</p>
       </header>
 
+      <Nav />
+
       {domains.map((domain) => {
         const domainArticles = getArticlesByDomain(domain.id);
         if (domainArticles.length === 0) return null;
 
         return (
-          <section class="domain-section">
+          <section id={domain.id} class="domain-section">
             <div class="domain-header">
               <h2>{domain.name}</h2>
               <span class="domain-description">{domain.description}</span>

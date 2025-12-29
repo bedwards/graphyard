@@ -1,0 +1,49 @@
+---
+/**
+ * Navigation Component
+ *
+ * Domain-based navigation: Home | Economics | Sports Analytics
+ * Shows only domains that have articles.
+ */
+
+import { domains, getArticlesByDomain } from "../lib/articles";
+
+// Filter to domains that have articles
+const activeDomains = domains.filter(d => getArticlesByDomain(d.id).length > 0);
+---
+
+<nav class="site-nav">
+  <a href="/graphyard/" class="nav-link">Home</a>
+  {activeDomains.map((domain) => (
+    <a href={`/graphyard/#${domain.id}`} class="nav-link">{domain.name}</a>
+  ))}
+</nav>
+
+<style>
+  .site-nav {
+    display: flex;
+    gap: 2rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-border, #e5e7eb);
+    margin-bottom: 2rem;
+  }
+
+  .nav-link {
+    color: var(--color-text-muted, #4a5568);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-link:hover {
+    color: var(--color-accent, #2563eb);
+  }
+
+  @media (max-width: 600px) {
+    .site-nav {
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+  }
+</style>
