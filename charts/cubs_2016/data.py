@@ -9,6 +9,9 @@ Data sources:
 """
 
 import pandas as pd
+import numpy as np
+from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.model_selection import TimeSeriesSplit
 
 
 def load_cubs_rebuild_arc() -> pd.DataFrame:
@@ -272,39 +275,54 @@ def load_tango_metrics_2016() -> pd.DataFrame:
 
 def load_championship_window_comparison() -> pd.DataFrame:
     """
-    Compare Cubs' championship window to other recent dynasties.
+    Playoff depth by year for Cubs vs. comparable contenders.
+    Shows how far each team advanced each postseason.
+
+    Depth scoring:
+    0 = Missed playoffs
+    1 = Wild Card loss
+    2 = Division Series loss
+    3 = Championship Series loss
+    4 = World Series loss
+    5 = World Series win
 
     Source: Baseball-Reference.com
     """
-    data = {
-        "team": [
-            "2016 Cubs", "2010s Giants", "2015-2019 Astros",
-            "2017-2020 Dodgers", "2007-2013 Cardinals", "2004-2018 Red Sox"
-        ],
-        "window_years": ["2015-2018", "2010-2014", "2015-2019", "2017-2020", "2007-2013", "2004-2018"],
-        "world_series_appearances": [1, 3, 2, 3, 3, 4],
-        "world_series_wins": [1, 3, 1, 1, 2, 4],
-        "playoff_appearances": [4, 5, 5, 4, 5, 7],
-        "win_total_in_window": [371, 436, 468, 387, 593, 1240],
-        "avg_wins_per_full_season": [93, 87, 94, 102, 85, 89],
-        "core_player_wars": [
-            "Bryant 27, Rizzo 18, Baez 15",
-            "Posey 34, Bumgarner 24, Crawford 18",
-            "Altuve 32, Bregman 28, Correa 24",
-            "Betts 34, Bellinger 19, Kershaw 18",
-            "Molina 27, Wainwright 22, Carpenter 21",
-            "Pedroia 38, Ortiz 28, multiple"
-        ],
-        "cheating_factor": [
-            "None proven",
-            "None proven",
-            "Sign-stealing 2017-2018",
-            "None proven",
-            "Hacked Astros (not competitive advantage)",
-            "Apple Watch 2017"
-        ]
-    }
-    return pd.DataFrame(data)
+    # Cubs 2015-2019 window
+    cubs_data = [
+        {"team": "Cubs", "year": 2015, "depth": 3, "result": "NLCS Loss"},
+        {"team": "Cubs", "year": 2016, "depth": 5, "result": "WS Win"},
+        {"team": "Cubs", "year": 2017, "depth": 3, "result": "NLCS Loss"},
+        {"team": "Cubs", "year": 2018, "depth": 1, "result": "WC Loss"},
+        {"team": "Cubs", "year": 2019, "depth": 0, "result": "Missed"},
+    ]
+
+    # Giants 2010-2014 "dynasty" - won 3 titles but missed playoffs twice
+    giants_data = [
+        {"team": "Giants", "year": 2010, "depth": 5, "result": "WS Win"},
+        {"team": "Giants", "year": 2011, "depth": 0, "result": "Missed"},
+        {"team": "Giants", "year": 2012, "depth": 5, "result": "WS Win"},
+        {"team": "Giants", "year": 2013, "depth": 0, "result": "Missed"},
+        {"team": "Giants", "year": 2014, "depth": 5, "result": "WS Win"},
+    ]
+
+    # Dodgers 2017-2020 - kept losing WS until finally winning
+    dodgers_data = [
+        {"team": "Dodgers", "year": 2017, "depth": 4, "result": "WS Loss"},
+        {"team": "Dodgers", "year": 2018, "depth": 4, "result": "WS Loss"},
+        {"team": "Dodgers", "year": 2019, "depth": 2, "result": "NLDS Loss"},
+        {"team": "Dodgers", "year": 2020, "depth": 5, "result": "WS Win"},
+    ]
+
+    # Astros 2017-2019 (cheating era)
+    astros_data = [
+        {"team": "Astros*", "year": 2017, "depth": 5, "result": "WS Win*"},
+        {"team": "Astros*", "year": 2018, "depth": 3, "result": "ALCS Loss"},
+        {"team": "Astros*", "year": 2019, "depth": 4, "result": "WS Loss"},
+    ]
+
+    all_data = cubs_data + giants_data + dodgers_data + astros_data
+    return pd.DataFrame(all_data)
 
 
 def load_what_went_wrong() -> pd.DataFrame:
@@ -380,3 +398,131 @@ def load_hendricks_value() -> pd.DataFrame:
         ]
     }
     return pd.DataFrame(data)
+
+
+def load_war_prediction_model() -> pd.DataFrame:
+    """
+    ML model predicting Cubs core player WAR.
+
+    Uses walk-forward validation: trains on 2012-2016 data,
+    predicts 2017-2019 (held out as "future").
+
+    Features: age, prior_year_war, war_2_years_ago, peak_war, years_since_peak
+    Target: next_year_war
+
+    Returns predictions vs actuals for visualization.
+    """
+    # Cubs core players with full career WAR data
+    players = {
+        "Kris Bryant": {
+            "birth_year": 1992,
+            "position": "3B",
+            "war": {2015: 6.5, 2016: 7.7, 2017: 6.6, 2018: 3.2, 2019: 4.8}
+        },
+        "Anthony Rizzo": {
+            "birth_year": 1989,
+            "position": "1B",
+            "war": {2012: 0.8, 2013: 2.2, 2014: 4.0, 2015: 4.2, 2016: 4.7,
+                    2017: 4.4, 2018: 2.7, 2019: 2.8}
+        },
+        "Javier Baez": {
+            "birth_year": 1992,
+            "position": "SS",
+            "war": {2014: -0.3, 2015: 0.0, 2016: 2.3, 2017: 3.0, 2018: 4.1, 2019: 5.3}
+        },
+        "Kyle Schwarber": {
+            "birth_year": 1993,
+            "position": "OF",
+            "war": {2015: 0.5, 2016: 0.5, 2017: 1.6, 2018: 1.9, 2019: 1.9}
+        },
+        "Addison Russell": {
+            "birth_year": 1994,
+            "position": "SS",
+            "war": {2015: 2.6, 2016: 2.6, 2017: 1.9, 2018: -0.6, 2019: -0.3}
+        },
+        "Kyle Hendricks": {
+            "birth_year": 1989,
+            "position": "SP",
+            "war": {2014: 2.3, 2015: 2.7, 2016: 4.6, 2017: 3.5, 2018: 2.2, 2019: 3.0}
+        },
+        "Jon Lester": {
+            "birth_year": 1984,
+            "position": "SP",
+            "war": {2015: 2.3, 2016: 2.5, 2017: 2.1, 2018: 2.0, 2019: 1.9}
+        },
+    }
+
+    # Build training data: each row is a player-year with features
+    rows = []
+    for player, data in players.items():
+        birth = data["birth_year"]
+        position = data["position"]
+        wars = data["war"]
+        years = sorted(wars.keys())
+
+        peak_war = 0
+        peak_year = years[0]
+
+        for i, year in enumerate(years[:-1]):
+            age = year - birth
+            current_war = wars[year]
+            next_war = wars[years[i + 1]]
+
+            if current_war > peak_war:
+                peak_war = current_war
+                peak_year = year
+
+            prior_war = wars.get(year - 1, current_war)
+            war_2_ago = wars.get(year - 2, prior_war)
+
+            rows.append({
+                "player": player,
+                "year": year,
+                "age": age,
+                "position": position,
+                "current_war": current_war,
+                "prior_war": prior_war,
+                "war_2_ago": war_2_ago,
+                "peak_war": peak_war,
+                "years_since_peak": year - peak_year,
+                "next_year_war": next_war,
+                "is_pitcher": 1 if position == "SP" else 0
+            })
+
+    df = pd.DataFrame(rows)
+
+    # Walk-forward: train on 2012-2016, predict 2017-2018
+    train = df[df["year"] <= 2016].copy()
+    test = df[df["year"].isin([2017, 2018])].copy()
+
+    features = ["age", "current_war", "prior_war", "war_2_ago",
+                "peak_war", "years_since_peak", "is_pitcher"]
+
+    X_train = train[features]
+    y_train = train["next_year_war"]
+    X_test = test[features]
+
+    # Train gradient boosting model
+    model = GradientBoostingRegressor(
+        n_estimators=100, max_depth=3, learning_rate=0.1, random_state=42
+    )
+    model.fit(X_train, y_train)
+
+    # Predict
+    test = test.copy()
+    test["predicted_war"] = model.predict(X_test)
+    test["actual_war"] = test["next_year_war"]
+    test["prediction_year"] = test["year"] + 1
+
+    # Calculate prediction error and aggregate by player
+    test["error"] = test["predicted_war"] - test["actual_war"]
+
+    # Aggregate: average prediction error per player across years
+    result = test.groupby("player").agg({
+        "predicted_war": "mean",
+        "actual_war": "mean",
+        "error": "mean"
+    }).reset_index()
+
+    result = result.sort_values("error")
+    return result

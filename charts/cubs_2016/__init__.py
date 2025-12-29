@@ -13,6 +13,7 @@ from .data import (
     load_what_went_wrong,
     load_arrieta_transformation,
     load_hendricks_value,
+    load_war_prediction_model,
 )
 
 __all__ = [
@@ -28,4 +29,5 @@ __all__ = [
     "load_what_went_wrong",
     "load_arrieta_transformation",
     "load_hendricks_value",
+    "load_war_prediction_model",
 ]

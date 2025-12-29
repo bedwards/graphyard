@@ -124,6 +124,7 @@ from charts.cubs_2016.data import (
     load_what_went_wrong,
     load_arrieta_transformation,
     load_hendricks_value,
+    load_war_prediction_model,
 )
 
 OUTPUT_DIR_ALTAIR = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "altair"
@@ -1305,16 +1306,29 @@ def get_cubs_2016_chart_specs() -> list[ChartSpec]:
             x_label="Player",
             y_label="WAR Change",
         ),
-        # Championship Window Comparison
+        # Championship Window Comparison - Playoff Depth by Year
         ChartSpec(
             chart_id="cubs-window-comparison",
-            chart_type=ChartType.HORIZONTAL_BAR,
-            title="Championship Windows: Cubs vs Other Dynasties",
+            chart_type=ChartType.LINE,
+            title="Playoff Depth: Cubs vs. Other Contenders",
             data_source=load_championship_window_comparison,
-            x="team",
-            y="world_series_wins",
-            x_label="Team",
-            y_label="World Series Wins in Window",
+            x="year",
+            y="depth",
+            color="team",
+            x_label="Year",
+            y_label="Playoff Round Reached",
+            x_format="year",
+        ),
+        # ML WAR Predictions - Prediction Error
+        ChartSpec(
+            chart_id="cubs-war-predictions",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="ML Model: WAR Prediction Error (2018-2019)",
+            data_source=load_war_prediction_model,
+            x="player",
+            y="error",
+            x_label="Player",
+            y_label="Prediction Error (Predicted - Actual WAR)",
         ),
     ]
 

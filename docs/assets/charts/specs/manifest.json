@@ -370,5 +370,9 @@
   {
     "chartId": "cubs-window-comparison",
     "specFile": "cubs-window-comparison.json"
+  },
+  {
+    "chartId": "cubs-war-predictions",
+    "specFile": "cubs-war-predictions.json"
   }
 ]

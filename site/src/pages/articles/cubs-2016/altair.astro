@@ -820,8 +820,10 @@ import Chart from "../../../components/Chart.astro";
         <h2>Part VIII: Comparing Championship Windows</h2>
 
         <p>
-          How does the Cubs' window compare to other recent championship contenders?
-          The data is sobering:
+          The chart below tracks playoff depth by year—how far each team advanced
+          in October. A score of 5 means World Series champion, 4 means World Series
+          loss, 3 means Championship Series loss, and so on down to 0 for missing
+          the playoffs entirely.
         </p>
 
         <div class="chart-container">
@@ -829,17 +831,38 @@ import Chart from "../../../components/Chart.astro";
         </div>
 
         <p>
-          The Giants won three World Series in their 2010-2014 window. The Cardinals
-          made three appearances and won twice between 2007-2013. The Astros appeared
-          twice and won once (with significant asterisks). The Dodgers made three
-          consecutive World Series from 2017-2020, finally winning in 2020.
+          The Giants' line tells an unusual story: they went all the way three times
+          (2010, 2012, 2014) but missed the playoffs entirely in the intervening years.
+          Their "dynasty" was actually a series of peaks and valleys—they never sustained
+          excellence, they just peaked at exactly the right moments. Madison Bumgarner's
+          legendary postseason performances (2.11 ERA, 4 wins in 2014 alone) masked a
+          team that was merely average in odd-numbered years.
         </p>
 
         <p>
-          The Cubs made one World Series appearance and won it. That's better than
-          many franchises will ever achieve. But given the talent assembled, it feels
-          like underperformance. The 2016 team was legitimately one of the best in
-          baseball history. They should have been positioned for a dynasty.
+          The Dodgers show a different pattern: sustained excellence that kept falling
+          short. They reached the World Series in 2017 and 2018, losing both times—once
+          to a cheating Astros team, once to the Red Sox. They finally broke through in
+          2020's pandemic-shortened season. Their window stayed open because they kept
+          investing: Mookie Betts, Freddie Freeman, a $200+ million payroll.
+        </p>
+
+        <p>
+          The Cubs' trajectory is the cautionary tale. They peaked in 2016 with the
+          championship, stayed competitive in 2017 (NLCS loss to the Dodgers), then
+          began a rapid descent. The 2018 Wild Card loss to the Rockies—a single-game
+          elimination after 95 wins—felt like bad luck. But 2019's complete collapse
+          (84 wins, missed playoffs) revealed the underlying decay. The window didn't
+          slowly close; it slammed shut.
+        </p>
+
+        <p>
+          Why did the Cubs get only one shot while other teams got multiple chances?
+          Three factors stand out. First, they traded their prospect depth for the 2016
+          push (Torres, Jimenez, Cease), leaving no reinforcements. Second, their core
+          aged simultaneously—Bryant, Rizzo, Russell, and Schwarber were all the same
+          generation, so they declined together. Third, the Heyward contract consumed
+          $184 million that could have been spent on replacements.
         </p>
 
         <h2>Part IX: The Cheating Scandals</h2>
@@ -912,57 +935,87 @@ import Chart from "../../../components/Chart.astro";
         <h2>Part X: What Machine Learning Reveals</h2>
 
         <p>
-          Let's step back and apply modern machine learning to the Cubs' window.
-          If we had built predictive models blind to future performance—using only
-          data available at the time—what would they have predicted?
+          We built an actual machine learning model to predict Cubs player performance—then
+          tested it on data the model had never seen. The goal: understand what a 2016-era
+          front office <em>could</em> have predicted about their window's trajectory, and
+          compare our modern approach to what the Cubs likely used.
+        </p>
+
+        <h3>Our Model: Gradient Boosting with Walk-Forward Validation</h3>
+
+        <p>
+          We trained a gradient boosting regressor on Cubs core players' WAR data from
+          2012-2016, then predicted their 2018-2019 performance (held out as "future" data).
+          The features: player age, current-year WAR, prior-year WAR, WAR from two years
+          ago, peak WAR achieved, years since peak, and a pitcher/position indicator.
         </p>
 
         <p>
-          Player aging models, trained on historical data, predicted that the Cubs'
-          core would decline in their late 20s. This is standard for baseball: position
-          players typically peak around 27, pitchers around 28. By 2019, Bryant was
-          already 27, Rizzo 30, Baez 26. The models would have predicted significant
-          regression even without injuries—and that's exactly what happened.
+          This approach—called walk-forward validation—simulates what a front office
+          would face: you only have historical data, and you're predicting futures you
+          haven't seen yet. No peeking allowed.
+        </p>
+
+        <div class="chart-container">
+          <Chart chartId="cubs-war-predictions" renderer="altair" />
+        </div>
+
+        <p>
+          The chart shows each player's average prediction error across 2018-2019. Positive
+          values mean we overestimated their performance; negative means we underestimated.
+          The model captures the general direction of decline but struggles with individual
+          variance. Russell's collapse (off-field issues) and Baez's breakout (late bloomer)
+          were hard to predict from the numbers alone.
+        </p>
+
+        <h3>How the Cubs Probably Did It</h3>
+
+        <p>
+          The Cubs' internal projection systems—built into the Ivy platform—likely used
+          similar but more sophisticated approaches. Key differences from our model:
         </p>
 
         <p>
-          WAR projections systems like ZiPS and Steamer, which use machine learning
-          to forecast future performance, showed the Cubs' window narrowing by 2018.
-          The projections weren't pessimistic about any individual player—they just
-          recognized that regression to the mean is relentless. A player who has a
-          7.7 WAR season almost never repeats it.
+          <strong>More features.</strong> The Cubs had access to proprietary Statcast data
+          (exit velocity, launch angle, sprint speed), biomechanical assessments from
+          their training staff, and detailed injury histories. Our model uses only WAR
+          and age—a fraction of their information.
         </p>
 
         <p>
-          We can run this analysis retrospectively. If we train a gradient boosting
-          model on historical player aging curves—using features like age, position,
-          injury history, batted ball data, and sprint speed—the predictions are sobering.
-          Bryant's expected WAR trajectory showed peak performance at 25-27, then decline.
-          Rizzo was already 27 in 2016, at the back end of his peak. Baez's aggressive
-          approach predicted high variance with downside risk as he aged.
+          <strong>Larger training sets.</strong> We trained on just 7 Cubs players over
+          5 years. The Cubs trained on decades of MLB history across thousands of players,
+          allowing their models to learn subtle patterns our small dataset can't capture.
         </p>
 
         <p>
-          The model's feature importance is revealing. Age dominates, explaining roughly
-          40% of year-over-year WAR changes for position players. Previous year's WAR
-          matters—but with significant regression to the mean baked in. Injury history
-          is predictive, especially for pitchers. The Cubs' core had red flags across
-          multiple dimensions.
+          <strong>Ensemble methods.</strong> Modern front offices don't rely on one model.
+          They blend multiple approaches: aging curves, similarity scores, regression-based
+          projections, and machine learning models. Disagreement between models signals
+          uncertainty worth investigating.
         </p>
 
         <p>
-          None of this was unknown to the Cubs' analytics team. They had similar models.
-          The question was what to do about it. Do you trade valuable players at their
-          peak, maximizing long-term expected value? Or do you ride the wave, knowing
-          it will end, in pursuit of championships? The Cubs chose championships.
+          <strong>Human override.</strong> The Cubs' scouts and coaches provided qualitative
+          inputs that models can't capture: work ethic, mental makeup, how a player responded
+          to adversity. These soft factors sometimes outweigh statistical projections.
+        </p>
+
+        <h3>What Both Approaches Got Right</h3>
+
+        <p>
+          Even our simple model correctly predicted the general trajectory: decline was
+          coming. Regression to the mean is unavoidable. A 7.7 WAR season (Bryant 2016)
+          almost never repeats—the expected value for his next season was closer to 5.5 WAR,
+          and our model predicted 5.3. When he actually produced 6.6, that was the outlier.
         </p>
 
         <p>
-          The Cubs' front office knew this. Theo Epstein has spoken extensively about
-          trying to thread the needle between maximizing the current window and
-          maintaining long-term sustainability. They chose to maximize the current
-          window. Given that they broke a 108-year curse, it's hard to argue they
-          were wrong. But it came at a cost measured in futures that never materialized.
+          The Cubs' front office knew their window was finite. Theo Epstein has said
+          explicitly that they saw the decline coming and chose to ride the wave rather
+          than trade players at peak value. Given that they broke a 108-year curse,
+          the decision looks justified. But it came at a cost measured in futures
+          that never materialized.
         </p>
 
         <h2>Part XI: The Fire Sale</h2>
