@@ -25,7 +25,7 @@ from psycopg2.extras import execute_values
 
 # Project paths
 PROJECT_ROOT = Path(__file__).parent.parent
-DATA_DIR = PROJECT_ROOT / "data" / "lahman"
+DATA_DIR = PROJECT_ROOT / "datasets" / "lahman"
 SCHEMA_FILE = PROJECT_ROOT / "scripts" / "lahman_schema.sql"
 
 # Lahman download URL - from the R package source

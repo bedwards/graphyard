@@ -128,6 +128,7 @@ The database spans multiple distinct eras of baseball history:
 
 ```bash
 # Download and load (using project tools)
+# Downloads to datasets/lahman/ (gitignored), loads into lahman schema
 python scripts/load_lahman.py
 
 # Verify data

@@ -23,16 +23,20 @@ The project includes:
 
 ### 1. Dataset Files are READ-ONLY
 
-The source files in `datasets/WDI_CSV/` are **read-only** and must NEVER be modified:
+All source data lives in `datasets/` (gitignored). **Never modify source files directly.**
 
 ```
-datasets/WDI_CSV/           # Source data - DO NOT MODIFY
-├── WDICSV.csv              # Main data (402K rows, 190MB) - SOURCE OF TRUTH for indicator names
-├── WDISeries.csv           # Indicator metadata (1,513 indicators)
-├── WDICountry.csv          # Country/entity metadata (265 entries)
-├── WDIcountry-series.csv   # Country-series notes
-├── WDIfootnote.csv         # Data footnotes
-└── WDIseries-time.csv      # Time series metadata
+datasets/                    # All source data - GITIGNORED
+├── WDI_CSV/                 # World Development Indicators (raw download)
+│   ├── WDICSV.csv           # Main data (402K rows, 190MB)
+│   ├── WDISeries.csv        # Indicator metadata
+│   └── ...
+├── WDI_CSV_clean/           # Processed WDI files
+├── lahman/                  # Lahman Baseball Database (raw download)
+│   ├── baseballdatabank-master/
+│   │   └── core/            # CSV files (People.csv, Batting.csv, etc.)
+│   └── lahman.zip           # Original download
+└── lahman_clean/            # Processed Lahman files (if needed)
 ```
 
 **NEVER use `chmod +w` on these files. NEVER modify them directly.**
