@@ -84,6 +84,14 @@
     "specFile": "bg-carbon-inequality.json"
   },
   {
+    "chartId": "bg-emissions-ratio",
+    "specFile": "bg-emissions-ratio.json"
+  },
+  {
+    "chartId": "bg-cumulative-emissions",
+    "specFile": "bg-cumulative-emissions.json"
+  },
+  {
     "chartId": "bg-resource-depletion",
     "specFile": "bg-resource-depletion.json"
   },
@@ -92,8 +100,16 @@
     "specFile": "bg-adjusted-net-savings.json"
   },
   {
+    "chartId": "bg-gdp-threshold",
+    "specFile": "bg-gdp-threshold.json"
+  },
+  {
     "chartId": "bg-life-expectancy-diminishing",
     "specFile": "bg-life-expectancy-diminishing.json"
+  },
+  {
+    "chartId": "bg-efficiency-leaders",
+    "specFile": "bg-efficiency-leaders.json"
   },
   {
     "chartId": "bg-latin-america-gini",

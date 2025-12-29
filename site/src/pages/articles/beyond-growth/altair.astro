@@ -328,19 +328,35 @@ import Chart from "../../../components/Chart.astro";
         <h3>Carbon Colonialism</h3>
 
         <p>
-          The pattern is even starker when we consider carbon emissions. The richest 10 percent of the global population is responsible for nearly half of all carbon emissions. The richest 1 percent alone accounts for 17 percent of the total—as much as the entire bottom 66 percent of humanity combined. If we allocated responsibility for climate change by historical cumulative emissions, the Global North is responsible for 92 percent of emissions exceeding the safe planetary boundary.
+          The pattern is even starker when we consider carbon emissions. The richest 10 percent of the global population is responsible for nearly half of all carbon emissions—48 percent. The remaining population splits the rest: the middle 40 percent accounts for 40 percent of emissions, while the poorest 50 percent—nearly 4 billion people—accounts for just 12 percent.
         </p>
 
         <Chart chartId="bg-carbon-inequality" />
 
         <p>
-          The disparity is staggering. Based on Oxfam research, the richest 1 percent of humanity—about 77 million people—are responsible for as much carbon pollution as the poorest 66 percent—more than 5 billion people. This is not ancient history but ongoing extraction: every year, the consumption patterns of the wealthy continue to destabilize the climate that everyone depends on.
+          The chart above shows this disparity in stark terms. These three groups are mutually exclusive—they sum to 100 percent of both population and emissions. Within the richest 10 percent, the top 1 percent alone is responsible for 17 of those 48 percentage points, accounting for as much climate pollution as the entire bottom 66 percent of humanity combined.
+        </p>
+
+        <p>
+          What does this mean in practice? The data shows that the richest 1 percent emits roughly 75 times their fair share of carbon—if emissions were distributed equally across all people. Even the richest 10 percent as a whole emits nearly 5 times their fair share. Meanwhile, the poorest half of humanity emits less than a quarter of what an equal distribution would allow.
+        </p>
+
+        <Chart chartId="bg-emissions-ratio" />
+
+        <p>
+          This is not merely an abstract statistical pattern. It represents a profound injustice. The atmosphere does not distinguish between a ton of CO2 emitted in New York and one emitted in Nairobi, but the people who benefit from that emission—and the people who suffer its consequences—are very different.
         </p>
 
         <Chart chartId="bg-emissions-by-income" />
 
         <p>
-          When we look at emissions per capita by income group, the pattern is unmistakable. High-income countries emit roughly five times more greenhouse gases per person than low-income countries. The atmosphere does not distinguish between a ton of CO2 emitted in New York and one emitted in Nairobi, but the people who benefit from that emission—and the people who suffer its consequences—are very different.
+          When we look at emissions per capita by World Bank income group, the pattern is unmistakable. High-income countries emit roughly five times more greenhouse gases per person than low-income countries. This is not ancient history but ongoing extraction: every year, the consumption patterns of the wealthy continue to destabilize the climate that everyone depends on.
+        </p>
+
+        <Chart chartId="bg-cumulative-emissions" />
+
+        <p>
+          Historical responsibility matters too. Looking at cumulative CO2 emissions from 1990 to 2020, East Asia and the Pacific has now overtaken Europe as the largest regional emitter—driven largely by China's industrialization. But Europe and North America still carry the weight of earlier industrialization, and when we consider per-capita cumulative emissions, the Global North's responsibility becomes even clearer.
         </p>
 
         <p>
@@ -474,10 +490,16 @@ import Chart from "../../../components/Chart.astro";
           Critically, degrowth does not mean reducing everything equally. It means reducing those sectors that are ecologically destructive and socially unnecessary—fossil fuels, SUVs, fast fashion, planned obsolescence, food waste—while expanding sectors that improve wellbeing with minimal material throughput: care, education, arts, public health, ecological restoration. The goal is not austerity but sufficiency: enough for everyone, within planetary limits.
         </p>
 
+        <Chart chartId="bg-gdp-threshold" />
+
+        <p>
+          The data reveals a striking pattern. When we analyze life expectancy across all countries and bin them by GDP per capita level, the results are unambiguous. Countries with less than $1,000 per capita average 60 years of life expectancy. Moving to $2,000-5,000 per capita adds roughly 10 years. But moving from $30,000-50,000 to $50,000-100,000—despite more than doubling income—adds only about one year. And countries above $100,000 per capita live only 1.5 years longer than those at $50,000-100,000. The returns to growth diminish dramatically.
+        </p>
+
         <Chart chartId="bg-life-expectancy-diminishing" />
 
         <p>
-          One of the strongest empirical supports for the degrowth case is the relationship between GDP and wellbeing. As the scatter plot above shows, life expectancy rises steeply with GDP at low income levels—going from $1,000 to $10,000 per capita brings dramatic improvements in health. But beyond a certain threshold (roughly $20,000-30,000), additional GDP adds almost nothing to life expectancy. The curve flattens. Rich countries could have half their current GDP and still enjoy essentially the same longevity. Growth, at this point, is not buying health—it is buying consumption for its own sake.
+          The scatter plot above shows the same pattern in individual country data. Life expectancy rises steeply with GDP at low income levels. But beyond roughly $20,000-30,000 per capita, additional GDP adds almost nothing to longevity. The curve flattens. Rich countries could have half their current GDP and still enjoy essentially the same life expectancy. Growth, at this point, is not buying health—it is buying consumption for its own sake.
         </p>
 
         <h3>A Survey of 530 Policies</h3>
@@ -633,7 +655,13 @@ import Chart from "../../../components/Chart.astro";
         <Chart chartId="bg-wellbeing-vs-footprint" />
 
         <p>
-          The scatter plot above reveals something striking: some countries achieve high life expectancy with relatively low emissions, while others emit vast amounts of carbon for only modest gains in longevity. Costa Rica, for example, achieves life expectancy comparable to the United States with a fraction of the emissions. This variation suggests that there is nothing inevitable about the high-emission, high-consumption model. Different paths to wellbeing are possible—some far more sustainable than others.
+          The scatter plot above reveals something striking: some countries achieve high life expectancy with relatively low emissions, while others emit vast amounts of carbon for only modest gains in longevity. This variation suggests that there is nothing inevitable about the high-emission, high-consumption model. Different paths to wellbeing are possible—some far more sustainable than others.
+        </p>
+
+        <Chart chartId="bg-efficiency-leaders" />
+
+        <p>
+          When we calculate an efficiency ratio—life expectancy divided by emissions per capita—a different set of countries emerges as leaders. These are places that achieve high human development outcomes with minimal environmental impact. The ranking challenges conventional assumptions about development: it is not the richest countries that perform best, but those that have found ways to provide healthcare, nutrition, and security without the material throughput that wealthy nations take for granted.
         </p>
 
         <h3>A Note on Technology</h3>

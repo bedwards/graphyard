@@ -56,9 +56,13 @@ from charts.beyond_growth.data import (
     load_latin_america_gini_timeseries,
     load_wellbeing_vs_footprint,
     load_adjusted_savings_timeseries,
-    load_bottom50_vs_top10_emissions,
+    load_carbon_inequality_proper,
+    load_emissions_per_capita_ratio,
     load_world_gdp_growth_long_term,
     load_adjusted_net_savings_by_income_group,
+    load_high_wellbeing_low_footprint,
+    load_gdp_threshold_analysis,
+    load_cumulative_emissions_by_region,
 )
 
 OUTPUT_DIR_ALTAIR = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "altair"
@@ -312,7 +316,7 @@ def get_beyond_growth_chart_specs() -> list[ChartSpec]:
             x_format="year",
             y_format="trillions",
         ),
-        # Part III: The Extraction Machine - carbon colonialism
+        # Part III: The Extraction Machine - emissions by income group
         ChartSpec(
             chart_id="bg-emissions-by-income",
             chart_type=ChartType.HORIZONTAL_BAR,
@@ -323,16 +327,40 @@ def get_beyond_growth_chart_specs() -> list[ChartSpec]:
             x_label="Income Group",
             y_label="GHG Emissions (tonnes CO2e/capita)",
         ),
+        # Fixed: Non-overlapping groups that sum to 100%
         ChartSpec(
             chart_id="bg-carbon-inequality",
             chart_type=ChartType.HORIZONTAL_BAR,
             title="Who Causes Climate Change? Share of Global Emissions",
-            data_source=load_bottom50_vs_top10_emissions,
+            data_source=load_carbon_inequality_proper,
             x="group",
             y="share_of_emissions",
             x_label="Population Group",
             y_label="Share of Global Emissions (%)",
             y_format="percent_raw",
+        ),
+        # Emissions per capita ratio - shows magnitude of inequality
+        ChartSpec(
+            chart_id="bg-emissions-ratio",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Emissions Per Capita: Times Above Fair Share",
+            data_source=load_emissions_per_capita_ratio,
+            x="group",
+            y="times_fair_share",
+            x_label="Population Group",
+            y_label="Times Fair Share",
+        ),
+        # Cumulative historical emissions by region
+        ChartSpec(
+            chart_id="bg-cumulative-emissions",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Historical Responsibility: Cumulative CO2 Emissions (1990-2020)",
+            data_source=load_cumulative_emissions_by_region,
+            x="region",
+            y="cumulative_emissions",
+            x_label="Region",
+            y_label="Cumulative CO2 (Mt)",
+            y_format="thousands",
         ),
         # Part IV: Hitting the Ceiling - resource depletion
         ChartSpec(
@@ -358,7 +386,18 @@ def get_beyond_growth_chart_specs() -> list[ChartSpec]:
             y_label="Adjusted Net Savings (% of GNI)",
             y_format="percent_raw",
         ),
-        # Part VI: Diminishing returns of GDP
+        # NEW: GDP threshold analysis - shows where gains plateau
+        ChartSpec(
+            chart_id="bg-gdp-threshold",
+            chart_type=ChartType.BAR,
+            title="The Threshold: Life Expectancy by GDP Level",
+            data_source=load_gdp_threshold_analysis,
+            x="gdp_range",
+            y="avg_life_expectancy",
+            x_label="GDP Per Capita Range",
+            y_label="Average Life Expectancy (Years)",
+        ),
+        # Part VI: Diminishing returns scatter plot
         ChartSpec(
             chart_id="bg-life-expectancy-diminishing",
             chart_type=ChartType.SCATTER,
@@ -369,6 +408,17 @@ def get_beyond_growth_chart_specs() -> list[ChartSpec]:
             x_label="GDP Per Capita (US$)",
             y_label="Life Expectancy (Years)",
             x_format="thousands",
+        ),
+        # NEW: Most efficient countries (high wellbeing, low footprint)
+        ChartSpec(
+            chart_id="bg-efficiency-leaders",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Most Efficient: Life Expectancy Per Unit Emissions",
+            data_source=load_high_wellbeing_low_footprint,
+            x="country",
+            y="efficiency",
+            x_label="Country",
+            y_label="Life Expectancy / Emissions Ratio",
         ),
         # Part VII: Buen Vivir - Latin America
         ChartSpec(

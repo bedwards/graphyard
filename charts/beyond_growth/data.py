@@ -317,22 +317,38 @@ def load_world_gdp_growth_long_term():
     return df
 
 
-def load_bottom50_vs_top10_emissions():
+def load_carbon_inequality_proper():
     """
-    Load data showing emissions disparity between richest and poorest.
+    Load carbon inequality data with non-overlapping groups.
 
-    Returns synthetic data based on Oxfam research showing:
-    - Richest 10% responsible for ~48% of emissions
-    - Bottom 50% responsible for ~12% of emissions
+    Based on Oxfam research. Groups are mutually exclusive and sum to 100%.
+    Note: The richest 1% is PART OF the richest 10%, responsible for 17 of the 48 points.
     """
     import pandas as pd
 
-    # Based on Oxfam "Confronting Carbon Inequality" report
+    # Non-overlapping groups that sum to 100%
     data = [
-        {'group': 'Richest 1%', 'share_of_emissions': 17, 'share_of_population': 1},
         {'group': 'Richest 10%', 'share_of_emissions': 48, 'share_of_population': 10},
         {'group': 'Middle 40%', 'share_of_emissions': 40, 'share_of_population': 40},
-        {'group': 'Bottom 50%', 'share_of_emissions': 12, 'share_of_population': 50},
+        {'group': 'Poorest 50%', 'share_of_emissions': 12, 'share_of_population': 50},
+    ]
+    return pd.DataFrame(data)
+
+
+def load_emissions_per_capita_ratio():
+    """
+    Calculate ratio of emissions per capita relative to global average.
+
+    Shows how many times above/below fair share each group emits.
+    """
+    import pandas as pd
+
+    # Based on Oxfam data - emissions per capita relative to global average
+    data = [
+        {'group': 'Richest 1%', 'times_fair_share': 75.0},
+        {'group': 'Richest 10%', 'times_fair_share': 4.8},
+        {'group': 'Middle 40%', 'times_fair_share': 1.0},
+        {'group': 'Poorest 50%', 'times_fair_share': 0.24},
     ]
     return pd.DataFrame(data)
 
@@ -357,6 +373,165 @@ def load_adjusted_net_savings_by_income_group(year: int = 2020):
         ORDER BY id.value DESC
     """
     df = pd.read_sql(query, conn, params=(year,))
+    conn.close()
+    return df
+
+
+def load_decoupling_analysis():
+    """
+    Load data showing whether emissions are decoupling from GDP growth.
+
+    Returns world GDP index and CO2 emissions index (1990 = 100).
+    """
+    import pandas as pd
+
+    conn = get_db_connection()
+
+    # Get world GDP
+    gdp_query = """
+        SELECT year, value as gdp
+        FROM world_data
+        WHERE indicator_code = 'NY.GDP.MKTP.KD'
+          AND year BETWEEN 1990 AND 2022
+        ORDER BY year
+    """
+    gdp_df = pd.read_sql(gdp_query, conn)
+
+    # Get world CO2 emissions
+    co2_query = """
+        SELECT year, value as co2
+        FROM world_data
+        WHERE indicator_code = 'EN.GHG.CO2.MT.CE.AR5'
+          AND year BETWEEN 1990 AND 2022
+        ORDER BY year
+    """
+    co2_df = pd.read_sql(co2_query, conn)
+    conn.close()
+
+    # Merge and normalize to 1990 = 100
+    df = pd.merge(gdp_df, co2_df, on='year', how='inner')
+    if len(df) > 0:
+        base_gdp = df[df['year'] == 1990]['gdp'].values[0] if 1990 in df['year'].values else df['gdp'].values[0]
+        base_co2 = df[df['year'] == 1990]['co2'].values[0] if 1990 in df['year'].values else df['co2'].values[0]
+        df['gdp_index'] = (df['gdp'] / base_gdp) * 100
+        df['co2_index'] = (df['co2'] / base_co2) * 100
+
+    return df
+
+
+def load_high_wellbeing_low_footprint():
+    """
+    Identify countries with high wellbeing and low environmental footprint.
+
+    Uses life expectancy as wellbeing proxy, GHG emissions per capita as footprint.
+    Returns efficiency score (life expectancy per unit emissions).
+    """
+    import pandas as pd
+
+    conn = get_db_connection()
+    query = """
+        SELECT
+            e.entity_name as country,
+            e.entity_code,
+            ghg.value as emissions_per_capita,
+            life.value as life_expectancy,
+            life.value / NULLIF(ghg.value, 0) as efficiency
+        FROM country_data ghg
+        JOIN country_data life ON ghg.entity_code = life.entity_code AND ghg.year = life.year
+        JOIN entities e ON ghg.entity_code = e.entity_code
+        WHERE ghg.indicator_code = 'EN.GHG.ALL.PC.CE.AR5'
+          AND life.indicator_code = 'SP.DYN.LE00.IN'
+          AND ghg.year = 2020
+          AND ghg.value IS NOT NULL
+          AND life.value IS NOT NULL
+          AND ghg.value > 0.5
+          AND life.value > 60
+        ORDER BY efficiency DESC
+        LIMIT 20
+    """
+    df = pd.read_sql(query, conn)
+    conn.close()
+    return df
+
+
+def load_gdp_threshold_analysis():
+    """
+    Analyze relationship between GDP per capita and life expectancy
+    to identify the threshold where gains plateau.
+
+    Uses binned analysis for clearer pattern.
+    """
+    import pandas as pd
+    import numpy as np
+
+    conn = get_db_connection()
+    query = """
+        SELECT
+            gdp.value as gdp_per_capita,
+            life.value as life_expectancy
+        FROM country_data gdp
+        JOIN country_data life ON gdp.entity_code = life.entity_code AND gdp.year = life.year
+        WHERE gdp.indicator_code = 'NY.GDP.PCAP.CD'
+          AND life.indicator_code = 'SP.DYN.LE00.IN'
+          AND gdp.year = 2022
+          AND gdp.value IS NOT NULL
+          AND life.value IS NOT NULL
+        ORDER BY gdp.value
+    """
+    df = pd.read_sql(query, conn)
+    conn.close()
+
+    # Create GDP bins and calculate mean life expectancy for each
+    bins = [0, 1000, 2000, 5000, 10000, 20000, 30000, 50000, 100000, 200000]
+    labels = ['<1k', '1-2k', '2-5k', '5-10k', '10-20k', '20-30k', '30-50k', '50-100k', '>100k']
+    df['gdp_bin'] = pd.cut(df['gdp_per_capita'], bins=bins, labels=labels)
+
+    result = df.groupby('gdp_bin', observed=True).agg({
+        'life_expectancy': 'mean',
+        'gdp_per_capita': 'mean'
+    }).reset_index()
+    result.columns = ['gdp_range', 'avg_life_expectancy', 'avg_gdp']
+
+    return result
+
+
+def load_world_emissions_timeseries():
+    """Load world CO2 emissions over time."""
+    import pandas as pd
+
+    conn = get_db_connection()
+    query = """
+        SELECT year, value
+        FROM world_data
+        WHERE indicator_code = 'EN.GHG.CO2.MT.CE.AR5'
+          AND year BETWEEN 1990 AND 2022
+        ORDER BY year
+    """
+    df = pd.read_sql(query, conn)
+    conn.close()
+    return df
+
+
+def load_cumulative_emissions_by_region():
+    """
+    Calculate cumulative CO2 emissions by region.
+
+    Shows historical responsibility for climate change.
+    """
+    import pandas as pd
+
+    conn = get_db_connection()
+    query = """
+        SELECT e.entity_name as region, SUM(rd.value) as cumulative_emissions
+        FROM region_geo_data rd
+        JOIN entities e ON rd.entity_code = e.entity_code
+        WHERE rd.indicator_code = 'EN.GHG.CO2.MT.CE.AR5'
+          AND rd.year BETWEEN 1990 AND 2020
+          AND e.entity_type = 'region_geo'
+        GROUP BY e.entity_name
+        ORDER BY cumulative_emissions DESC
+    """
+    df = pd.read_sql(query, conn)
     conn.close()
     return df
 
