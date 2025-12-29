@@ -1298,12 +1298,12 @@ def get_cubs_2016_chart_specs() -> list[ChartSpec]:
         ChartSpec(
             chart_id="cubs-player-decline",
             chart_type=ChartType.HORIZONTAL_BAR,
-            title="The Window Closes: WAR Decline 2016 to 2020",
+            title="The Window Closes: WAR Change 2016 to 2019",
             data_source=load_what_went_wrong,
             x="player",
-            y="total_decline_pct",
+            y="war_change",
             x_label="Player",
-            y_label="WAR Decline (%)",
+            y_label="WAR Change",
         ),
         # Championship Window Comparison
         ChartSpec(

@@ -309,8 +309,8 @@ def load_championship_window_comparison() -> pd.DataFrame:
 
 def load_what_went_wrong() -> pd.DataFrame:
     """
-    Player performance decline after 2016.
-    Shows WAR trajectory of core players.
+    Player WAR change from 2016 to 2019.
+    Shows which core players declined vs improved by 2019 (missed playoffs).
 
     Source: Baseball-Reference.com
     """
@@ -321,25 +321,18 @@ def load_what_went_wrong() -> pd.DataFrame:
             "Jon Lester", "Jake Arrieta"
         ],
         "war_2016": [7.7, 4.7, 2.6, 0.5, 2.3, 1.6, 2.5, 4.0],
-        "war_2017": [6.6, 4.4, 1.9, 1.6, 3.0, 0.3, 2.1, 2.6],
-        "war_2018": [3.2, 2.7, -0.6, 1.9, 4.1, 1.2, 2.0, 1.8],
         "war_2019": [4.8, 2.8, -0.3, 1.9, 5.3, 0.5, 1.9, 0.2],
-        "war_2020": [0.9, 0.7, None, -0.2, -0.3, 0.3, 0.5, None],
-        "total_decline_pct": [-88, -85, -100, -60, -87, -81, -80, -100],
+        # WAR change: war_2019 - war_2016
+        "war_change": [-2.9, -1.9, -2.9, 1.4, 3.0, -1.1, -0.6, -3.8],
         "primary_cause": [
             "Injuries, shoulder issues",
             "Natural aging (30+)",
-            "Domestic violence, released",
-            "Strikeouts, defense issues",
-            "Contact issues, aging",
+            "Off-field issues, released",
+            "Breakout year",
+            "Career year at 26",
             "Never lived up to contract",
-            "Age decline (36+)",
-            "Left in FA, age decline"
-        ],
-        "left_cubs": [
-            "2021 (traded)", "2021 (traded)", "2019 (released)",
-            "2020 (non-tendered)", "2021 (traded)", "2023 (released)",
-            "2020 (walked)", "2017 (FA)"
+            "Age decline (35)",
+            "Left in FA, declined with Phillies"
         ]
     }
     return pd.DataFrame(data)
