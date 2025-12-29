@@ -297,7 +297,32 @@ npm run preview             # Preview production build
 
 ## Machine Learning Framework
 
-### Installed Packages (Apple Silicon Optimized)
+### Hardware: Mac Studio (Apple Silicon)
+
+**M1/M2 Max with unified memory and GPU.** Key performance findings from benchmarks:
+
+| Framework | Time | Notes |
+|-----------|------|-------|
+| **CatBoost** | 0.21s | Fastest - highly optimized CPU |
+| **DIY PyTorch (MPS)** | 0.58s | Simple custom TabularNet |
+| **LightGBM** | 0.62s | Fast leaf-wise boosting |
+| **XGBoost** | 0.74s | Solid all-rounder |
+| TabNet | 29s+ | Avoid - framework overhead |
+| PyTorch Lightning | 26s+ | Avoid - excessive overhead |
+
+**Key insight**: Well-optimized CPU algorithms (CatBoost, LightGBM) beat GPU-accelerated neural networks for tabular data at medium scale. Reserve PyTorch MPS for custom architectures where GPU parallelism matters.
+
+### Framework Selection
+
+| Task | Use | Avoid |
+|------|-----|-------|
+| **Tabular regression/classification** | CatBoost (default) | TabNet, Lightning |
+| **Time series forecasting** | CatBoost → LightGBM → XGBoost | Complex neural nets |
+| **Categorical features** | CatBoost (native handling) | Manual encoding |
+| **GPU experimentation** | DIY PyTorch + MPS | High-overhead frameworks |
+| **Production deployment** | Gradient boosting models | Neural nets (unless justified) |
+
+### Installed Packages
 
 ```
 PyTorch 2.9+      - MPS backend for Apple Silicon GPU
@@ -307,11 +332,22 @@ CatBoost 1.2+     - Categorical feature handling (CPU on Mac)
 Skforecast 0.19+  - Time series forecasting utilities
 ```
 
-### Key Challenges Addressed
+### Writing Guidelines
+
+**Domain-centric, not tech-centric.** In essays:
+- Present predictions and forecasts as natural extensions of analysis
+- Don't call out "ML" or "machine learning" as special
+- Focus on what readers learn, not the technology behind it
+- Lead with insights, mention methodology briefly if at all
+- Visualize results (feature importance, forecasts) without jargon
+
+Example: Instead of "Our XGBoost model achieved 94% accuracy", write "Historical patterns suggest GDP will grow 2.3% next year, with consumer spending driving most of the increase."
+
+### Time Series Challenges
 
 1. **Different start dates**: Countries begin data collection at different years
 2. **Missing values**: MCAR, MAR, MNAR patterns handled via preprocessing
-3. **Optimal lag selection**: Research shows 4-9 lags optimal for annual data
+3. **Optimal lag selection**: 4-9 lags optimal for annual economic data
 4. **Walk-forward validation**: Proper time series evaluation (not k-fold)
 
 ### Usage
@@ -330,14 +366,44 @@ df_prepared, metadata = prepare_panel_data(
     min_years=10,
 )
 
-# Compare models
+# Compare models (CatBoost typically wins)
 forecaster = TimeSeriesForecaster(
-    models=["xgboost", "lightgbm", "catboost"]
+    models=["catboost", "lightgbm", "xgboost"]
 )
 results = forecaster.fit_and_compare(X, y, n_splits=5)
 
-print(f"Best model: {forecaster.best_model}")
-print(f"MAE: {results[forecaster.best_model].mae:.4f}")
+# For custom PyTorch with MPS acceleration
+import torch
+device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+model = TabularNet(n_features, hidden_dim=64).to(device)
+```
+
+### PyTorch MPS Pattern
+
+```python
+import torch
+import torch.nn as nn
+
+class TabularNet(nn.Module):
+    """Simple tabular network for Apple Silicon MPS."""
+    def __init__(self, n_features: int, hidden_dim: int = 64):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(n_features, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, 1)
+        )
+
+    def forward(self, x):
+        return self.net(x)
+
+# Training with MPS
+device = torch.device("mps")
+model = TabularNet(n_features=10).to(device)
+X_tensor = torch.tensor(X.values, dtype=torch.float32).to(device)
+y_tensor = torch.tensor(y.values, dtype=torch.float32).to(device)
 ```
 
 ---
@@ -431,3 +497,4 @@ Site: https://bedwards.github.io/graphyard/
 ### Apple Silicon ML
 - https://developer.apple.com/metal/pytorch/
 - https://pytorch.org/blog/introducing-accelerated-pytorch-training-on-mac/
+- https://gist.github.com/bedwards/2fe3d8dc4bcd0b9fe99c6819f28dab8d (Mac M1 benchmark)
