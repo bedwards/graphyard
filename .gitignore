@@ -236,3 +236,13 @@ site/test-results/
 
 # CatBoost
 catboost_info/
+
+# Backups and data dumps
+backups/
+*.dump
+*.sql
+
+# Large data files
+*.zip
+*.csv
+*.parquet
