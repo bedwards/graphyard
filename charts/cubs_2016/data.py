@@ -13,25 +13,24 @@ import pandas as pd
 
 def load_cubs_rebuild_arc() -> pd.DataFrame:
     """
-    Cubs win totals and playoff results 2011-2021.
-    Shows the complete rebuild arc under Theo Epstein.
+    Cubs win totals and playoff results 2011-2019.
+    Shows the rebuild arc under Theo Epstein through the window closing.
 
     Source: Baseball-Reference.com
     """
     data = {
-        "year": [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021],
-        "wins": [71, 61, 66, 73, 97, 103, 92, 95, 84, 34, 71],
-        "losses": [91, 101, 96, 89, 65, 58, 69, 68, 78, 26, 91],
-        "win_pct": [.438, .377, .407, .451, .599, .640, .571, .583, .519, .567, .438],
+        "year": [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019],
+        "wins": [71, 61, 66, 73, 97, 103, 92, 95, 84],
+        "losses": [91, 101, 96, 89, 65, 58, 69, 68, 78],
+        "win_pct": [.438, .377, .407, .451, .599, .640, .571, .583, .519],
         "playoff_result": [
             "Missed", "Missed", "Missed", "Missed", "NLCS",
-            "World Series Champion", "NLCS", "Wild Card Loss",
-            "Missed", "Wild Card Loss", "Missed"
+            "World Series Champion", "NLCS", "Wild Card Loss", "Missed"
         ],
-        "division_rank": [5, 5, 5, 5, 3, 1, 1, 1, 3, 1, 4],
-        "run_differential": [-61, -152, -118, -36, 143, 252, 111, 108, -2, 39, -95],
+        "division_rank": [5, 5, 5, 5, 3, 1, 1, 1, 3],
+        "run_differential": [-61, -152, -118, -36, 143, 252, 111, 108, -2],
         "era": ["Pre-Epstein", "Rebuild", "Rebuild", "Rebuild", "Contention",
-                "Championship", "Window", "Window", "Decline", "COVID", "Rebuild 2.0"],
+                "Championship", "Window", "Window", "Decline"],
         "notes": [
             "Last year before Epstein",
             "First Epstein year, tank begins",
@@ -41,9 +40,7 @@ def load_cubs_rebuild_arc() -> pd.DataFrame:
             "108-year drought ends",
             "Lost NLCS to Dodgers 4-1",
             "Lost Wild Card to Rockies",
-            "Core begins to age out",
-            "60-game COVID season",
-            "Fire sale at deadline"
+            "Core begins to age out"
         ]
     }
     return pd.DataFrame(data)
