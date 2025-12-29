@@ -301,24 +301,35 @@ def load_crisis_markers():
     ])
 
 
-def load_global_inequality_comparison(year: int = 2019):
+def load_global_inequality_comparison(year: int = None):
     """
     Load Gini coefficients for comparison across countries.
     Shows variation in inequality across different political economies.
+
+    Uses most recent available data for each country (within last 10 years)
+    to ensure coverage of countries like South Africa.
     """
     conn = get_connection()
+    # Get most recent Gini for each country within last 10 years
     query = """
-        SELECT cd.entity_code, e.entity_name as short_name, cd.value as gini
-        FROM country_data cd
-        JOIN entities e ON cd.entity_code = e.entity_code
-        WHERE cd.indicator_code = 'SI.POV.GINI'
-          AND cd.year = %s
-          AND cd.value IS NOT NULL
-          AND e.entity_type = 'country'
-        ORDER BY cd.value DESC
-        LIMIT 30
+        WITH recent_gini AS (
+            SELECT cd.entity_code, e.entity_name as short_name,
+                   cd.value as gini, cd.year,
+                   ROW_NUMBER() OVER (PARTITION BY cd.entity_code ORDER BY cd.year DESC) as rn
+            FROM country_data cd
+            JOIN entities e ON cd.entity_code = e.entity_code
+            WHERE cd.indicator_code = 'SI.POV.GINI'
+              AND cd.year >= 2010
+              AND cd.value IS NOT NULL
+              AND e.entity_type = 'country'
+        )
+        SELECT entity_code, short_name, gini, year
+        FROM recent_gini
+        WHERE rn = 1
+        ORDER BY gini DESC
+        LIMIT 20
     """
-    df = pd.read_sql(query, conn, params=(year,))
+    df = pd.read_sql(query, conn)
     conn.close()
     return df
 

@@ -767,8 +767,8 @@ def get_marx_chart_specs() -> list[ChartSpec]:
         ChartSpec(
             chart_id="marx-global-gini",
             chart_type=ChartType.HORIZONTAL_BAR,
-            title="The Unequal World: Gini Coefficients by Country (2019)",
-            data_source=lambda: load_global_inequality_comparison(2019).head(15),
+            title="Global Inequality: Countries by Gini Coefficient",
+            data_source=lambda: load_global_inequality_comparison().head(15),
             x="short_name",
             y="gini",
             x_label="Country",
