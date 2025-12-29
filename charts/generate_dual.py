@@ -1237,12 +1237,14 @@ def get_cubs_2016_chart_specs() -> list[ChartSpec]:
         ChartSpec(
             chart_id="cubs-arrieta-transformation",
             chart_type=ChartType.LINE,
-            title="Jake Arrieta: The Analytics Transformation",
+            title="Jake Arrieta: ERA by Season",
             data_source=load_arrieta_transformation,
-            x="season",
+            x="year",
             y="era",
-            x_label="Season",
+            x_label="Year",
             y_label="ERA",
+            x_format="year",
+            color="team",
         ),
         # Hendricks Value
         ChartSpec(

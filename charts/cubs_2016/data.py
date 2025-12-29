@@ -300,29 +300,16 @@ def load_arrieta_transformation() -> pd.DataFrame:
     Source: FanGraphs, Baseball-Reference.com
     """
     data = {
-        "season": [
-            "2010 (BAL)", "2011 (BAL)", "2012 (BAL)", "2013 (BAL)",
-            "2013 (CHC)", "2014 (CHC)", "2015 (CHC)", "2016 (CHC)",
-            "2017 (CHC)", "2018 (PHI)", "2019 (PHI)", "2020 (PHI)"
-        ],
+        "year": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020],
         "team": [
             "Orioles", "Orioles", "Orioles", "Orioles",
             "Cubs", "Cubs", "Cubs", "Cubs",
-            "Cubs", "Phillies", "Phillies", "Phillies"
+            "Phillies", "Phillies", "Phillies"
         ],
-        "era": [4.66, 5.05, 6.20, 5.22, 3.66, 2.53, 1.77, 3.10, 3.53, 3.96, 4.64, 5.08],
-        "fip": [4.95, 4.59, 4.97, 4.35, 3.56, 2.98, 2.35, 3.33, 3.45, 3.98, 4.32, 4.57],
-        "whip": [1.47, 1.41, 1.55, 1.38, 1.16, 1.02, 0.86, 1.08, 1.22, 1.28, 1.38, 1.40],
-        "war": [-0.6, 0.9, -0.1, 0.4, 1.7, 4.4, 7.3, 4.0, 2.6, 1.8, 0.2, 0.5],
-        "cubs_adjustments": [
-            None, None, None, None,
-            "Cut sinker, added cutter",
-            "Improved sequencing",
-            "Cy Young winner",
-            "Maintained excellence",
-            "Decline begins",
-            None, None, None
-        ]
+        "era": [4.66, 5.05, 6.20, 4.78, 2.53, 1.77, 3.10, 3.53, 3.96, 4.64, 5.08],
+        "fip": [4.95, 4.59, 4.97, 3.82, 2.98, 2.35, 3.33, 3.45, 3.98, 4.32, 4.57],
+        "whip": [1.47, 1.41, 1.55, 1.28, 1.02, 0.86, 1.08, 1.22, 1.28, 1.38, 1.40],
+        "war": [-0.6, 0.9, -0.1, 2.1, 4.4, 7.3, 4.0, 2.6, 1.8, 0.2, 0.5],
     }
     return pd.DataFrame(data)
 
