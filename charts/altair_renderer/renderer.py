@@ -155,7 +155,7 @@ class AltairRenderer:
                     sort="-x",
                     axis=alt.Axis(labelLimit=250),  # Prevent label truncation
                 ) if spec.x else alt.Y(),
-                color=alt.Color(spec.color) if spec.color else alt.value(self.COLORS[0]),
+                color=alt.Color(f"{spec.color}:N") if spec.color else alt.value(self.COLORS[0]),
             )
 
         elif chart_type == "donut":

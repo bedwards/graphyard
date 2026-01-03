@@ -29,6 +29,11 @@ export interface Domain {
 // Domain definitions
 export const domains: Domain[] = [
   {
+    id: "atrocity-economics",
+    name: "Atrocity Economics",
+    description: "Quantifying the economics of state violence and taxpayer complicity",
+  },
+  {
     id: "economics",
     name: "Economics",
     description: "Data-driven explorations of economic concepts and indicators",
@@ -71,6 +76,17 @@ export const categoryInfo: Record<ArticleCategory, { label: string; color: strin
 
 // Article registry - add new articles here
 export const articles: Article[] = [
+  {
+    slug: "blood-money/altair",
+    domain: "atrocity-economics",
+    title: "Blood Money: What the Median Citizen Pays for State Violence",
+    description:
+      "A comprehensive investigation into taxpayer complicity in state violence. From colonial atrocities to modern drone warfare, we calculate the cost per death and the median citizen's contribution across nations and eras. A 22-chapter, data-driven moral ledger.",
+    readingTime: "11 hours",
+    publishDate: "2026-01-02",
+    category: "pushing-boundaries",
+    tags: ["atrocity", "taxes", "military spending", "democide", "drone warfare", "colonialism", "moral philosophy"],
+  },
   {
     slug: "marx/altair",
     domain: "economics",

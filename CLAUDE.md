@@ -107,6 +107,85 @@ Should be expanded to true one-hour read (12,000 words) with more content on:
 
 ---
 
+## Blood Money: Book Project
+
+A book-length investigation into taxpayer complicity in state-sponsored atrocities. The central question: **What does the median income citizen contribute to suffering through their tax payments?**
+
+### Core Thesis
+
+Every taxpaying citizen in every nation is an involuntary participant in state violence. This book quantifies that participation across history, nations, and income levels. Not to assign guilt, but to illuminate a moral predicament that everyone faces yet no one discusses.
+
+### The Calculation
+
+For any citizen in any country-year:
+1. **Total tax burden** = Income tax + Consumption tax + Property tax + Social Security
+2. **Military share** = (Military spending ÷ Government spending) × Total tax
+3. **Atrocity share** = Military contribution × Attribution factor
+
+Attribution models range from conservative (only documented war crime costs) to expansive (all military spending enables violence).
+
+### Key Questions the Book Explores
+
+1. **Magnitude**: How much have citizens historically contributed to atrocities?
+2. **Variation**: How does this differ by country, era, income level?
+3. **Awareness**: What did citizens know, and when?
+4. **Response**: How have people in extreme cases responded?
+5. **Options**: What can a morally serious person do?
+
+### Citizen Responses to Extreme State Violence (Historical Cases)
+
+| Response Type | Examples | Frequency |
+|---------------|----------|-----------|
+| Passive compliance | Most citizens in most atrocity states | Very common |
+| Active collaboration | Nazi informants, Soviet denouncers, Rwandan killers | Common |
+| Internal emigration | Withdrawal to private life, religion, art | Common |
+| Economic resistance | Tax evasion, black markets, hiding assets | Moderate |
+| Exit/Exile | Emigration before borders close | Limited by ability |
+| Sabotage | Slow work, hiding victims, destroying records | Rare |
+| Armed resistance | Partisans, assassination attempts | Very rare |
+| Suicide | Many intellectuals under Mao, Stalin | Notable |
+| Post-hoc accountability | Trials, truth commissions, reparations | After the fact |
+
+### What Options Does an Individual Have?
+
+1. **Minimize taxable presence**: Earn less, consume less, own less
+2. **Tax evasion**: Illegal but historically common response
+3. **Effective altruism**: Offset harm through strategic giving
+4. **Political action**: Vote, organize, advocate for change
+5. **Exit**: Emigrate to less violent states
+6. **Voice**: Journalism, art, witnessing, documentation
+7. **Resistance**: Civil disobedience, sabotage, armed resistance
+8. **Psychological coping**: Religion, nihilism, substances, denial
+
+### Data Infrastructure
+
+| Schema | Purpose | Key Tables |
+|--------|---------|------------|
+| `atrocity_economics` | Military spending, war costs | sipri_milex, maddison_gdp |
+| `tax_burden` | Tax rates and distribution | oecd_revenue, income_distribution |
+| `ucdp` | Conflict events and casualties | ged_events, conflicts |
+| `democide` | Government mass killings | episodes, annual_data |
+| `costs_of_war` | US post-9/11 war data | war_costs, war_deaths |
+| `tbij` | Drone strike casualties | drone_strikes |
+| `master` | Cross-dataset entity resolution | countries, country_codes |
+
+### Sample Query: US Taxpayer Military Contribution
+
+```sql
+SELECT
+    year,
+    median_income_usd,
+    tax_to_gdp_ratio / 100 as effective_rate,
+    military_spending_pct_gdp / tax_to_gdp_ratio as military_share,
+    median_income_usd * (tax_to_gdp_ratio / 100) *
+        (military_spending_pct_gdp / tax_to_gdp_ratio) as military_contribution
+FROM tax_burden.country_year_summary
+WHERE country_code = 'USA' AND year >= 2000
+ORDER BY year;
+```
+
+---
+
 ## Project Overview
 
 Graphyard is a multi-domain data analysis and visualization project. Each domain has its own data source, data loaders, and essay-style articles:
@@ -121,6 +200,13 @@ Graphyard is a multi-domain data analysis and visualization project. Each domain
 | Sports Analytics | NCAA Basketball (Kaggle March Madness) | TBD | TBD |
 | Education | Census School Finance (F-33) | TBD | TBD |
 | Education | Census SAIPE (School District Poverty) | TBD | TBD |
+| Atrocities | SIPRI Military Expenditure | `atrocity_economics` | Blood Money |
+| Atrocities | UCDP Georeferenced Events | `ucdp` | Blood Money |
+| Atrocities | TBIJ Drone Strikes | `tbij` | Blood Money |
+| Atrocities | Brown Costs of War | `costs_of_war` | Blood Money |
+| Atrocities | Rummel/PITF Democide | `democide` | Blood Money |
+| Tax/Income | OECD Revenue Statistics | `tax_burden` | Blood Money |
+| Tax/Income | UNU-WIDER WIID | `tax_burden` | Blood Money |
 | Reference | Census Geographic Codes | - | - |
 
 See also: [WDI.md](WDI.md), [OWID.md](OWID.md), [LAHMAN.md](LAHMAN.md), [RETROSHEET.md](RETROSHEET.md), [STATCAST.md](STATCAST.md), [NCAA_BASKETBALL.md](NCAA_BASKETBALL.md), [CENSUS_SCHOOL_FINANCE.md](CENSUS_SCHOOL_FINANCE.md), [CENSUS_SAIPE.md](CENSUS_SAIPE.md), [CENSUS_GEO.md](CENSUS_GEO.md)

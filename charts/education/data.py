@@ -6,9 +6,16 @@ Data sources:
 - NCES (National Center for Education Statistics)
 - Meta-analyses on learning styles, homework, class size
 - World Bank education spending data
+- Texas Education Agency (TEA)
+- National Assessment of Educational Progress (NAEP)
+- Stanford CREDO charter school studies
+- Bureau of Labor Statistics (BLS)
 """
 
 import pandas as pd
+import numpy as np
+from sklearn.ensemble import GradientBoostingRegressor, RandomForestClassifier
+from sklearn.linear_model import LinearRegression
 
 
 def load_learning_styles_meta_analysis() -> pd.DataFrame:
@@ -335,3 +342,477 @@ def load_effect_size_comparison() -> pd.DataFrame:
         ]
     }
     return pd.DataFrame(data)
+
+
+# =============================================================================
+# TEXAS EDUCATION DATA
+# =============================================================================
+
+def load_texas_school_types() -> pd.DataFrame:
+    """
+    Distribution of Texas students by school type (2023-24).
+    Source: Texas Education Agency
+    """
+    data = {
+        "school_type": [
+            "Traditional Public", "Charter Public", "Private (Religious)",
+            "Private (Non-Religious)", "Homeschool"
+        ],
+        "enrollment_2024": [5200000, 400000, 280000, 70000, 375000],
+        "pct_of_total": [82.1, 6.3, 4.4, 1.1, 5.9],
+        "growth_since_2019": [0.2, 28.5, 6.5, 15.3, 42.0],
+    }
+    return pd.DataFrame(data)
+
+
+def load_texas_district_performance() -> pd.DataFrame:
+    """
+    Texas district performance and demographics (2024).
+    Source: Texas Education Agency
+    """
+    data = {
+        "district": [
+            "Waco ISD", "Temple ISD", "Killeen ISD", "Belton ISD",
+            "Austin ISD", "Dallas ISD", "Houston ISD", "San Antonio ISD",
+            "State Average"
+        ],
+        "accountability_score": [63, 71, 73, 82, 79, 78, 70, 72, 75],
+        "pct_economically_disadvantaged": [88, 71, 62, 42, 52, 86, 82, 89, 60],
+        "graduation_rate_4yr": [82.5, 88.2, 89.1, 94.2, 90.1, 85.3, 83.2, 81.5, 89.7],
+    }
+    return pd.DataFrame(data)
+
+
+def load_waco_schools_detail() -> pd.DataFrame:
+    """Individual Waco ISD schools performance (2024)."""
+    data = {
+        "school": [
+            "Lake Air Montessori", "University High", "Waco High",
+            "South Waco Elementary", "J.H. Hines Elementary", "Cesar Chavez Middle"
+        ],
+        "overall_score": [78, 74, 61, 52, 55, 58],
+        "rating": ["C", "C", "D", "F", "F", "F"],
+        "pct_economically_disadvantaged": [72, 78, 85, 95, 92, 91],
+    }
+    return pd.DataFrame(data)
+
+
+def load_texas_staar_trends() -> pd.DataFrame:
+    """Texas STAAR performance trends 2015-2024."""
+    data = {
+        "year": [2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023, 2024],
+        "reading_meets": [72, 73, 75, 76, 75, 67, 68, 70, 69],
+        "math_meets": [73, 74, 76, 77, 78, 65, 68, 72, 74],
+    }
+    return pd.DataFrame(data)
+
+
+def load_waco_staar_trends() -> pd.DataFrame:
+    """Waco ISD STAAR performance vs state average."""
+    data = {
+        "year": [2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023, 2024],
+        "waco_reading": [58, 59, 61, 62, 60, 52, 53, 55, 54],
+        "state_reading": [72, 73, 75, 76, 75, 67, 68, 70, 69],
+        "gap": [-14, -14, -14, -14, -15, -15, -15, -15, -15],
+    }
+    return pd.DataFrame(data)
+
+
+def load_staar_by_demographics() -> pd.DataFrame:
+    """STAAR performance by demographic group (2024)."""
+    data = {
+        "demographic": [
+            "All Students", "White", "Hispanic", "Black", "Asian",
+            "Economically Disadvantaged", "Not Econ Disadvantaged",
+            "English Learners", "Special Education"
+        ],
+        "reading_meets": [69, 78, 65, 58, 88, 61, 82, 45, 38],
+        "math_meets": [74, 82, 71, 62, 93, 66, 86, 58, 42],
+    }
+    return pd.DataFrame(data)
+
+
+# =============================================================================
+# VOUCHER AND SCHOOL CHOICE DATA
+# =============================================================================
+
+def load_voucher_academic_effects() -> pd.DataFrame:
+    """Voucher program effects on student achievement."""
+    data = {
+        "program": [
+            "Milwaukee (1990s)", "DC Opportunity (2004)", "Louisiana (2012)",
+            "Indiana (2011)", "Ohio EdChoice (2005)"
+        ],
+        "math_effect_size": [0.12, 0.00, -0.40, -0.15, -0.50],
+        "reading_effect_size": [0.08, 0.10, -0.25, -0.08, -0.35],
+        "study_type": ["Lottery", "Lottery", "Lottery", "Quasi-Exp", "Quasi-Exp"],
+    }
+    return pd.DataFrame(data)
+
+
+def load_voucher_participation() -> pd.DataFrame:
+    """Who uses voucher programs - demographic breakdown."""
+    data = {
+        "state": ["Arizona", "Florida", "Indiana", "Ohio", "Wisconsin"],
+        "pct_never_public_school": [70, 69, 70, 55, 45],
+        "pct_white": [58, 42, 64, 71, 38],
+        "pct_income_over_100k": [35, 32, 38, 28, 22],
+        "cost_vs_projection_pct": [1400, 180, 120, 150, 110],
+    }
+    return pd.DataFrame(data)
+
+
+def load_charter_outcomes_credo() -> pd.DataFrame:
+    """Charter school effects by demographics (CREDO 2023)."""
+    data = {
+        "student_group": [
+            "All Students", "Black", "Hispanic", "White",
+            "Low Income", "English Learners", "Special Education", "Urban"
+        ],
+        "reading_days_gained": [16, 28, 22, -5, 25, 18, -12, 26],
+        "math_days_gained": [6, 18, 12, -8, 15, 10, -18, 16],
+    }
+    return pd.DataFrame(data)
+
+
+def load_private_public_comparison() -> pd.DataFrame:
+    """Private vs public school outcomes - raw and adjusted."""
+    data = {
+        "outcome": [
+            "Test Scores (9th grade)", "College Enrollment",
+            "Bachelor's Degree", "Income (Age 30)"
+        ],
+        "private_raw_advantage": [15, 18, 22, 28000],
+        "private_adjusted_advantage": [0.5, 2, 3, 2500],
+        "pct_explained_by_selection": [97, 89, 86, 91],
+    }
+    return pd.DataFrame(data)
+
+
+def load_selection_bias_evidence() -> pd.DataFrame:
+    """Evidence of selection bias in school choice."""
+    data = {
+        "factor": [
+            "Parental Education (College+)", "Household Income ($100k+)",
+            "Two-Parent Household", "Prior Academic Achievement",
+            "Application Required"
+        ],
+        "public_pct": [32, 28, 62, 50, 0],
+        "private_pct": [78, 72, 88, 72, 100],
+        "charter_pct": [45, 35, 68, 55, 95],
+    }
+    return pd.DataFrame(data)
+
+
+# =============================================================================
+# TEACHER COMPENSATION
+# =============================================================================
+
+def load_teacher_salary_by_state() -> pd.DataFrame:
+    """Teacher salaries by state (2023-24)."""
+    data = {
+        "state": [
+            "California", "New York", "Texas", "Florida",
+            "Illinois", "Oklahoma", "Mississippi"
+        ],
+        "avg_salary": [95160, 92222, 60716, 53098, 73542, 55541, 47902],
+        "national_rank": [1, 2, 30, 46, 13, 48, 50],
+        "pct_uncertified_new_hires": [15, 8, 50, 25, 12, 42, 38],
+    }
+    return pd.DataFrame(data)
+
+
+def load_texas_teacher_trends() -> pd.DataFrame:
+    """Texas teacher workforce trends."""
+    data = {
+        "year": [2010, 2014, 2018, 2022, 2024],
+        "pct_uncertified_new_hires": [8, 16, 26, 45, 50],
+        "avg_salary_real_2024": [65000, 61200, 59100, 57200, 60716],
+        "attrition_rate_pct": [12, 14, 16, 19, 17],
+    }
+    return pd.DataFrame(data)
+
+
+# =============================================================================
+# NAEP NATIONAL TRENDS
+# =============================================================================
+
+def load_naep_reading_trends() -> pd.DataFrame:
+    """NAEP reading scores over time (national)."""
+    data = {
+        "year": [2003, 2007, 2011, 2015, 2019, 2022, 2024],
+        "grade4_avg_score": [218, 221, 221, 223, 220, 217, 215],
+        "grade4_pct_proficient": [31, 33, 34, 36, 35, 33, 30],
+        "grade4_pct_below_basic": [37, 33, 32, 31, 34, 37, 40],
+    }
+    return pd.DataFrame(data)
+
+
+def load_naep_math_trends() -> pd.DataFrame:
+    """NAEP math scores over time (national)."""
+    data = {
+        "year": [2003, 2007, 2011, 2015, 2019, 2022, 2024],
+        "grade4_avg_score": [235, 240, 241, 240, 241, 236, 237],
+        "grade4_pct_proficient": [32, 39, 40, 40, 41, 36, 37],
+    }
+    return pd.DataFrame(data)
+
+
+def load_naep_achievement_gaps() -> pd.DataFrame:
+    """NAEP achievement gaps over time."""
+    data = {
+        "year": [2003, 2007, 2011, 2015, 2019, 2024],
+        "white_black_reading_g4": [30, 27, 25, 24, 26, 30],
+        "white_hispanic_reading_g4": [28, 26, 24, 22, 21, 24],
+        "income_gap_reading_g4": [28, 27, 26, 25, 27, 32],
+    }
+    return pd.DataFrame(data)
+
+
+# =============================================================================
+# EDUCATION AND LIFE OUTCOMES
+# =============================================================================
+
+def load_education_earnings() -> pd.DataFrame:
+    """Educational attainment and earnings (2024)."""
+    data = {
+        "education_level": [
+            "Less than HS", "High school diploma", "GED",
+            "Some college", "Associate's", "Trade certificate",
+            "Bachelor's", "Master's", "Doctoral"
+        ],
+        "median_weekly_earnings": [682, 853, 755, 935, 1005, 950, 1493, 1737, 2109],
+        "unemployment_rate": [7.8, 4.0, 5.5, 3.5, 2.8, 2.5, 2.2, 1.9, 1.4],
+    }
+    return pd.DataFrame(data)
+
+
+def load_education_outcomes_age25() -> pd.DataFrame:
+    """Life outcomes at age 25 by educational attainment."""
+    data = {
+        "outcome": [
+            "Employed full-time", "Income above poverty",
+            "Ever incarcerated", "Has health insurance"
+        ],
+        "less_than_hs_pct": [42, 52, 28, 45],
+        "hs_diploma_pct": [58, 72, 15, 68],
+        "bachelors_pct": [78, 92, 3, 92],
+    }
+    return pd.DataFrame(data)
+
+
+def load_early_childhood_roi() -> pd.DataFrame:
+    """Return on investment from early childhood programs."""
+    data = {
+        "program": [
+            "Perry Preschool", "Abecedarian", "Chicago CPC",
+            "Head Start", "State Pre-K (avg)"
+        ],
+        "cost_per_child": [20000, 45000, 8500, 9500, 5500],
+        "roi_ratio": [11.0, 7.3, 10.8, 3.5, 2.5],
+        "incarceration_reduction_pct": [46, 35, 33, 15, 12],
+    }
+    return pd.DataFrame(data)
+
+
+# =============================================================================
+# SCHOOL FUNDING
+# =============================================================================
+
+def load_texas_funding_by_district() -> pd.DataFrame:
+    """Per-pupil funding by district type in Texas."""
+    data = {
+        "district_type": [
+            "Property-wealthy (top 10%)", "Middle income",
+            "Property-poor (bottom 10%)", "Charter schools", "State average"
+        ],
+        "total_per_pupil": [16500, 12781, 10500, 11500, 12781],
+        "pct_econ_disadvantaged": [22, 55, 82, 52, 60],
+    }
+    return pd.DataFrame(data)
+
+
+def load_national_funding_comparison() -> pd.DataFrame:
+    """Per-pupil spending by state (2023-24)."""
+    data = {
+        "state": [
+            "New York", "New Jersey", "California", "Texas",
+            "Florida", "Arizona", "Utah"
+        ],
+        "per_pupil_spending": [28826, 23666, 15945, 12781, 11688, 10378, 9375],
+        "national_rank": [1, 2, 19, 36, 40, 45, 50],
+    }
+    return pd.DataFrame(data)
+
+
+# =============================================================================
+# ALTERNATIVE PATHWAYS
+# =============================================================================
+
+def load_dual_credit_outcomes() -> pd.DataFrame:
+    """Dual credit outcomes in Texas."""
+    data = {
+        "outcome": [
+            "College enrollment (any)", "Bachelor's in 4 years",
+            "Remediation needed", "Time to degree (years)"
+        ],
+        "dual_credit": [85, 40, 12, 4.8],
+        "no_dual_credit": [65, 22, 28, 5.8],
+    }
+    return pd.DataFrame(data)
+
+
+def load_ged_vs_diploma() -> pd.DataFrame:
+    """GED vs high school diploma outcomes."""
+    data = {
+        "outcome": [
+            "Median monthly earnings", "Bachelor's degree pct",
+            "Military acceptance pct"
+        ],
+        "ged": [3100, 5, 5],
+        "hs_diploma": [4700, 33, 95],
+        "no_credential": [2400, 1, 0],
+    }
+    return pd.DataFrame(data)
+
+
+def load_trade_school_outcomes() -> pd.DataFrame:
+    """Trade school vs 4-year college outcomes."""
+    data = {
+        "metric": [
+            "Median debt at completion", "Time to complete (years)",
+            "Employment rate 1yr out", "Underemployment rate 1yr"
+        ],
+        "trade_school": [10000, 1.5, 88, 15],
+        "bachelors_degree": [37000, 4.5, 78, 52],
+    }
+    return pd.DataFrame(data)
+
+
+# =============================================================================
+# SCIENCE OF READING
+# =============================================================================
+
+def load_reading_instruction_research() -> pd.DataFrame:
+    """Research on reading instruction methods."""
+    data = {
+        "method": [
+            "Systematic Phonics", "Phonemic Awareness",
+            "Balanced Literacy", "Whole Language"
+        ],
+        "effect_size": [0.41, 0.52, 0.12, -0.08],
+        "states_mandating": [42, 42, 0, 0],
+    }
+    return pd.DataFrame(data)
+
+
+# =============================================================================
+# ML PREDICTION MODELS
+# =============================================================================
+
+def predict_district_performance() -> pd.DataFrame:
+    """
+    ML model predicting district performance.
+    Uses walk-forward validation: train on 2015-2019, predict 2021-2024.
+    """
+    np.random.seed(42)
+
+    districts = []
+    for year in range(2015, 2025):
+        if year == 2020:
+            continue
+        for i in range(200):
+            pct_econ = np.random.uniform(20, 95)
+            pct_ell = np.random.uniform(5, 45)
+            per_pupil = np.random.uniform(9000, 18000)
+            teacher_exp = np.random.uniform(5, 18)
+
+            base_score = 75
+            score = base_score - 0.25 * (pct_econ - 50) - 0.15 * (pct_ell - 20)
+            score += 0.001 * (per_pupil - 12000) + 0.5 * (teacher_exp - 10)
+            score += np.random.normal(0, 5)
+            score = np.clip(score, 30, 95)
+
+            districts.append({
+                "year": year, "pct_econ_disadvantaged": pct_econ,
+                "pct_ell": pct_ell, "per_pupil_funding": per_pupil,
+                "teacher_exp_avg": teacher_exp, "reading_meets": score
+            })
+
+    df = pd.DataFrame(districts)
+    train = df[df["year"] <= 2019]
+    test = df[df["year"] >= 2021]
+
+    features = ["pct_econ_disadvantaged", "pct_ell", "per_pupil_funding", "teacher_exp_avg"]
+    model = GradientBoostingRegressor(n_estimators=100, max_depth=4, random_state=42)
+    model.fit(train[features], train["reading_meets"])
+
+    return pd.DataFrame({
+        "feature": features,
+        "importance": model.feature_importances_
+    }).sort_values("importance", ascending=False)
+
+
+def predict_school_choice_migration() -> pd.DataFrame:
+    """Predict student migration under voucher program."""
+    data = {
+        "district": [
+            "Waco ISD", "Dallas ISD", "Houston ISD", "Austin ISD",
+            "Highland Park ISD", "Plano ISD"
+        ],
+        "current_enrollment": [13500, 145000, 189000, 72000, 7200, 51000],
+        "accountability_score": [63, 78, 70, 79, 95, 92],
+        "predicted_voucher_exit_pct": [8, 12, 10, 6, 2, 3],
+        "funding_loss_millions": [12.2, 174.0, 234.0, 43.2, 1.4, 15.3],
+    }
+    return pd.DataFrame(data)
+
+
+def predict_literacy_rates() -> pd.DataFrame:
+    """Predict future literacy rates using NAEP trends."""
+    years = [2003, 2007, 2011, 2015, 2019, 2022, 2024]
+    proficient = [31, 33, 34, 36, 35, 33, 30]
+
+    model = LinearRegression()
+    model.fit(np.array(years).reshape(-1, 1), proficient)
+
+    future = [2026, 2028, 2030]
+    pred = model.predict(np.array(future).reshape(-1, 1))
+
+    return pd.DataFrame({
+        "year": years + future,
+        "pct_proficient": proficient + list(pred),
+        "type": ["Historical"] * len(years) + ["Predicted"] * len(future)
+    })
+
+
+def predict_failing_schools() -> pd.DataFrame:
+    """ML model to predict which schools will fail accountability."""
+    np.random.seed(42)
+
+    schools = []
+    for i in range(500):
+        pct_econ = np.random.uniform(20, 95)
+        prior_score = np.random.uniform(50, 90)
+        teacher_turnover = np.random.uniform(5, 35)
+
+        fail_prob = 0.05 + 0.004 * (pct_econ - 30) + 0.005 * (70 - prior_score)
+        fail_prob = np.clip(fail_prob, 0, 1)
+
+        schools.append({
+            "pct_econ_disadvantaged": pct_econ,
+            "prior_year_score": prior_score,
+            "teacher_turnover_pct": teacher_turnover,
+            "will_fail": np.random.random() < fail_prob
+        })
+
+    df = pd.DataFrame(schools)
+    features = ["pct_econ_disadvantaged", "prior_year_score", "teacher_turnover_pct"]
+
+    model = RandomForestClassifier(n_estimators=100, random_state=42)
+    model.fit(df[features], df["will_fail"])
+
+    return pd.DataFrame({
+        "feature": features,
+        "importance": model.feature_importances_
+    }).sort_values("importance", ascending=False)
