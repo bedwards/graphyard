@@ -23,7 +23,7 @@ from weasyprint.text.fonts import FontConfiguration
 # Project paths
 PROJECT_ROOT = Path(__file__).parent.parent
 SITE_DIR = PROJECT_ROOT / "site"
-DIST_DIR = SITE_DIR / "dist"
+DIST_DIR = PROJECT_ROOT / "docs"  # Astro outputs to ../docs
 PDF_OUTPUT_DIR = PROJECT_ROOT / "articles" / "pdf"
 FONTS_DIR = PROJECT_ROOT / "fonts"
 
