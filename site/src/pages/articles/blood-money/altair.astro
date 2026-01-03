@@ -1300,6 +1300,13 @@ import Chart from "../../../components/Chart.astro";
         This chapter examines several of these proxy conflicts to calculate what American taxpayers contributed and what their contributions purchased. The Soviet side of the ledger is important but harder to document; we focus primarily on American-backed violence where the evidence is clearer.
       </p>
 
+      <div class="chart-container">
+        <Chart id="bm-cold-war-spending-eras" renderer="altair" />
+        <p class="chart-caption">
+          Figure 5.1: U.S. military spending by Cold War era. The Korean War and Reagan Buildup represented peaks of expenditure, while détente saw relative restraint. Each era's spending funded different proxy conflicts and intervention strategies.
+        </p>
+      </div>
+
       <h3>Guatemala (1954-1996)</h3>
 
       <p>
@@ -1411,6 +1418,13 @@ import Chart from "../../../components/Chart.astro";
       <p>
         Fifty dollars over thirteen years. The price of a nice dinner. This was the median American's contribution to the El Salvadoran killing fields.
       </p>
+
+      <div class="chart-container">
+        <Chart id="bm-central-america-deaths" renderer="altair" />
+        <p class="chart-caption">
+          Figure 5.2: Deaths from U.S.-backed violence in Central America during the 1980s. Guatemala's decades-long genocide dwarfs the other conflicts, but El Salvador and Nicaragua also saw massive loss of life funded by American taxpayers.
+        </p>
+      </div>
 
       <div class="chart-container">
         <Chart id="bm-drone-casualties-by-president" renderer="altair" />
@@ -2290,6 +2304,20 @@ import Chart from "../../../components/Chart.astro";
         The cost per death, using direct deaths only: approximately $13,000 per death. The median taxpayer's contribution per death: approximately $70-100.
       </p>
 
+      <div class="chart-container">
+        <Chart id="bm-afghanistan-troops" renderer="altair" />
+        <p class="chart-caption">
+          Figure 11.1: U.S. troop levels in Afghanistan, 2001-2021. The Obama surge peaked at nearly 100,000 troops in 2010-2011, a dramatic escalation from the early years when fewer than 20,000 Americans were deployed.
+        </p>
+      </div>
+
+      <div class="chart-container">
+        <Chart id="bm-afghanistan-us-deaths" renderer="altair" />
+        <p class="chart-caption">
+          Figure 11.2: U.S. military deaths in Afghanistan by year. Casualties spiked during the surge years (2009-2012) when American forces were most exposed to Taliban attacks.
+        </p>
+      </div>
+
       <h3>Iraq: The War of Choice</h3>
 
       <p>
@@ -2375,6 +2403,34 @@ import Chart from "../../../components/Chart.astro";
       <p>
         These were the bloodiest years of my taxpaying life. The years when my contributions funded the most deaths, the most suffering, the most destruction. The years when the receipt in my tax return represented the most blood.
       </p>
+
+      <div class="chart-container">
+        <Chart id="bm-iraq-troops" renderer="altair" />
+        <p class="chart-caption">
+          Figure 11.3: U.S. troop levels in Iraq, 2003-2019. The occupation peaked at over 170,000 troops during the surge of 2007, followed by a steady drawdown under Obama. The ISIS emergence required a modest return of forces after 2014.
+        </p>
+      </div>
+
+      <div class="chart-container">
+        <Chart id="bm-iraq-us-deaths" renderer="altair" />
+        <p class="chart-caption">
+          Figure 11.4: U.S. military deaths in Iraq by year. The deadliest years were 2004-2007 during the height of the insurgency. Casualties dropped sharply after the surge succeeded in reducing violence.
+        </p>
+      </div>
+
+      <div class="chart-container">
+        <Chart id="bm-post-911-deaths" renderer="altair" />
+        <p class="chart-caption">
+          Figure 11.5: Deaths in post-9/11 wars by category. Civilians constitute the largest single category, dwarfing U.S. military and contractor deaths combined. The human cost fell overwhelmingly on the populations we claimed to be liberating.
+        </p>
+      </div>
+
+      <div class="chart-container">
+        <Chart id="bm-cumulative-war-costs" renderer="altair" />
+        <p class="chart-caption">
+          Figure 11.6: Cumulative cost of the post-9/11 wars, 2001-2024. The curve continues to rise as interest on war debt and veterans' care compound year after year.
+        </p>
+      </div>
 
       <h2>Chapter 12: Drones and Distance (2009-2016)</h2>
 
@@ -2686,6 +2742,27 @@ import Chart from "../../../components/Chart.astro";
         The Trump administration initially embraced the Saudi relationship, vetoing congressional resolutions to end US support for the Yemen war. The Biden administration eventually paused some arms sales but never fully ended American involvement.
       </p>
 
+      <div class="chart-container">
+        <Chart id="bm-yemen-civilian-deaths" renderer="altair" />
+        <p class="chart-caption">
+          Figure 13.1: Civilian deaths from coalition airstrikes in Yemen. The campaign was most intense in 2015-2018, with deaths declining as international pressure mounted and targeting improved—or perhaps as fewer targets remained.
+        </p>
+      </div>
+
+      <div class="chart-container">
+        <Chart id="bm-yemen-famine-deaths" renderer="altair" />
+        <p class="chart-caption">
+          Figure 13.2: Cumulative famine deaths in Yemen. The indirect toll from starvation and disease far exceeds direct combat deaths. By 2024, an estimated 170,000 Yemenis had died from war-induced famine—most of them children.
+        </p>
+      </div>
+
+      <div class="chart-container">
+        <Chart id="bm-military-aid-israel" renderer="altair" />
+        <p class="chart-caption">
+          Figure 13.3: Cumulative U.S. military aid to Israel, 1970-2024. American taxpayers have provided over $175 billion in military assistance, making Israel the largest cumulative recipient of U.S. foreign aid.
+        </p>
+      </div>
+
       <h3>The Afghanistan Withdrawal</h3>
 
       <p>
@@ -2911,6 +2988,41 @@ import Chart from "../../../components/Chart.astro";
       <p>
         My "share" of 50-100 deaths is a statistical artifact. I did not personally kill anyone. I did not choose targets or pull triggers. But if we divide total deaths by total taxpayers, my fractional contribution is real. Those deaths happened. I helped pay for them. The arithmetic is inexorable.
       </p>
+
+      <div class="chart-container">
+        <Chart id="bm-taxpayer-cumulative" renderer="altair" />
+        <p class="chart-caption">
+          Figure 14.1: Cumulative median taxpayer military contribution, 1975-2024. The upward curve accelerates after 2001, reflecting both increased military spending and the author's rising income during peak earning years.
+        </p>
+      </div>
+
+      <div class="chart-container">
+        <Chart id="bm-taxpayer-annual" renderer="altair" />
+        <p class="chart-caption">
+          Figure 14.2: Annual median taxpayer military contribution, 1975-2024. The steps reflect changes in both tax policy and military spending as a share of the federal budget. The post-9/11 surge is clearly visible.
+        </p>
+      </div>
+
+      <div class="chart-container">
+        <Chart id="bm-deaths-per-taxpayer" renderer="altair" />
+        <p class="chart-caption">
+          Figure 14.3: Deaths attributable to the median taxpayer by decade. The 2000s—encompassing the worst years of Afghanistan and Iraq—represent the peak of individual taxpayer-funded death.
+        </p>
+      </div>
+
+      <div class="chart-container">
+        <Chart id="bm-veterans-cost-projection" renderer="altair" />
+        <p class="chart-caption">
+          Figure 14.4: Projected veterans' healthcare costs by decade. The bill for the post-9/11 wars will continue growing for decades as veterans age and require more intensive care. Today's taxpayers will pay for yesterday's wars well into the 2070s.
+        </p>
+      </div>
+
+      <div class="chart-container">
+        <Chart id="bm-interest-on-war-debt" renderer="altair" />
+        <p class="chart-caption">
+          Figure 14.5: Cumulative interest on war debt, 2001-2050. Because the post-9/11 wars were financed by borrowing rather than taxation, interest payments compound year after year. By 2050, interest alone will exceed the original cost of the wars.
+        </p>
+      </div>
 
       <h3>The Worst Years</h3>
 
@@ -3335,6 +3447,34 @@ import Chart from "../../../components/Chart.astro";
       <p>
         <strong>US Afghanistan War (2001-2021)</strong>: 176,000 total deaths, $2.3 trillion spent. Cost per death: $13,000.
       </p>
+
+      <div class="chart-container">
+        <Chart id="bm-spending-by-president" renderer="altair" />
+        <p class="chart-caption">
+          Figure 16.1: Total military spending by presidential term. Obama's two terms produced the highest total, reflecting both the continuation of post-9/11 wars and the sheer size of modern military budgets. Biden and W. Bush follow.
+        </p>
+      </div>
+
+      <div class="chart-container">
+        <Chart id="bm-spending-pct-gdp-by-president" renderer="altair" />
+        <p class="chart-caption">
+          Figure 16.2: Military spending as percentage of GDP by president. Reagan and the elder Bush presided over the highest Cold War-era rates, while Trump and Biden saw the lowest—though absolute spending was higher than ever.
+        </p>
+      </div>
+
+      <div class="chart-container">
+        <Chart id="bm-spending-by-party" renderer="altair" />
+        <p class="chart-caption">
+          Figure 16.3: Average annual increase in military spending by party. Republicans have historically increased spending faster than Democrats, though both parties consistently expand military budgets.
+        </p>
+      </div>
+
+      <div class="chart-container">
+        <Chart id="bm-gdp-vs-military" renderer="altair" />
+        <p class="chart-caption">
+          Figure 16.4: Military spending vs. GDP share for top 30 countries. The United States is an extreme outlier in absolute spending, while several smaller countries dedicate higher GDP percentages to defense.
+        </p>
+      </div>
 
       <p>
         <strong>US drone program (2004-2018)</strong>: 8,000-10,000 deaths, perhaps $30-40 billion spent. Cost per death: $3,000-5,000.
@@ -3954,6 +4094,13 @@ import Chart from "../../../components/Chart.astro";
         Whether testimony changes anything is debatable. Perhaps the witness of resisters moves consciences and builds movements. Perhaps it is a private moral stance with no public effect. Either way, it remains an option for those who find complicity intolerable.
       </p>
 
+      <div class="chart-container">
+        <Chart id="bm-war-tax-resistance" renderer="altair" />
+        <p class="chart-caption">
+          Figure 20.1: Estimated war tax resisters in America by era. The Vietnam era saw the largest numbers, with perhaps 50,000 Americans refusing to pay taxes for conscience reasons. Today's movement is much smaller but persistent.
+        </p>
+      </div>
+
       <h3>Political Action</h3>
 
       <p>
@@ -3979,6 +4126,20 @@ import Chart from "../../../components/Chart.astro";
       <p>
         The 2003 Iraq War protests were the largest in world history. Perhaps 10 million people marched globally in February 2003. The protests had zero effect. The war happened anyway. This failure demoralized the antiwar movement for a generation.
       </p>
+
+      <div class="chart-container">
+        <Chart id="bm-antiwar-protests" renderer="altair" />
+        <p class="chart-caption">
+          Figure 20.2: Major antiwar protest participation in millions. The Trump-era protests (largely against immigration and other policies) drew the largest crowds, while the Iraq War protests of 2003 came second. Vietnam-era protests were sustained but smaller in individual events.
+        </p>
+      </div>
+
+      <div class="chart-container">
+        <Chart id="bm-public-opinion-wars" renderer="altair" />
+        <p class="chart-caption">
+          Figure 20.3: Public support for American wars over time. Support typically starts high and erodes as wars continue. The Gulf War (1991) enjoyed the highest peak support; Vietnam support collapsed entirely by 1971.
+        </p>
+      </div>
 
       <p>
         The lesson may be that political action is necessary but not sufficient. Protests and organizing can shift the political landscape over time, making certain policies more or less acceptable. But they rarely stop wars in progress or prevent wars that leaders are determined to fight.
