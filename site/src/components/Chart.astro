@@ -7,24 +7,29 @@
  */
 
 interface Props {
-  chartId: string;
+  id?: string;
+  chartId?: string;
   renderer?: "altair" | "plot";
-  title: string;
-  caption: string;
+  title?: string;
+  caption?: string;
   wide?: boolean;
 }
 
-const { chartId, renderer = "altair", title, caption, wide = false } = Astro.props;
+const { id, chartId, renderer = "altair", title = "", caption = "", wide = false } = Astro.props;
 
-const imgSrc = `/graphyard/assets/charts/${renderer}/${chartId}.svg`;
+// Support both 'id' and 'chartId' props
+const resolvedChartId = id || chartId || "";
+const imgSrc = `/graphyard/assets/charts/${renderer}/${resolvedChartId}.svg`;
 ---
 
 <figure class:list={[{ wide }]}>
-  <img src={imgSrc} alt={`Chart: ${title}`} loading="lazy" />
-  <figcaption>
-    <strong>{title}</strong>
-    {caption}
-  </figcaption>
+  <img src={imgSrc} alt={title ? `Chart: ${title}` : `Chart: ${resolvedChartId}`} loading="lazy" />
+  {(title || caption) && (
+    <figcaption>
+      {title && <strong>{title}</strong>}
+      {caption}
+    </figcaption>
+  )}
 </figure>
 
 <style>
