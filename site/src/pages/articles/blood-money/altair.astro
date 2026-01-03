@@ -219,49 +219,49 @@ import Chart from "../../../components/Chart.astro";
           What the Median Citizen Pays for State Violence
         </p>
         <p class="meta">
-          Brian Edwards &bull; January 2026 &bull; 11-hour read &bull; 22 chapters &bull; 70 charts
+          Brian Edwards &bull; January 2026 &bull; 3-hour read &bull; 22 chapters &bull; 50 charts
         </p>
       </header>
 
       <nav class="toc">
         <h3>Table of Contents</h3>
-        <p><strong>Opening: The Receipt</strong></p>
+        <p><strong><a href="#opening">Opening: The Receipt</a></strong></p>
 
         <p class="toc-part">Part I: The Price of Power (Historical Survey)</p>
         <ul>
-          <li>Chapter 1: The Accounting of Death</li>
-          <li>Chapter 2: The Median Citizen Through History</li>
-          <li>Chapter 3: The Colonial Balance Sheet</li>
-          <li>Chapter 4: The Totalitarian Century</li>
-          <li>Chapter 5: Cold War Shadows</li>
-          <li>Chapter 6: Wars of Choice</li>
+          <li><a href="#ch1">Chapter 1: The Accounting of Death</a></li>
+          <li><a href="#ch2">Chapter 2: The Median Citizen Through History</a></li>
+          <li><a href="#ch3">Chapter 3: The Colonial Balance Sheet</a></li>
+          <li><a href="#ch4">Chapter 4: The Totalitarian Century</a></li>
+          <li><a href="#ch5">Chapter 5: Cold War Shadows</a></li>
+          <li><a href="#ch6">Chapter 6: Wars of Choice</a></li>
         </ul>
 
         <p class="toc-part">Part II: American Reckoning (1975-2025)</p>
         <ul>
-          <li>Chapter 7: A Life in Taxes</li>
-          <li>Chapter 8: The End of Vietnam (1975-1980)</li>
-          <li>Chapter 9: The Reagan Buildup (1981-1988)</li>
-          <li>Chapter 10: Peace Dividend? (1989-2000)</li>
-          <li>Chapter 11: The Forever War Begins (2001-2008)</li>
-          <li>Chapter 12: Drones and Distance (2009-2016)</li>
-          <li>Chapter 13: America First? (2017-2024)</li>
-          <li>Chapter 14: The Fifty-Year Ledger</li>
+          <li><a href="#ch7">Chapter 7: A Life in Taxes</a></li>
+          <li><a href="#ch8">Chapter 8: The End of Vietnam (1975-1980)</a></li>
+          <li><a href="#ch9">Chapter 9: The Reagan Buildup (1981-1988)</a></li>
+          <li><a href="#ch10">Chapter 10: Peace Dividend? (1989-2000)</a></li>
+          <li><a href="#ch11">Chapter 11: The Forever War Begins (2001-2008)</a></li>
+          <li><a href="#ch12">Chapter 12: Drones and Distance (2009-2016)</a></li>
+          <li><a href="#ch13">Chapter 13: America First? (2017-2024)</a></li>
+          <li><a href="#ch14">Chapter 14: The Fifty-Year Ledger</a></li>
         </ul>
 
         <p class="toc-part">Part III: The Economics of Violence</p>
         <ul>
-          <li>Chapter 15: Cheap Death</li>
-          <li>Chapter 16: Expensive Destruction</li>
-          <li>Chapter 17: The Comparison Problem</li>
-          <li>Chapter 18: State Violence on a Budget</li>
+          <li><a href="#ch15">Chapter 15: Cheap Death</a></li>
+          <li><a href="#ch16">Chapter 16: Expensive Destruction</a></li>
+          <li><a href="#ch17">Chapter 17: The Comparison Problem</a></li>
+          <li><a href="#ch18">Chapter 18: State Violence on a Budget</a></li>
         </ul>
 
         <p class="toc-part">Part IV: The Moral Ledger</p>
         <ul>
-          <li>Chapter 19: What Do We Owe?</li>
-          <li>Chapter 20: The Possibility of Change</li>
-          <li>Chapter 21: The Ledger</li>
+          <li><a href="#ch19">Chapter 19: What Do We Owe?</a></li>
+          <li><a href="#ch20">Chapter 20: The Possibility of Change</a></li>
+          <li><a href="#ch21">Chapter 21: The Ledger</a></li>
         </ul>
       </nav>
 
@@ -269,7 +269,7 @@ import Chart from "../../../components/Chart.astro";
       <!-- OPENING: THE RECEIPT -->
       <!-- ============================================================== -->
 
-      <h2>Opening: The Receipt</h2>
+      <h2 id="opening">Opening: The Receipt</h2>
 
       <p>
         Every April, I sign my tax return. The numbers are not abstract to me anymore. Last year, my federal tax bill came to $14,847. Of that sum, approximately $3,563 went to the Department of Defense and related military spending. Another $892 funded veterans' benefits—the ongoing cost of wars already fought. Together, nearly $4,500 of my annual contribution to the federal government went to the machinery of organized violence.
@@ -400,7 +400,7 @@ import Chart from "../../../components/Chart.astro";
       <!-- CHAPTER 1: THE ACCOUNTING OF DEATH -->
       <!-- ============================================================== -->
 
-      <h2>Chapter 1: The Accounting of Death</h2>
+      <h2 id="ch1">Chapter 1: The Accounting of Death</h2>
 
       <p>
         Before we can calculate what citizens paid for atrocities, we must grapple with a problem that has haunted historians, demographers, and human rights researchers for generations: <em>How do we count the dead?</em>
@@ -570,6 +570,13 @@ import Chart from "../../../components/Chart.astro";
         </p>
       </div>
 
+      <div class="chart-container">
+        <Chart id="bm-civilian-combatant-ratio" renderer="altair" />
+        <p class="chart-caption">
+          Figure 1.5: Civilian deaths as percentage of total by specific conflict. The Syrian civil war and Afghanistan show the highest civilian ratios; World War I remains an outlier with predominantly military deaths.
+        </p>
+      </div>
+
       <p>
         This shift reflects changes in both the nature of warfare and the methods of counting. Modern conflicts are more likely to involve counterinsurgency, urban warfare, and aerial bombardment—all of which produce higher civilian casualties than conventional state-on-state combat. Simultaneously, documentation has improved: we are better at counting civilian deaths than we were a century ago, which may inflate recent figures relative to historical ones. Still, the trend is real. The wars of the 21st century are primarily wars <em>on</em> civilian populations, not wars <em>between</em> armies.
       </p>
@@ -710,6 +717,13 @@ import Chart from "../../../components/Chart.astro";
         </p>
       </div>
 
+      <div class="chart-container">
+        <Chart id="bm-democide-by-century" renderer="altair" />
+        <p class="chart-caption">
+          Figure 1.6: Democide deaths by century. The first half of the 20th century (1900-1950) was by far the bloodiest, with 150 million state-perpetrated deaths. The trend declined sharply after World War II.
+        </p>
+      </div>
+
       <h3>Our Framework</h3>
 
       <p>
@@ -753,7 +767,7 @@ import Chart from "../../../components/Chart.astro";
       <!-- CHAPTER 2: THE MEDIAN CITIZEN THROUGH HISTORY -->
       <!-- ============================================================== -->
 
-      <h2>Chapter 2: The Median Citizen Through History</h2>
+      <h2 id="ch2">Chapter 2: The Median Citizen Through History</h2>
 
       <p>
         What did it mean to be a "median income" citizen in different eras? Before we can calculate what typical citizens paid toward state violence, we must understand their economic circumstances—what they earned, what they owed in taxes, and what portion of their contributions went to the machinery of war.
@@ -947,7 +961,7 @@ import Chart from "../../../components/Chart.astro";
       <!-- CHAPTER 3: THE COLONIAL BALANCE SHEET -->
       <!-- ============================================================== -->
 
-      <h2>Chapter 3: The Colonial Balance Sheet</h2>
+      <h2 id="ch3">Chapter 3: The Colonial Balance Sheet</h2>
 
       <p>
         European colonialism represents the longest sustained program of state violence against civilians in recorded history. From the conquest of the Americas in the 16th century through African decolonization in the 1960s, European powers invaded, occupied, and exploited territories across the globe. The death toll is incalculable in any precise sense—estimates range from tens of millions to hundreds of millions depending on methodology and scope.
@@ -1072,7 +1086,7 @@ import Chart from "../../../components/Chart.astro";
       <!-- CHAPTER 4: THE TOTALITARIAN CENTURY -->
       <!-- ============================================================== -->
 
-      <h2>Chapter 4: The Totalitarian Century</h2>
+      <h2 id="ch4">Chapter 4: The Totalitarian Century</h2>
 
       <p>
         The twentieth century was the bloodiest in human history. States killed more of their own citizens than died in all the century's wars combined. The term R.J. Rummel coined for this phenomenon—<em>democide</em>, the murder of people by their government—captures a scale of violence that still defies comprehension.
@@ -1286,7 +1300,7 @@ import Chart from "../../../components/Chart.astro";
       <!-- CHAPTER 5: COLD WAR SHADOWS -->
       <!-- ============================================================== -->
 
-      <h2>Chapter 5: Cold War Shadows</h2>
+      <h2 id="ch5">Chapter 5: Cold War Shadows</h2>
 
       <p>
         The Cold War was, by definition, not a war. The superpowers never fought each other directly. Nuclear deterrence—the threat of mutual annihilation—kept the peace between Washington and Moscow for four decades.
@@ -1506,7 +1520,7 @@ import Chart from "../../../components/Chart.astro";
       <!-- CHAPTER 6: WARS OF CHOICE -->
       <!-- ============================================================== -->
 
-      <h2>Chapter 6: Wars of Choice</h2>
+      <h2 id="ch6">Chapter 6: Wars of Choice</h2>
 
       <p>
         The Cold War's end promised a "peace dividend"—military spending would decline, threats would diminish, and resources would flow to domestic needs. For a brief moment, this seemed possible. U.S. military spending fell from 6% of GDP in 1986 to 3% by 2000.
@@ -1729,7 +1743,7 @@ import Chart from "../../../components/Chart.astro";
       <!-- CHAPTER 7: A LIFE IN TAXES -->
       <!-- ============================================================== -->
 
-      <h2>Chapter 7: A Life in Taxes</h2>
+      <h2 id="ch7">Chapter 7: A Life in Taxes</h2>
 
       <p>
         I was born on a spring day in 1975, in Waco, Texas. The Vietnam War ended six weeks later. I arrived into a world exhausted by conflict, skeptical of government, and uncertain about America's role in the world. My parents, like most Americans of their generation, had lived through the defining trauma of their time: a war that killed 58,000 Americans and between two and three million Vietnamese, Cambodians, and Laotians. They had watched their country tear itself apart over that war. They were relieved it was over. They did not know—could not have known—that their infant son would spend the next fifty years paying for new wars, new deaths, new traumas.
@@ -1857,7 +1871,7 @@ import Chart from "../../../components/Chart.astro";
       <!-- CHAPTER 8: THE END OF VIETNAM (1975-1980) -->
       <!-- ============================================================== -->
 
-      <h2>Chapter 8: The End of Vietnam (1975-1980)</h2>
+      <h2 id="ch8">Chapter 8: The End of Vietnam (1975-1980)</h2>
 
       <p>
         The fall of Saigon on April 30, 1975 ended America's longest and most divisive war. The last helicopter lifted off from the embassy roof, carrying the final Americans to safety while thousands of Vietnamese allies were left behind. The war that had consumed 58,220 American lives, cost $168 billion (over $1 trillion in 2024 dollars), and torn the nation apart was finally, mercifully, over.
@@ -1975,7 +1989,7 @@ import Chart from "../../../components/Chart.astro";
       <!-- CHAPTER 9: THE REAGAN BUILDUP (1981-1988) -->
       <!-- ============================================================== -->
 
-      <h2>Chapter 9: The Reagan Buildup (1981-1988)</h2>
+      <h2 id="ch9">Chapter 9: The Reagan Buildup (1981-1988)</h2>
 
       <p>
         Ronald Reagan campaigned on a promise to restore American military strength. The Soviet Union, he argued, had used the post-Vietnam years to achieve parity or superiority in nuclear weapons, conventional forces, and global influence. The United States had grown weak, its military hollowed out, its will to fight questioned. Reagan promised to change that—to rebuild the military, confront the Soviet Union, and restore American pride.
@@ -2117,7 +2131,7 @@ import Chart from "../../../components/Chart.astro";
       <!-- CHAPTER 10: PEACE DIVIDEND? (1989-2000) -->
       <!-- ============================================================== -->
 
-      <h2>Chapter 10: Peace Dividend? (1989-2000)</h2>
+      <h2 id="ch10">Chapter 10: Peace Dividend? (1989-2000)</h2>
 
       <p>
         The Berlin Wall fell on November 9, 1989. Two years later, the Soviet Union dissolved. The Cold War—the organizing principle of American foreign policy for forty-five years—was over. America had won.
@@ -2229,7 +2243,7 @@ import Chart from "../../../components/Chart.astro";
       <!-- CHAPTER 11: THE FOREVER WAR BEGINS (2001-2008) -->
       <!-- ============================================================== -->
 
-      <h2>Chapter 11: The Forever War Begins (2001-2008)</h2>
+      <h2 id="ch11">Chapter 11: The Forever War Begins (2001-2008)</h2>
 
       <p>
         I was twenty-six years old on September 11, 2001. I was newly married, living in a rented apartment, working at my first professional job. I was, in retrospect, on the cusp of adulthood—old enough to understand what was happening, young enough to be shaped by it.
@@ -2308,6 +2322,13 @@ import Chart from "../../../components/Chart.astro";
         <Chart id="bm-afghanistan-troops" renderer="altair" />
         <p class="chart-caption">
           Figure 11.1: U.S. troop levels in Afghanistan, 2001-2021. The Obama surge peaked at nearly 100,000 troops in 2010-2011, a dramatic escalation from the early years when fewer than 20,000 Americans were deployed.
+        </p>
+      </div>
+
+      <div class="chart-container">
+        <Chart id="bm-afghanistan-costs-by-year" renderer="altair" />
+        <p class="chart-caption">
+          Figure 11.1a: Annual U.S. spending on Afghanistan, 2001-2021. Costs peaked at over $130 billion during the surge years, then declined as troop levels dropped.
         </p>
       </div>
 
@@ -2412,6 +2433,13 @@ import Chart from "../../../components/Chart.astro";
       </div>
 
       <div class="chart-container">
+        <Chart id="bm-iraq-costs-by-year" renderer="altair" />
+        <p class="chart-caption">
+          Figure 11.3a: Annual U.S. spending on Iraq, 2003-2019. Costs exceeded $170 billion at peak in 2007-2008, making Iraq the most expensive year-over-year military operation since World War II.
+        </p>
+      </div>
+
+      <div class="chart-container">
         <Chart id="bm-iraq-us-deaths" renderer="altair" />
         <p class="chart-caption">
           Figure 11.4: U.S. military deaths in Iraq by year. The deadliest years were 2004-2007 during the height of the insurgency. Casualties dropped sharply after the surge succeeded in reducing violence.
@@ -2432,7 +2460,7 @@ import Chart from "../../../components/Chart.astro";
         </p>
       </div>
 
-      <h2>Chapter 12: Drones and Distance (2009-2016)</h2>
+      <h2 id="ch12">Chapter 12: Drones and Distance (2009-2016)</h2>
 
       <p>
         On January 23, 2009, three days after taking the oath of office, President Barack Obama authorized his first drone strike. Two missiles from a CIA Predator struck a compound in North Waziristan, Pakistan. The targets were thought to be militants. Among the dead were several civilians, including a tribal elder and members of his family.
@@ -2688,7 +2716,7 @@ import Chart from "../../../components/Chart.astro";
         Is that a small number? A large one? I genuinely don't know. I know only that it is not zero.
       </p>
 
-      <h2>Chapter 13: America First? (2017-2024)</h2>
+      <h2 id="ch13">Chapter 13: America First? (2017-2024)</h2>
 
       <p>
         Donald Trump campaigned on ending "forever wars" and putting "America First." The reality was more complicated. Military spending increased. Drone strikes accelerated. New fronts opened even as old ones supposedly closed.
@@ -2760,6 +2788,13 @@ import Chart from "../../../components/Chart.astro";
         <Chart id="bm-military-aid-israel" renderer="altair" />
         <p class="chart-caption">
           Figure 13.3: Cumulative U.S. military aid to Israel, 1970-2024. American taxpayers have provided over $175 billion in military assistance, making Israel the largest cumulative recipient of U.S. foreign aid.
+        </p>
+      </div>
+
+      <div class="chart-container">
+        <Chart id="bm-ukraine-aid-breakdown" renderer="altair" />
+        <p class="chart-caption">
+          Figure 13.4: U.S. aid to Ukraine by category, 2022-2024. Military equipment dominates, followed by security assistance and economic support. Total aid exceeds $100 billion across all categories.
         </p>
       </div>
 
@@ -2915,7 +2950,7 @@ import Chart from "../../../components/Chart.astro";
         I did not choose these wars. I voted against some of the politicians who waged them. I signed petitions and donated to antiwar organizations. None of that absolved me. The taxes were mandatory. The violence was the result.
       </p>
 
-      <h2>Chapter 14: The Fifty-Year Ledger</h2>
+      <h2 id="ch14">Chapter 14: The Fifty-Year Ledger</h2>
 
       <p>
         I was born in 1975 in Waco, Texas, the year Saigon fell. I am writing these words in 2025, having just turned fifty. The American military-industrial complex is exactly as old as I am—born in World War II, matured in the Cold War, and now entering late middle age with no sign of retirement.
@@ -3122,7 +3157,7 @@ import Chart from "../../../components/Chart.astro";
         These questions may seem coldly analytical—and they are. But the analysis reveals something important. The relationship between money spent and lives taken is neither simple nor consistent. Some of history's worst atrocities cost almost nothing; others consumed entire economies. Understanding these variations helps clarify what it means for taxpayers to fund state violence, and what responsibility they might bear.
       </p>
 
-      <h2>Chapter 15: Cheap Death</h2>
+      <h2 id="ch15">Chapter 15: Cheap Death</h2>
 
       <p>
         In the spring of 1994, Rwanda's genocide killed approximately 800,000 people in 100 days. That's 8,000 deaths per day, 333 per hour, 5 or 6 per minute. For three months, the killing continued at industrial scale.
@@ -3226,6 +3261,13 @@ import Chart from "../../../components/Chart.astro";
         These famines were not purely "natural" disasters. They were created or exacerbated by government policy. In each case, political decisions determined who would eat and who would starve. The death tolls exceeded most deliberate massacres—yet the "spending" required was minimal or negative.
       </p>
 
+      <div class="chart-container">
+        <Chart id="bm-famine-deaths" renderer="altair" />
+        <p class="chart-caption">
+          Figure 15.1: Deaths in major policy-induced famines. The Great Leap Forward dwarfs all others, killing an estimated 30 million people. The Holodomor, Bengal, and North Korean famines each claimed millions more.
+        </p>
+      </div>
+
       <p>
         This creates a puzzle for our analysis. If a government spends $100 billion on military forces that kill 100,000 people, the cost per death is $1 million. If a government causes 3 million deaths by withholding food, the cost per death is approximately zero. Does this mean the famine was "cheaper"? Morally less significant? Obviously not. But it does mean that military spending is a poor proxy for state violence.
       </p>
@@ -3282,7 +3324,7 @@ import Chart from "../../../components/Chart.astro";
         The next chapter examines expensive death in detail—the economics of modern high-tech warfare and what it costs to kill with precision rather than machetes.
       </p>
 
-      <h2>Chapter 16: Expensive Destruction</h2>
+      <h2 id="ch16">Chapter 16: Expensive Destruction</h2>
 
       <p>
         A single Tomahawk cruise missile costs approximately $2 million. It carries a 1,000-pound warhead. It can strike a target 1,000 miles away with accuracy measured in feet. If it kills one person, the cost per death is $2 million.
@@ -3449,6 +3491,13 @@ import Chart from "../../../components/Chart.astro";
       </p>
 
       <div class="chart-container">
+        <Chart id="bm-cost-per-death-comparison" renderer="altair" />
+        <p class="chart-caption">
+          Figure 16.0: Cost per death across different atrocities. The Gulf War was extraordinarily expensive per death; genocides like Rwanda and Cambodia cost almost nothing. American high-tech warfare consistently produces high cost-per-death ratios.
+        </p>
+      </div>
+
+      <div class="chart-container">
         <Chart id="bm-spending-by-president" renderer="altair" />
         <p class="chart-caption">
           Figure 16.1: Total military spending by presidential term. Obama's two terms produced the highest total, reflecting both the continuation of post-9/11 wars and the sheer size of modern military budgets. Biden and W. Bush follow.
@@ -3488,7 +3537,7 @@ import Chart from "../../../components/Chart.astro";
         Does this mean American taxpayers are less culpable because they pay more per death? Does spending more on killing make it more moral? The question is almost absurd—yet the economics suggest it matters somehow. The next chapter grapples with these comparison problems directly.
       </p>
 
-      <h2>Chapter 17: The Comparison Problem</h2>
+      <h2 id="ch17">Chapter 17: The Comparison Problem</h2>
 
       <p>
         We have established that state violence varies enormously in its economics—from nearly free (policy-induced famines) to spectacularly expensive (precision drone warfare). This variation creates a fundamental problem for moral analysis. How do we compare the moral weight of a $2 million missile strike that kills a family of four versus a $5 machete attack that does the same?
@@ -3656,7 +3705,7 @@ import Chart from "../../../components/Chart.astro";
         I recognize that this position is uncomfortable. It is supposed to be. The comfort we feel about our complicity in state violence is itself a problem to be solved, not a natural baseline to accept.
       </p>
 
-      <h2>Chapter 18: State Violence on a Budget</h2>
+      <h2 id="ch18">Chapter 18: State Violence on a Budget</h2>
 
       <p>
         Having examined the economics of violence from various angles, we now turn to a specific phenomenon: the high "killing efficiency" of poor regimes. Some of history's worst atrocities were committed by states with minimal resources. How did they achieve mass death without massive budgets? And what does their efficiency tell us about the relationship between spending and violence?
@@ -3864,7 +3913,7 @@ import Chart from "../../../components/Chart.astro";
         This final section engages the ethical questions directly. We cannot resolve debates that have occupied philosophers for millennia. But we can frame the questions sharply and let readers apply their own moral frameworks to the data we have assembled.
       </p>
 
-      <h2>Chapter 19: What Do We Owe?</h2>
+      <h2 id="ch19">Chapter 19: What Do We Owe?</h2>
 
       <p>
         The central question of this book is deceptively simple: what responsibility does the taxpayer bear for state violence?
@@ -4054,7 +4103,7 @@ import Chart from "../../../components/Chart.astro";
         Above all, I believe that the question "what do I owe?" should not lead to paralysis. Guilt without action is self-indulgence. The point of moral reckoning is not to feel bad but to identify what can be done—and do it.
       </p>
 
-      <h2>Chapter 20: The Possibility of Change</h2>
+      <h2 id="ch20">Chapter 20: The Possibility of Change</h2>
 
       <p>
         Having established that taxpayers bear some moral responsibility for state violence, we now ask: what can be done about it?
@@ -4265,7 +4314,7 @@ import Chart from "../../../components/Chart.astro";
         <strong>Acknowledge</strong>: At minimum, we can refuse to pretend we are innocent. Acknowledging complicity—saying "I paid for this"—is not action, but it is truth. And truth is the beginning of accountability.
       </p>
 
-      <h2>Chapter 21: The Ledger</h2>
+      <h2 id="ch21">Chapter 21: The Ledger</h2>
 
       <p>
         This book has been an exercise in accounting—not the comfortable accounting of balance sheets and profit margins, but the uncomfortable accounting of blood and money.
@@ -4292,6 +4341,13 @@ import Chart from "../../../components/Chart.astro";
       <p>
         <strong>Deaths</strong>: Approximately 500,000-1,000,000 people killed directly by American military action; 2,000,000-4,000,000 killed including indirect deaths and enabled violence.
       </p>
+
+      <div class="chart-container">
+        <Chart id="bm-atrocity-total-deaths" renderer="altair" />
+        <p class="chart-caption">
+          Figure 21.1: Total deaths by atrocity. The Holodomor and Cambodian genocide produced the highest death tolls in our comparative analysis. American-involved conflicts (Iraq, Afghanistan, drones) are visible but smaller in absolute terms.
+        </p>
+      </div>
 
       <p>
         <strong>Cost per death</strong>: Varying from approximately $3,000 (Iraq) to $15,000 (Afghanistan) for direct deaths; lower when including indirect deaths.
