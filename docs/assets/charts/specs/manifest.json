@@ -292,6 +292,122 @@
     "specFile": "edu-effect-size-comparison.json"
   },
   {
+    "chartId": "edu-texas-school-types",
+    "specFile": "edu-texas-school-types.json"
+  },
+  {
+    "chartId": "edu-texas-districts",
+    "specFile": "edu-texas-districts.json"
+  },
+  {
+    "chartId": "edu-waco-schools",
+    "specFile": "edu-waco-schools.json"
+  },
+  {
+    "chartId": "edu-texas-staar-trends",
+    "specFile": "edu-texas-staar-trends.json"
+  },
+  {
+    "chartId": "edu-waco-staar-gap",
+    "specFile": "edu-waco-staar-gap.json"
+  },
+  {
+    "chartId": "edu-staar-demographics",
+    "specFile": "edu-staar-demographics.json"
+  },
+  {
+    "chartId": "edu-voucher-effects",
+    "specFile": "edu-voucher-effects.json"
+  },
+  {
+    "chartId": "edu-voucher-participation",
+    "specFile": "edu-voucher-participation.json"
+  },
+  {
+    "chartId": "edu-charter-outcomes",
+    "specFile": "edu-charter-outcomes.json"
+  },
+  {
+    "chartId": "edu-private-selection-bias",
+    "specFile": "edu-private-selection-bias.json"
+  },
+  {
+    "chartId": "edu-selection-factors",
+    "specFile": "edu-selection-factors.json"
+  },
+  {
+    "chartId": "edu-teacher-salary-states",
+    "specFile": "edu-teacher-salary-states.json"
+  },
+  {
+    "chartId": "edu-texas-teacher-trends",
+    "specFile": "edu-texas-teacher-trends.json"
+  },
+  {
+    "chartId": "edu-naep-reading",
+    "specFile": "edu-naep-reading.json"
+  },
+  {
+    "chartId": "edu-naep-math",
+    "specFile": "edu-naep-math.json"
+  },
+  {
+    "chartId": "edu-naep-gaps",
+    "specFile": "edu-naep-gaps.json"
+  },
+  {
+    "chartId": "edu-earnings-by-level",
+    "specFile": "edu-earnings-by-level.json"
+  },
+  {
+    "chartId": "edu-outcomes-age25",
+    "specFile": "edu-outcomes-age25.json"
+  },
+  {
+    "chartId": "edu-early-childhood-roi",
+    "specFile": "edu-early-childhood-roi.json"
+  },
+  {
+    "chartId": "edu-texas-funding",
+    "specFile": "edu-texas-funding.json"
+  },
+  {
+    "chartId": "edu-national-funding",
+    "specFile": "edu-national-funding.json"
+  },
+  {
+    "chartId": "edu-dual-credit",
+    "specFile": "edu-dual-credit.json"
+  },
+  {
+    "chartId": "edu-ged-diploma",
+    "specFile": "edu-ged-diploma.json"
+  },
+  {
+    "chartId": "edu-trade-college",
+    "specFile": "edu-trade-college.json"
+  },
+  {
+    "chartId": "edu-reading-methods",
+    "specFile": "edu-reading-methods.json"
+  },
+  {
+    "chartId": "edu-ml-features",
+    "specFile": "edu-ml-features.json"
+  },
+  {
+    "chartId": "edu-voucher-migration",
+    "specFile": "edu-voucher-migration.json"
+  },
+  {
+    "chartId": "edu-literacy-forecast",
+    "specFile": "edu-literacy-forecast.json"
+  },
+  {
+    "chartId": "edu-failing-prediction",
+    "specFile": "edu-failing-prediction.json"
+  },
+  {
     "chartId": "ncaa-first-round-upsets",
     "specFile": "ncaa-first-round-upsets.json"
   },
@@ -374,5 +490,225 @@
   {
     "chartId": "cubs-war-predictions",
     "specFile": "cubs-war-predictions.json"
+  },
+  {
+    "chartId": "bm-us-military-spending-history",
+    "specFile": "bm-us-military-spending-history.json"
+  },
+  {
+    "chartId": "bm-us-military-share-of-taxes",
+    "specFile": "bm-us-military-share-of-taxes.json"
+  },
+  {
+    "chartId": "bm-us-military-pct-gdp",
+    "specFile": "bm-us-military-pct-gdp.json"
+  },
+  {
+    "chartId": "bm-top-military-spenders",
+    "specFile": "bm-top-military-spenders.json"
+  },
+  {
+    "chartId": "bm-global-military-spending",
+    "specFile": "bm-global-military-spending.json"
+  },
+  {
+    "chartId": "bm-deaths-by-type-20c",
+    "specFile": "bm-deaths-by-type-20c.json"
+  },
+  {
+    "chartId": "bm-ucdp-vs-rummel",
+    "specFile": "bm-ucdp-vs-rummel.json"
+  },
+  {
+    "chartId": "bm-direct-indirect-ratio",
+    "specFile": "bm-direct-indirect-ratio.json"
+  },
+  {
+    "chartId": "bm-conflict-deaths-trends",
+    "specFile": "bm-conflict-deaths-trends.json"
+  },
+  {
+    "chartId": "bm-civilian-military-deaths",
+    "specFile": "bm-civilian-military-deaths.json"
+  },
+  {
+    "chartId": "bm-post-911-war-costs",
+    "specFile": "bm-post-911-war-costs.json"
+  },
+  {
+    "chartId": "bm-post-911-deaths",
+    "specFile": "bm-post-911-deaths.json"
+  },
+  {
+    "chartId": "bm-defense-contractors",
+    "specFile": "bm-defense-contractors.json"
+  },
+  {
+    "chartId": "bm-drone-casualties-by-country",
+    "specFile": "bm-drone-casualties-by-country.json"
+  },
+  {
+    "chartId": "bm-drone-casualties-by-president",
+    "specFile": "bm-drone-casualties-by-president.json"
+  },
+  {
+    "chartId": "bm-drone-civilians-by-president",
+    "specFile": "bm-drone-civilians-by-president.json"
+  },
+  {
+    "chartId": "bm-historical-democide",
+    "specFile": "bm-historical-democide.json"
+  },
+  {
+    "chartId": "bm-democide-timeline",
+    "specFile": "bm-democide-timeline.json"
+  },
+  {
+    "chartId": "bm-tax-structure-comparison",
+    "specFile": "bm-tax-structure-comparison.json"
+  },
+  {
+    "chartId": "bm-us-inequality-trend",
+    "specFile": "bm-us-inequality-trend.json"
+  },
+  {
+    "chartId": "bm-median-taxpayer-contribution",
+    "specFile": "bm-median-taxpayer-contribution.json"
+  },
+  {
+    "chartId": "bm-conflict-deaths-by-year",
+    "specFile": "bm-conflict-deaths-by-year.json"
+  },
+  {
+    "chartId": "bm-cold-war-spending-eras",
+    "specFile": "bm-cold-war-spending-eras.json"
+  },
+  {
+    "chartId": "bm-central-america-deaths",
+    "specFile": "bm-central-america-deaths.json"
+  },
+  {
+    "chartId": "bm-democide-by-century",
+    "specFile": "bm-democide-by-century.json"
+  },
+  {
+    "chartId": "bm-famine-deaths",
+    "specFile": "bm-famine-deaths.json"
+  },
+  {
+    "chartId": "bm-afghanistan-costs-by-year",
+    "specFile": "bm-afghanistan-costs-by-year.json"
+  },
+  {
+    "chartId": "bm-afghanistan-troops",
+    "specFile": "bm-afghanistan-troops.json"
+  },
+  {
+    "chartId": "bm-afghanistan-us-deaths",
+    "specFile": "bm-afghanistan-us-deaths.json"
+  },
+  {
+    "chartId": "bm-iraq-costs-by-year",
+    "specFile": "bm-iraq-costs-by-year.json"
+  },
+  {
+    "chartId": "bm-iraq-troops",
+    "specFile": "bm-iraq-troops.json"
+  },
+  {
+    "chartId": "bm-iraq-us-deaths",
+    "specFile": "bm-iraq-us-deaths.json"
+  },
+  {
+    "chartId": "bm-cumulative-war-costs",
+    "specFile": "bm-cumulative-war-costs.json"
+  },
+  {
+    "chartId": "bm-veterans-cost-projection",
+    "specFile": "bm-veterans-cost-projection.json"
+  },
+  {
+    "chartId": "bm-interest-on-war-debt",
+    "specFile": "bm-interest-on-war-debt.json"
+  },
+  {
+    "chartId": "bm-military-aid-israel",
+    "specFile": "bm-military-aid-israel.json"
+  },
+  {
+    "chartId": "bm-yemen-civilian-deaths",
+    "specFile": "bm-yemen-civilian-deaths.json"
+  },
+  {
+    "chartId": "bm-yemen-famine-deaths",
+    "specFile": "bm-yemen-famine-deaths.json"
+  },
+  {
+    "chartId": "bm-gaza-deaths-timeline",
+    "specFile": "bm-gaza-deaths-timeline.json"
+  },
+  {
+    "chartId": "bm-gaza-children-deaths",
+    "specFile": "bm-gaza-children-deaths.json"
+  },
+  {
+    "chartId": "bm-ukraine-aid-breakdown",
+    "specFile": "bm-ukraine-aid-breakdown.json"
+  },
+  {
+    "chartId": "bm-spending-by-president",
+    "specFile": "bm-spending-by-president.json"
+  },
+  {
+    "chartId": "bm-spending-pct-gdp-by-president",
+    "specFile": "bm-spending-pct-gdp-by-president.json"
+  },
+  {
+    "chartId": "bm-cost-per-death-comparison",
+    "specFile": "bm-cost-per-death-comparison.json"
+  },
+  {
+    "chartId": "bm-atrocity-total-deaths",
+    "specFile": "bm-atrocity-total-deaths.json"
+  },
+  {
+    "chartId": "bm-civilian-combatant-ratio",
+    "specFile": "bm-civilian-combatant-ratio.json"
+  },
+  {
+    "chartId": "bm-gdp-vs-military",
+    "specFile": "bm-gdp-vs-military.json"
+  },
+  {
+    "chartId": "bm-taxpayer-cumulative",
+    "specFile": "bm-taxpayer-cumulative.json"
+  },
+  {
+    "chartId": "bm-taxpayer-annual",
+    "specFile": "bm-taxpayer-annual.json"
+  },
+  {
+    "chartId": "bm-deaths-per-taxpayer",
+    "specFile": "bm-deaths-per-taxpayer.json"
+  },
+  {
+    "chartId": "bm-deaths-per-taxpayer-cumulative",
+    "specFile": "bm-deaths-per-taxpayer-cumulative.json"
+  },
+  {
+    "chartId": "bm-war-tax-resistance",
+    "specFile": "bm-war-tax-resistance.json"
+  },
+  {
+    "chartId": "bm-antiwar-protests",
+    "specFile": "bm-antiwar-protests.json"
+  },
+  {
+    "chartId": "bm-public-opinion-wars",
+    "specFile": "bm-public-opinion-wars.json"
+  },
+  {
+    "chartId": "bm-spending-by-party",
+    "specFile": "bm-spending-by-party.json"
   }
 ]

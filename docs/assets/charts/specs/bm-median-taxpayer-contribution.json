@@ -1,0 +1,1 @@
+{"chartId": "bm-median-taxpayer-contribution", "chartType": "line", "title": "What the Median American Taxpayer Contributes to the Military", "data": [], "x": "year", "y": "military_contribution", "color": null, "size": null, "xLabel": "Year", "yLabel": "Annual Military Contribution (USD)", "xFormat": "year", "yFormat": null, "options": {}}

@@ -90,6 +90,7 @@ from charts.sabermetrics.data import (
     load_pythagorean_outliers,
 )
 from charts.education.data import (
+    # Original loaders
     load_learning_styles_meta_analysis,
     load_learning_styles_belief_rates,
     load_pisa_math_scores_over_time,
@@ -99,6 +100,44 @@ from charts.education.data import (
     load_us_state_spending_outcomes,
     load_homework_effect_by_grade,
     load_effect_size_comparison,
+    # Texas education
+    load_texas_school_types,
+    load_texas_district_performance,
+    load_waco_schools_detail,
+    load_texas_staar_trends,
+    load_waco_staar_trends,
+    load_staar_by_demographics,
+    # School choice
+    load_voucher_academic_effects,
+    load_voucher_participation,
+    load_charter_outcomes_credo,
+    load_private_public_comparison,
+    load_selection_bias_evidence,
+    # Teacher compensation
+    load_teacher_salary_by_state,
+    load_texas_teacher_trends,
+    # NAEP trends
+    load_naep_reading_trends,
+    load_naep_math_trends,
+    load_naep_achievement_gaps,
+    # Life outcomes
+    load_education_earnings,
+    load_education_outcomes_age25,
+    load_early_childhood_roi,
+    # School funding
+    load_texas_funding_by_district,
+    load_national_funding_comparison,
+    # Alternative pathways
+    load_dual_credit_outcomes,
+    load_ged_vs_diploma,
+    load_trade_school_outcomes,
+    # Science of reading
+    load_reading_instruction_research,
+    # ML predictions
+    predict_district_performance,
+    predict_school_choice_migration,
+    predict_literacy_rates,
+    predict_failing_schools,
 )
 from charts.ncaa_basketball.data import (
     load_first_round_upset_rates,
@@ -125,6 +164,65 @@ from charts.cubs_2016.data import (
     load_arrieta_transformation,
     load_hendricks_value,
     load_war_prediction_model,
+)
+from charts.blood_money.data import (
+    # Core military and tax data
+    get_us_military_tax_share,
+    get_global_military_spending,
+    get_top_military_spenders,
+    get_us_war_costs,
+    get_us_military_spending_history,
+    get_median_taxpayer_contribution,
+    # Drone strike data
+    get_drone_strikes_by_year,
+    get_drone_strikes_by_year_total,
+    get_drone_casualties_by_country,
+    get_drone_casualties_by_president,
+    # Historical atrocities
+    get_historical_democide,
+    get_democide_timeline,
+    get_democide_by_century,
+    get_famine_deaths,
+    # Post-9/11 wars
+    get_post_911_deaths,
+    get_defense_contractors,
+    get_afghanistan_costs_by_year,
+    get_iraq_costs_by_year,
+    get_cumulative_war_costs,
+    get_veterans_cost_projection,
+    get_interest_on_war_debt,
+    # Tax and inequality
+    get_tax_structure_comparison,
+    get_income_inequality_trends,
+    # Conflict data
+    get_conflict_deaths_by_year,
+    get_civilian_combatant_ratio,
+    # Foreign military support
+    get_military_aid_israel,
+    get_yemen_casualties,
+    get_gaza_casualties,
+    get_ukraine_aid,
+    # Comparative analysis
+    get_cost_per_death_comparison,
+    get_gdp_vs_military_spending,
+    get_military_spending_by_president,
+    get_cold_war_spending_eras,
+    get_central_america_deaths,
+    # Moral/political
+    get_war_tax_resistance_history,
+    get_antiwar_protest_sizes,
+    get_public_opinion_wars,
+    get_spending_by_party,
+    # Lifetime taxpayer analysis
+    get_taxpayer_cumulative_contribution,
+    get_deaths_per_taxpayer,
+    # Chapter 1: Accounting of Death
+    get_deaths_by_type_20c,
+    get_ucdp_vs_rummel_comparison,
+    get_direct_indirect_ratio,
+    get_death_counting_methods,
+    get_conflict_deaths_trends,
+    get_civilian_military_deaths,
 )
 
 OUTPUT_DIR_ALTAIR = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "altair"
@@ -1073,6 +1171,361 @@ def get_education_chart_specs() -> list[ChartSpec]:
             x_label="Intervention",
             y_label="Effect Size (Cohen's d)",
         ),
+        # =====================================================================
+        # TEXAS EDUCATION CHARTS
+        # =====================================================================
+        # Texas School Types Distribution
+        ChartSpec(
+            chart_id="edu-texas-school-types",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Texas Students by School Type (2024)",
+            data_source=load_texas_school_types,
+            x="school_type",
+            y="pct_of_total",
+            x_label="School Type",
+            y_label="% of Students",
+        ),
+        # Texas District Performance
+        ChartSpec(
+            chart_id="edu-texas-districts",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Texas District Accountability Scores (2024)",
+            data_source=load_texas_district_performance,
+            x="district",
+            y="accountability_score",
+            x_label="District",
+            y_label="Accountability Score",
+        ),
+        # Waco Schools Detail
+        ChartSpec(
+            chart_id="edu-waco-schools",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Waco ISD Schools: Accountability Scores (2024)",
+            data_source=load_waco_schools_detail,
+            x="school",
+            y="overall_score",
+            x_label="School",
+            y_label="Overall Score",
+        ),
+        # Texas STAAR Trends
+        ChartSpec(
+            chart_id="edu-texas-staar-trends",
+            chart_type=ChartType.LINE,
+            title="Texas STAAR Performance: Reading & Math (2015-2024)",
+            data_source=load_texas_staar_trends,
+            x="year",
+            y="reading_meets",
+            x_label="Year",
+            y_label="% Meets Grade Level",
+            x_format="year",
+        ),
+        # Waco vs State STAAR
+        ChartSpec(
+            chart_id="edu-waco-staar-gap",
+            chart_type=ChartType.LINE,
+            title="Waco ISD vs State Average: Persistent Gap",
+            data_source=load_waco_staar_trends,
+            x="year",
+            y="gap",
+            x_label="Year",
+            y_label="Gap (Waco - State)",
+            x_format="year",
+        ),
+        # STAAR by Demographics
+        ChartSpec(
+            chart_id="edu-staar-demographics",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="STAAR Reading Performance by Demographic (2024)",
+            data_source=load_staar_by_demographics,
+            x="demographic",
+            y="reading_meets",
+            x_label="Demographic Group",
+            y_label="% Meets Grade Level",
+        ),
+        # =====================================================================
+        # VOUCHER AND SCHOOL CHOICE CHARTS
+        # =====================================================================
+        # Voucher Academic Effects
+        ChartSpec(
+            chart_id="edu-voucher-effects",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Voucher Program Effects on Math Achievement",
+            data_source=load_voucher_academic_effects,
+            x="program",
+            y="math_effect_size",
+            x_label="Program",
+            y_label="Effect Size (SD)",
+        ),
+        # Voucher Participation Demographics
+        ChartSpec(
+            chart_id="edu-voucher-participation",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Voucher Recipients: % Never Attended Public School",
+            data_source=load_voucher_participation,
+            x="state",
+            y="pct_never_public_school",
+            x_label="State",
+            y_label="% Never in Public School",
+        ),
+        # Charter Outcomes by Demographics
+        ChartSpec(
+            chart_id="edu-charter-outcomes",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Charter School Effect: Days of Learning Gained in Reading",
+            data_source=load_charter_outcomes_credo,
+            x="student_group",
+            y="reading_days_gained",
+            x_label="Student Group",
+            y_label="Days of Learning",
+        ),
+        # Private vs Public Adjusted
+        ChartSpec(
+            chart_id="edu-private-selection-bias",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Private School Advantage: What Selection Bias Explains",
+            data_source=load_private_public_comparison,
+            x="outcome",
+            y="pct_explained_by_selection",
+            x_label="Outcome",
+            y_label="% Explained by Selection",
+        ),
+        # Selection Bias Evidence
+        ChartSpec(
+            chart_id="edu-selection-factors",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Selection Bias: Parental Education by School Type",
+            data_source=load_selection_bias_evidence,
+            x="factor",
+            y="private_pct",
+            x_label="Factor",
+            y_label="% in Private Schools",
+        ),
+        # =====================================================================
+        # TEACHER COMPENSATION CHARTS
+        # =====================================================================
+        # Teacher Salary by State
+        ChartSpec(
+            chart_id="edu-teacher-salary-states",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Average Teacher Salary by State (2024)",
+            data_source=load_teacher_salary_by_state,
+            x="state",
+            y="avg_salary",
+            x_label="State",
+            y_label="Average Salary ($)",
+        ),
+        # Texas Teacher Trends
+        ChartSpec(
+            chart_id="edu-texas-teacher-trends",
+            chart_type=ChartType.LINE,
+            title="Texas Teacher Crisis: Uncertified New Hires Rising",
+            data_source=load_texas_teacher_trends,
+            x="year",
+            y="pct_uncertified_new_hires",
+            x_label="Year",
+            y_label="% Uncertified",
+            x_format="year",
+        ),
+        # =====================================================================
+        # NAEP NATIONAL TRENDS CHARTS
+        # =====================================================================
+        # NAEP Reading Trends
+        ChartSpec(
+            chart_id="edu-naep-reading",
+            chart_type=ChartType.LINE,
+            title="NAEP 4th Grade Reading: Declining Proficiency",
+            data_source=load_naep_reading_trends,
+            x="year",
+            y="grade4_pct_proficient",
+            x_label="Year",
+            y_label="% Proficient",
+            x_format="year",
+        ),
+        # NAEP Math Trends
+        ChartSpec(
+            chart_id="edu-naep-math",
+            chart_type=ChartType.LINE,
+            title="NAEP 4th Grade Math: Post-Pandemic Collapse",
+            data_source=load_naep_math_trends,
+            x="year",
+            y="grade4_pct_proficient",
+            x_label="Year",
+            y_label="% Proficient",
+            x_format="year",
+        ),
+        # NAEP Achievement Gaps
+        ChartSpec(
+            chart_id="edu-naep-gaps",
+            chart_type=ChartType.LINE,
+            title="NAEP Achievement Gaps: Back to 2003 Levels",
+            data_source=load_naep_achievement_gaps,
+            x="year",
+            y="white_black_reading_g4",
+            x_label="Year",
+            y_label="Gap (Score Points)",
+            x_format="year",
+        ),
+        # =====================================================================
+        # EDUCATION AND LIFE OUTCOMES CHARTS
+        # =====================================================================
+        # Education and Earnings
+        ChartSpec(
+            chart_id="edu-earnings-by-level",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Education Pays: Weekly Earnings by Attainment (2024)",
+            data_source=load_education_earnings,
+            x="education_level",
+            y="median_weekly_earnings",
+            x_label="Education Level",
+            y_label="Median Weekly Earnings ($)",
+        ),
+        # Education Outcomes at Age 25
+        ChartSpec(
+            chart_id="edu-outcomes-age25",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Life at 25: Employment Rate by Education",
+            data_source=lambda: load_education_outcomes_age25().melt(
+                id_vars=["outcome"], var_name="education", value_name="pct"
+            ).query("outcome == 'Employed full-time'"),
+            x="education",
+            y="pct",
+            x_label="Education Level",
+            y_label="% Employed Full-Time",
+        ),
+        # Early Childhood ROI
+        ChartSpec(
+            chart_id="edu-early-childhood-roi",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Early Childhood Programs: Return on Investment",
+            data_source=load_early_childhood_roi,
+            x="program",
+            y="roi_ratio",
+            x_label="Program",
+            y_label="ROI Ratio ($ Returned per $ Spent)",
+        ),
+        # =====================================================================
+        # SCHOOL FUNDING CHARTS
+        # =====================================================================
+        # Texas Funding by District Type
+        ChartSpec(
+            chart_id="edu-texas-funding",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Texas Per-Pupil Funding by District Wealth",
+            data_source=load_texas_funding_by_district,
+            x="district_type",
+            y="total_per_pupil",
+            x_label="District Type",
+            y_label="Per-Pupil Funding ($)",
+        ),
+        # National Funding Comparison
+        ChartSpec(
+            chart_id="edu-national-funding",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Per-Pupil Spending: Texas vs Other States",
+            data_source=load_national_funding_comparison,
+            x="state",
+            y="per_pupil_spending",
+            x_label="State",
+            y_label="Per-Pupil Spending ($)",
+        ),
+        # =====================================================================
+        # ALTERNATIVE PATHWAYS CHARTS
+        # =====================================================================
+        # Dual Credit Outcomes
+        ChartSpec(
+            chart_id="edu-dual-credit",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Dual Credit Advantage: College Outcomes",
+            data_source=load_dual_credit_outcomes,
+            x="outcome",
+            y="dual_credit",
+            x_label="Outcome",
+            y_label="Dual Credit Students (%)",
+        ),
+        # GED vs Diploma
+        ChartSpec(
+            chart_id="edu-ged-diploma",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="GED vs High School Diploma: Earnings Gap",
+            data_source=load_ged_vs_diploma,
+            x="outcome",
+            y="hs_diploma",
+            x_label="Outcome",
+            y_label="HS Diploma Value",
+        ),
+        # Trade School vs College
+        ChartSpec(
+            chart_id="edu-trade-college",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Trade School vs Bachelor's: Time and Debt",
+            data_source=load_trade_school_outcomes,
+            x="metric",
+            y="trade_school",
+            x_label="Metric",
+            y_label="Trade School Value",
+        ),
+        # =====================================================================
+        # SCIENCE OF READING CHARTS
+        # =====================================================================
+        # Reading Instruction Research
+        ChartSpec(
+            chart_id="edu-reading-methods",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Reading Instruction: Effect Sizes by Method",
+            data_source=load_reading_instruction_research,
+            x="method",
+            y="effect_size",
+            x_label="Method",
+            y_label="Effect Size",
+        ),
+        # =====================================================================
+        # ML PREDICTION CHARTS
+        # =====================================================================
+        # ML Feature Importance
+        ChartSpec(
+            chart_id="edu-ml-features",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="ML Model: What Predicts School Performance?",
+            data_source=predict_district_performance,
+            x="feature",
+            y="importance",
+            x_label="Feature",
+            y_label="Importance",
+        ),
+        # School Choice Migration Predictions
+        ChartSpec(
+            chart_id="edu-voucher-migration",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Predicted Enrollment Loss Under Vouchers",
+            data_source=predict_school_choice_migration,
+            x="district",
+            y="funding_loss_millions",
+            x_label="District",
+            y_label="Predicted Funding Loss ($M)",
+        ),
+        # Literacy Rate Predictions
+        ChartSpec(
+            chart_id="edu-literacy-forecast",
+            chart_type=ChartType.LINE,
+            title="Literacy Forecast: NAEP Proficiency Trajectory",
+            data_source=predict_literacy_rates,
+            x="year",
+            y="pct_proficient",
+            x_label="Year",
+            y_label="% Proficient",
+            x_format="year",
+        ),
+        # Failing Schools Prediction Features
+        ChartSpec(
+            chart_id="edu-failing-prediction",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Predicting School Failure: Key Risk Factors",
+            data_source=predict_failing_schools,
+            x="feature",
+            y="importance",
+            x_label="Risk Factor",
+            y_label="Importance",
+        ),
     ]
 
 
@@ -1333,6 +1786,619 @@ def get_cubs_2016_chart_specs() -> list[ChartSpec]:
     ]
 
 
+def get_blood_money_chart_specs() -> list[ChartSpec]:
+    """Define all Blood Money book charts - taxpayer complicity in state violence."""
+    return [
+        # Chapter 1: The Predicament - US Military and Taxes
+        ChartSpec(
+            chart_id="bm-us-military-spending-history",
+            chart_type=ChartType.LINE,
+            title="US Military Spending: A Half-Century of Growth",
+            data_source=get_us_military_spending_history,
+            x="year",
+            y="spending_billions_constant",
+            x_label="Year",
+            y_label="Military Spending (Billions, 2022 USD)",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="bm-us-military-share-of-taxes",
+            chart_type=ChartType.LINE,
+            title="What Share of Your Taxes Goes to the Military?",
+            data_source=get_us_military_tax_share,
+            x="year",
+            y="military_share_of_taxes",
+            x_label="Year",
+            y_label="Military Share of Total Taxes (%)",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="bm-us-military-pct-gdp",
+            chart_type=ChartType.LINE,
+            title="US Military Spending as Percent of GDP",
+            data_source=get_us_military_spending_history,
+            x="year",
+            y="pct_gdp",
+            x_label="Year",
+            y_label="Percent of GDP",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="bm-top-military-spenders",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="World's Largest Military Spenders (2024)",
+            data_source=get_top_military_spenders,
+            x="country",
+            y="spending_billions",
+            x_label="Country",
+            y_label="Military Spending (Billions USD)",
+        ),
+        ChartSpec(
+            chart_id="bm-global-military-spending",
+            chart_type=ChartType.LINE,
+            title="Global Military Spending Over Time",
+            data_source=get_global_military_spending,
+            x="year",
+            y="total_trillion_constant",
+            x_label="Year",
+            y_label="Total Global Military Spending (Trillions USD)",
+            x_format="year",
+        ),
+        # Chapter 1: The Accounting of Death - Methodology Charts
+        ChartSpec(
+            chart_id="bm-deaths-by-type-20c",
+            chart_type=ChartType.BAR,
+            title="20th Century Deaths by Cause",
+            data_source=get_deaths_by_type_20c,
+            x="category",
+            y="deaths_millions",
+            x_label="Type of Death",
+            y_label="Deaths (Millions)",
+        ),
+        ChartSpec(
+            chart_id="bm-ucdp-vs-rummel",
+            chart_type=ChartType.SCATTER,
+            title="Death Estimates: UCDP vs. Rummel (Thousands)",
+            data_source=get_ucdp_vs_rummel_comparison,
+            x="ucdp_estimate_thousands",
+            y="rummel_estimate_thousands",
+            x_label="UCDP Estimate (Thousands)",
+            y_label="Rummel Estimate (Thousands)",
+        ),
+        ChartSpec(
+            chart_id="bm-direct-indirect-ratio",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Direct vs. Indirect Deaths in Major Conflicts",
+            data_source=get_direct_indirect_ratio,
+            x="conflict",
+            y="total_deaths",
+            x_label="Conflict",
+            y_label="Total Deaths",
+        ),
+        ChartSpec(
+            chart_id="bm-conflict-deaths-trends",
+            chart_type=ChartType.LINE,
+            title="Global Conflict Deaths by Decade (Millions)",
+            data_source=get_conflict_deaths_trends,
+            x="decade",
+            y="total_deaths_millions",
+            x_label="Decade",
+            y_label="Deaths (Millions)",
+        ),
+        ChartSpec(
+            chart_id="bm-civilian-military-deaths",
+            chart_type=ChartType.BAR,
+            title="Civilian Deaths as Percentage of Total (by Era)",
+            data_source=get_civilian_military_deaths,
+            x="era",
+            y="civilian_pct",
+            x_label="Era",
+            y_label="Civilian Deaths (%)",
+        ),
+        # Chapter 2: The American Century - Post-9/11 Wars
+        ChartSpec(
+            chart_id="bm-post-911-war-costs",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Cost of Post-9/11 Wars (Billions USD)",
+            data_source=get_us_war_costs,
+            x="war_zone",
+            y="amount_billions",
+            x_label="War Zone / Category",
+            y_label="Cost (Billions USD)",
+        ),
+        ChartSpec(
+            chart_id="bm-post-911-deaths",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Post-9/11 War Deaths by Category",
+            data_source=get_post_911_deaths,
+            x="category",
+            y="deaths_mid",
+            x_label="Category",
+            y_label="Deaths (Mid Estimate)",
+            color="war_zone",
+        ),
+        ChartSpec(
+            chart_id="bm-defense-contractors",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Top Pentagon Contractors: Who Profits from War (2020-2024)",
+            data_source=get_defense_contractors,
+            x="contractor",
+            y="total_2020_2024",
+            x_label="Contractor",
+            y_label="Contract Value (Billions USD)",
+        ),
+        # Chapter 3: Drone Strikes
+        ChartSpec(
+            chart_id="bm-drone-casualties-by-country",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Drone Strike Casualties by Country",
+            data_source=get_drone_casualties_by_country,
+            x="country",
+            y="killed_max",
+            x_label="Country",
+            y_label="Deaths (High Estimate)",
+        ),
+        ChartSpec(
+            chart_id="bm-drone-casualties-by-president",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Drone Strikes by President",
+            data_source=get_drone_casualties_by_president,
+            x="president",
+            y="strikes",
+            x_label="President",
+            y_label="Number of Strikes",
+        ),
+        ChartSpec(
+            chart_id="bm-drone-civilians-by-president",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Civilian Deaths from Drone Strikes by President",
+            data_source=get_drone_casualties_by_president,
+            x="president",
+            y="civilians_max",
+            x_label="President",
+            y_label="Civilian Deaths (High Estimate)",
+        ),
+        # Chapter 4: Historical Democide
+        ChartSpec(
+            chart_id="bm-historical-democide",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Government Mass Killings in History (Millions)",
+            data_source=lambda: get_historical_democide().assign(
+                deaths_millions=lambda x: x['deaths_mid'] / 1e6
+            ),
+            x="regime_name",
+            y="deaths_millions",
+            x_label="Regime",
+            y_label="Deaths (Millions)",
+        ),
+        ChartSpec(
+            chart_id="bm-democide-timeline",
+            chart_type=ChartType.BAR,
+            title="Democide Deaths by Decade (20th Century)",
+            data_source=lambda: get_democide_timeline().assign(
+                deaths_millions=lambda x: x['total_deaths'] / 1e6
+            ),
+            x="decade",
+            y="deaths_millions",
+            x_label="Decade",
+            y_label="Deaths (Millions)",
+            x_format="year",
+        ),
+        # Chapter 5: Tax Structure and Inequality
+        ChartSpec(
+            chart_id="bm-tax-structure-comparison",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Tax Burden by Country (% of GDP, 2020)",
+            data_source=get_tax_structure_comparison,
+            x="country_code",
+            y="tax_to_gdp_ratio",
+            x_label="Country",
+            y_label="Tax Revenue (% of GDP)",
+        ),
+        ChartSpec(
+            chart_id="bm-us-inequality-trend",
+            chart_type=ChartType.LINE,
+            title="Income Inequality in America (GINI Index)",
+            data_source=lambda: get_income_inequality_trends().query("country_code == 'USA'"),
+            x="year",
+            y="gini",
+            x_label="Year",
+            y_label="GINI Index",
+            x_format="year",
+        ),
+        # Chapter 6: The Median Taxpayer's Contribution
+        ChartSpec(
+            chart_id="bm-median-taxpayer-contribution",
+            chart_type=ChartType.LINE,
+            title="What the Median American Taxpayer Contributes to the Military",
+            data_source=get_median_taxpayer_contribution,
+            x="year",
+            y="military_contribution",
+            x_label="Year",
+            y_label="Annual Military Contribution (USD)",
+            x_format="year",
+        ),
+        # UCDP Conflict Deaths
+        ChartSpec(
+            chart_id="bm-conflict-deaths-by-year",
+            chart_type=ChartType.BAR,
+            title="Global Conflict Deaths by Year (UCDP)",
+            data_source=get_conflict_deaths_by_year,
+            x="year",
+            y="deaths_best",
+            x_label="Year",
+            y_label="Deaths (Best Estimate)",
+            x_format="year",
+        ),
+        # =========================================================================
+        # PART I: HISTORICAL SURVEY - Additional Charts
+        # =========================================================================
+        ChartSpec(
+            chart_id="bm-cold-war-spending-eras",
+            chart_type=ChartType.BAR,
+            title="US Military Spending by Cold War Era",
+            data_source=get_cold_war_spending_eras,
+            x="era",
+            y="avg_annual_billions",
+            x_label="Era",
+            y_label="Average Annual Spending (Billions USD)",
+        ),
+        ChartSpec(
+            chart_id="bm-central-america-deaths",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="US-Backed Violence in Central America (1980s)",
+            data_source=get_central_america_deaths,
+            x="country",
+            y="deaths_high",
+            x_label="Country",
+            y_label="Deaths (High Estimate)",
+        ),
+        ChartSpec(
+            chart_id="bm-democide-by-century",
+            chart_type=ChartType.BAR,
+            title="Democide Deaths by Century",
+            data_source=get_democide_by_century,
+            x="century",
+            y="deaths_millions",
+            x_label="Period",
+            y_label="Deaths (Millions)",
+        ),
+        ChartSpec(
+            chart_id="bm-famine-deaths",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Major Policy-Induced Famines",
+            data_source=get_famine_deaths,
+            x="famine",
+            y="deaths_millions",
+            x_label="Famine",
+            y_label="Deaths (Millions)",
+        ),
+        # =========================================================================
+        # PART II: AMERICAN RECKONING - War Cost Charts
+        # =========================================================================
+        ChartSpec(
+            chart_id="bm-afghanistan-costs-by-year",
+            chart_type=ChartType.LINE,
+            title="Afghanistan War: Annual Costs (2001-2021)",
+            data_source=get_afghanistan_costs_by_year,
+            x="year",
+            y="spending_billions",
+            x_label="Year",
+            y_label="Spending (Billions USD)",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="bm-afghanistan-troops",
+            chart_type=ChartType.LINE,
+            title="Afghanistan War: Troop Levels (2001-2021)",
+            data_source=get_afghanistan_costs_by_year,
+            x="year",
+            y="troops",
+            x_label="Year",
+            y_label="US Troops Deployed",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="bm-afghanistan-us-deaths",
+            chart_type=ChartType.BAR,
+            title="Afghanistan War: US Military Deaths by Year",
+            data_source=get_afghanistan_costs_by_year,
+            x="year",
+            y="us_deaths",
+            x_label="Year",
+            y_label="US Deaths",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="bm-iraq-costs-by-year",
+            chart_type=ChartType.LINE,
+            title="Iraq War: Annual Costs (2003-2019)",
+            data_source=get_iraq_costs_by_year,
+            x="year",
+            y="spending_billions",
+            x_label="Year",
+            y_label="Spending (Billions USD)",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="bm-iraq-troops",
+            chart_type=ChartType.LINE,
+            title="Iraq War: Troop Levels (2003-2019)",
+            data_source=get_iraq_costs_by_year,
+            x="year",
+            y="troops",
+            x_label="Year",
+            y_label="US Troops Deployed",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="bm-iraq-us-deaths",
+            chart_type=ChartType.BAR,
+            title="Iraq War: US Military Deaths by Year",
+            data_source=get_iraq_costs_by_year,
+            x="year",
+            y="us_deaths",
+            x_label="Year",
+            y_label="US Deaths",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="bm-cumulative-war-costs",
+            chart_type=ChartType.LINE,
+            title="Cumulative Post-9/11 War Costs",
+            data_source=get_cumulative_war_costs,
+            x="year",
+            y="cumulative_spending",
+            x_label="Year",
+            y_label="Cumulative Spending (Billions USD)",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="bm-veterans-cost-projection",
+            chart_type=ChartType.BAR,
+            title="Projected Veterans' Healthcare Costs by Decade",
+            data_source=get_veterans_cost_projection,
+            x="decade",
+            y="total_billions",
+            x_label="Decade",
+            y_label="Total Cost (Billions USD)",
+        ),
+        ChartSpec(
+            chart_id="bm-interest-on-war-debt",
+            chart_type=ChartType.LINE,
+            title="Cumulative Interest on War Debt (2001-2050)",
+            data_source=get_interest_on_war_debt,
+            x="year",
+            y="cumulative_interest",
+            x_label="Year",
+            y_label="Cumulative Interest (Billions USD)",
+            x_format="year",
+        ),
+        # =========================================================================
+        # PART II: RECENT CONFLICTS - Yemen, Gaza, Ukraine
+        # =========================================================================
+        ChartSpec(
+            chart_id="bm-military-aid-israel",
+            chart_type=ChartType.LINE,
+            title="US Military Aid to Israel (1970-2024)",
+            data_source=get_military_aid_israel,
+            x="year",
+            y="cumulative",
+            x_label="Year",
+            y_label="Cumulative Aid (Billions USD)",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="bm-yemen-civilian-deaths",
+            chart_type=ChartType.LINE,
+            title="Yemen: Civilian Deaths from Coalition Airstrikes",
+            data_source=get_yemen_casualties,
+            x="year",
+            y="civilian_deaths",
+            x_label="Year",
+            y_label="Civilian Deaths",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="bm-yemen-famine-deaths",
+            chart_type=ChartType.LINE,
+            title="Yemen: Cumulative Famine Deaths",
+            data_source=get_yemen_casualties,
+            x="year",
+            y="famine_deaths",
+            x_label="Year",
+            y_label="Famine Deaths (Cumulative)",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="bm-gaza-deaths-timeline",
+            chart_type=ChartType.LINE,
+            title="Gaza: Palestinian Deaths (Oct 2023 - Oct 2024)",
+            data_source=get_gaza_casualties,
+            x="month",
+            y="palestinian_deaths",
+            x_label="Month",
+            y_label="Cumulative Palestinian Deaths",
+        ),
+        ChartSpec(
+            chart_id="bm-gaza-children-deaths",
+            chart_type=ChartType.LINE,
+            title="Gaza: Children Killed (Oct 2023 - Oct 2024)",
+            data_source=get_gaza_casualties,
+            x="month",
+            y="children_deaths",
+            x_label="Month",
+            y_label="Cumulative Children Deaths",
+        ),
+        ChartSpec(
+            chart_id="bm-ukraine-aid-breakdown",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="US Aid to Ukraine by Category (2022-2024)",
+            data_source=get_ukraine_aid,
+            x="category",
+            y="amount_billions",
+            x_label="Category",
+            y_label="Amount (Billions USD)",
+        ),
+        # =========================================================================
+        # PART II: SPENDING BY PRESIDENT
+        # =========================================================================
+        ChartSpec(
+            chart_id="bm-spending-by-president",
+            chart_type=ChartType.BAR,
+            title="Total Military Spending by Presidential Term",
+            data_source=get_military_spending_by_president,
+            x="president",
+            y="total_spending",
+            x_label="President",
+            y_label="Total Spending (Billions USD)",
+        ),
+        ChartSpec(
+            chart_id="bm-spending-pct-gdp-by-president",
+            chart_type=ChartType.BAR,
+            title="Military Spending as % GDP by President",
+            data_source=get_military_spending_by_president,
+            x="president",
+            y="pct_gdp_avg",
+            x_label="President",
+            y_label="Average % of GDP",
+        ),
+        # =========================================================================
+        # PART III: ECONOMICS OF VIOLENCE - Comparative Analysis
+        # =========================================================================
+        ChartSpec(
+            chart_id="bm-cost-per-death-comparison",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Cost Per Death: Comparing Atrocities",
+            data_source=get_cost_per_death_comparison,
+            x="event",
+            y="cost_per_death",
+            x_label="Event",
+            y_label="Cost Per Death (USD)",
+        ),
+        ChartSpec(
+            chart_id="bm-atrocity-total-deaths",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Total Deaths by Atrocity",
+            data_source=get_cost_per_death_comparison,
+            x="event",
+            y="deaths",
+            x_label="Event",
+            y_label="Total Deaths",
+        ),
+        ChartSpec(
+            chart_id="bm-civilian-combatant-ratio",
+            chart_type=ChartType.BAR,
+            title="Civilian Deaths as Percentage of Total (by Conflict)",
+            data_source=get_civilian_combatant_ratio,
+            x="conflict",
+            y="civilian_pct",
+            x_label="Conflict",
+            y_label="Civilian Deaths (%)",
+        ),
+        ChartSpec(
+            chart_id="bm-gdp-vs-military",
+            chart_type=ChartType.SCATTER,
+            title="Military Spending vs GDP Share (Top 30 Countries)",
+            data_source=get_gdp_vs_military_spending,
+            x="spending_billions",
+            y="pct_gdp",
+            x_label="Military Spending (Billions USD)",
+            y_label="% of GDP",
+            color="country:N",
+        ),
+        # =========================================================================
+        # PART IV: MORAL LEDGER - Taxpayer Analysis
+        # =========================================================================
+        ChartSpec(
+            chart_id="bm-taxpayer-cumulative",
+            chart_type=ChartType.LINE,
+            title="Cumulative Median Taxpayer Military Contribution (1975-2024)",
+            data_source=get_taxpayer_cumulative_contribution,
+            x="year",
+            y="cumulative_contribution",
+            x_label="Year",
+            y_label="Cumulative Contribution (USD)",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="bm-taxpayer-annual",
+            chart_type=ChartType.LINE,
+            title="Annual Median Taxpayer Military Contribution (1975-2024)",
+            data_source=get_taxpayer_cumulative_contribution,
+            x="year",
+            y="annual_contribution",
+            x_label="Year",
+            y_label="Annual Contribution (USD)",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="bm-deaths-per-taxpayer",
+            chart_type=ChartType.BAR,
+            title="Deaths Attributable to Median Taxpayer by Decade",
+            data_source=get_deaths_per_taxpayer,
+            x="decade",
+            y="deaths_attributed",
+            x_label="Decade",
+            y_label="Deaths Attributed",
+        ),
+        ChartSpec(
+            chart_id="bm-deaths-per-taxpayer-cumulative",
+            chart_type=ChartType.LINE,
+            title="Cumulative Deaths Attributable to Median Taxpayer",
+            data_source=get_deaths_per_taxpayer,
+            x="decade",
+            y="cumulative_deaths",
+            x_label="Decade",
+            y_label="Cumulative Deaths",
+        ),
+        # =========================================================================
+        # PART IV: RESISTANCE AND PUBLIC OPINION
+        # =========================================================================
+        ChartSpec(
+            chart_id="bm-war-tax-resistance",
+            chart_type=ChartType.BAR,
+            title="War Tax Resistance in America by Era",
+            data_source=get_war_tax_resistance_history,
+            x="era",
+            y="resisters_estimated",
+            x_label="Era",
+            y_label="Estimated Resisters",
+        ),
+        ChartSpec(
+            chart_id="bm-antiwar-protests",
+            chart_type=ChartType.BAR,
+            title="Major Antiwar Protests: Participation",
+            data_source=get_antiwar_protest_sizes,
+            x="protest",
+            y="participants_millions",
+            x_label="Protest",
+            y_label="Participants (Millions)",
+        ),
+        ChartSpec(
+            chart_id="bm-public-opinion-wars",
+            chart_type=ChartType.BAR,
+            title="Public Support for Wars Over Time",
+            data_source=get_public_opinion_wars,
+            x="year",
+            y="support_pct",
+            x_label="Year",
+            y_label="Support (%)",
+            color="war:N",
+        ),
+        ChartSpec(
+            chart_id="bm-spending-by-party",
+            chart_type=ChartType.BAR,
+            title="Military Spending Increase by Party",
+            data_source=get_spending_by_party,
+            x="party",
+            y="avg_spending_increase_pct",
+            x_label="Party",
+            y_label="Average Annual Increase (%)",
+        ),
+    ]
+
+
 def render_altair(specs: list[ChartSpec]) -> int:
     """Render charts using Altair."""
     from charts.altair_renderer import AltairRenderer
@@ -1429,7 +2495,8 @@ def main():
     education_specs = get_education_chart_specs()
     ncaa_basketball_specs = get_ncaa_basketball_chart_specs()
     cubs_2016_specs = get_cubs_2016_chart_specs()
-    specs = gdp_specs + beyond_growth_specs + baseball_specs + marx_specs + sabermetrics_specs + education_specs + ncaa_basketball_specs + cubs_2016_specs
+    blood_money_specs = get_blood_money_chart_specs()
+    specs = gdp_specs + beyond_growth_specs + baseball_specs + marx_specs + sabermetrics_specs + education_specs + ncaa_basketball_specs + cubs_2016_specs + blood_money_specs
 
     print(f"\nFound {len(specs)} chart specifications")
     print(f"  - GDP article: {len(gdp_specs)} charts")
@@ -1440,6 +2507,7 @@ def main():
     print(f"  - Education article: {len(education_specs)} charts")
     print(f"  - NCAA Basketball article: {len(ncaa_basketball_specs)} charts")
     print(f"  - Cubs 2016 article: {len(cubs_2016_specs)} charts")
+    print(f"  - Blood Money book: {len(blood_money_specs)} charts")
 
     # Export specs for TypeScript (always needed for Plot)
     export_specs_for_plot(specs)
