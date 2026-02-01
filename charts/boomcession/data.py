@@ -70,7 +70,7 @@ def load_gdp_sentiment_correlation():
         window = df.iloc[i-9:i+1]
         corr = window['gdp_growth'].corr(window['sentiment'])
         correlations.append({
-            'year': df.iloc[i]['year'],
+            'year': int(df.iloc[i]['year']),
             'correlation': corr
         })
 
