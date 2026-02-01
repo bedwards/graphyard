@@ -103,11 +103,11 @@ class AltairRenderer:
         )
 
         # Apply chart type
-        chart = self._apply_chart_type(chart, spec)
+        chart = self._apply_chart_type(chart, spec, data)
 
         return chart
 
-    def _apply_chart_type(self, chart: alt.Chart, spec: ChartSpec) -> alt.Chart:
+    def _apply_chart_type(self, chart: alt.Chart, spec: ChartSpec, data: list) -> alt.Chart:
         """Apply the appropriate mark and encoding based on chart type."""
 
         # Add type hints since we're using dict data (not pandas DataFrame)
@@ -170,13 +170,44 @@ class AltairRenderer:
             )
 
         elif chart_type == "scatter":
-            mark = chart.mark_circle(size=60)
-            encoding = {"x": x_axis, "y": y_axis}
-            if spec.color:
-                encoding["color"] = alt.Color(f"{spec.color}:N")  # Nominal type for categories
-            if spec.size:
-                encoding["size"] = alt.Size(spec.size)
-            return mark.encode(**encoding)
+            # Check if we need to show a regression line
+            show_regression = spec.options.get("show_regression_line") if spec.options else False
+
+            if show_regression and any(row.get('is_trend_line') for row in data):
+                # Split data into scatter points and trend line
+                scatter_data = [row for row in data if not row.get('is_trend_line')]
+                trend_data = [row for row in data if row.get('is_trend_line')]
+
+                # Create scatter layer
+                scatter_chart = alt.Chart(alt.Data(values=scatter_data)).mark_circle(size=60).encode(
+                    x=x_axis,
+                    y=y_axis,
+                    color=alt.Color(f"{spec.color}:N") if spec.color else alt.value(self.COLORS[0]),
+                )
+
+                # Create dashed trend line layer
+                trend_chart = alt.Chart(alt.Data(values=trend_data)).mark_line(
+                    strokeDash=[5, 5],
+                    strokeWidth=2,
+                    color="#666666"
+                ).encode(
+                    x=alt.X(f"{spec.x}:Q"),
+                    y=alt.Y(f"{spec.y}:Q"),
+                )
+
+                return (scatter_chart + trend_chart).properties(
+                    width=self.width,
+                    height=self.height,
+                    title=spec.title,
+                )
+            else:
+                mark = chart.mark_circle(size=60)
+                encoding = {"x": x_axis, "y": y_axis}
+                if spec.color:
+                    encoding["color"] = alt.Color(f"{spec.color}:N")  # Nominal type for categories
+                if spec.size:
+                    encoding["size"] = alt.Size(spec.size)
+                return mark.encode(**encoding)
 
         elif chart_type == "area":
             return chart.mark_area(opacity=0.7).encode(

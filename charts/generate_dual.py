@@ -2446,6 +2446,7 @@ def get_boomcession_chart_specs() -> list[ChartSpec]:
             x_label="Real GDP Growth (%)",
             y_label="Consumer Sentiment",
             color="era",
+            options={"show_regression_line": True},
         ),
         ChartSpec(
             chart_id="boom-spending-share",

@@ -82,6 +82,7 @@ def load_gdp_sentiment_scatter():
     Load GDP growth vs sentiment for scatter plot.
 
     Chart 3: Scatter showing the "sentiment gap" in recent years.
+    Returns scatter points plus regression line points based on historical data.
     """
     conn = get_db_connection()
     query = """
@@ -101,6 +102,27 @@ def load_gdp_sentiment_scatter():
     df['era'] = df['year'].apply(
         lambda y: 'Post-COVID (2020-2025)' if y >= 2020 else 'Historical (1970-2019)'
     )
+    df['is_trend_line'] = False
+
+    # Calculate regression line from historical data only
+    historical = df[df['era'] == 'Historical (1970-2019)'].copy()
+    if len(historical) > 1:
+        x = historical['gdp_growth'].values
+        y = historical['sentiment'].values
+        # Simple linear regression: y = mx + b
+        x_mean, y_mean = x.mean(), y.mean()
+        m = np.sum((x - x_mean) * (y - y_mean)) / np.sum((x - x_mean) ** 2)
+        b = y_mean - m * x_mean
+
+        # Add regression line endpoints to the data
+        x_min, x_max = float(x.min()), float(x.max())
+        trend_data = pd.DataFrame([
+            {'year': None, 'gdp_growth': x_min, 'sentiment': m * x_min + b,
+             'era': 'Expected (Historical Trend)', 'is_trend_line': True},
+            {'year': None, 'gdp_growth': x_max, 'sentiment': m * x_max + b,
+             'era': 'Expected (Historical Trend)', 'is_trend_line': True},
+        ])
+        df = pd.concat([df, trend_data], ignore_index=True)
 
     return df
 
