@@ -2423,7 +2423,7 @@ def get_boomcession_chart_specs() -> list[ChartSpec]:
             y="sentiment",
             x_label="President",
             y_label="Average Consumer Sentiment",
-            options={"sort_by_value": False},  # Keep chronological order
+            options={"x_sort_order": ["Eisenhower", "JFK/LBJ", "Nixon/Ford", "Carter", "Reagan", "Bush I", "Clinton", "Bush II", "Obama", "Trump (1)", "Biden", "Trump (2)"]},
         ),
         ChartSpec(
             chart_id="boom-correlation",

@@ -139,7 +139,12 @@ class AltairRenderer:
             if spec.x_format == "year":
                 bar_x = x_axis  # Use the ordinal year axis with formatting
             else:
-                bar_x = alt.X(f"{spec.x}:N", title=spec.x_label) if spec.x else alt.X()
+                # Check for explicit sort order in options
+                sort_order = spec.options.get("x_sort_order") if spec.options else None
+                if sort_order:
+                    bar_x = alt.X(f"{spec.x}:N", title=spec.x_label, sort=sort_order)
+                else:
+                    bar_x = alt.X(f"{spec.x}:N", title=spec.x_label) if spec.x else alt.X()
             return chart.mark_bar().encode(
                 x=bar_x,
                 y=y_axis,
