@@ -10,13 +10,48 @@
  */
 
 import { chromium, type Browser, type Page } from "playwright";
-import { readdir, mkdir, access } from "node:fs/promises";
+import { readdir, mkdir, access, readFile } from "node:fs/promises";
 import { join, basename } from "node:path";
 import { fileURLToPath } from "node:url";
+import { createServer, type Server } from "node:http";
+import { lookup } from "mime-types";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
-const DIST_DIR = join(__dirname, "..", "dist");
-const OUTPUT_DIR = join(__dirname, "..", "dist", "pdf");
+const DIST_DIR = join(__dirname, "..", "..", "docs");  // Astro outputs to ../docs
+const OUTPUT_DIR = join(__dirname, "..", "..", "articles", "pdf");
+
+// Start a simple static file server
+async function startServer(port: number): Promise<{ server: Server; getStats: () => { ok: number; fail: number } }> {
+  let okCount = 0;
+  let failCount = 0;
+
+  return new Promise((resolve) => {
+    const server = createServer(async (req, res) => {
+      const url = req.url || "/";
+      // Remove /graphyard prefix if present
+      const path = url.replace(/^\/graphyard/, "");
+      const filePath = join(DIST_DIR, path);
+
+      try {
+        const content = await readFile(filePath);
+        const mimeType = lookup(filePath) || "application/octet-stream";
+        res.writeHead(200, { "Content-Type": mimeType });
+        res.end(content);
+        okCount++;
+      } catch (err) {
+        res.writeHead(404);
+        res.end("Not found");
+        failCount++;
+        console.log(`    404: ${path}`);
+      }
+    });
+
+    server.listen(port, () => resolve({
+      server,
+      getStats: () => ({ ok: okCount, fail: failCount }),
+    }));
+  });
+}
 
 interface PDFConfig {
   format: "A4" | "Letter";
@@ -78,18 +113,44 @@ async function findArticles(): Promise<string[]> {
 async function generatePDF(
   browser: Browser,
   articleSlug: string,
+  serverPort: number,
   config: PDFConfig = DEFAULT_CONFIG
 ): Promise<string> {
   const page: Page = await browser.newPage();
 
-  // Load the built HTML file
-  const articlePath = join(DIST_DIR, "articles", articleSlug, "index.html");
-  await page.goto(`file://${articlePath}`, { waitUntil: "networkidle" });
+  // Load via HTTP server (supports /graphyard/ paths properly)
+  const url = `http://localhost:${serverPort}/graphyard/articles/${articleSlug}/index.html`;
+  console.log(`    Loading: ${url}`);
+  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
 
-  // Wait for fonts to load
-  await page.evaluate(() => document.fonts.ready);
+  // Disable lazy loading on all images so they load immediately
+  await page.evaluate(() => {
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    images.forEach((img) => {
+      img.removeAttribute("loading");
+      // Force reload by reassigning src
+      const src = img.getAttribute("src");
+      if (src) {
+        img.setAttribute("src", "");
+        img.setAttribute("src", src);
+      }
+    });
+  });
 
-  // Wait for any lazy-loaded images
+  // Wait for network to settle after triggering image loads
+  await page.waitForLoadState("networkidle", { timeout: 60000 });
+
+  // Verify all images loaded
+  const imageStatus = await page.evaluate(() => {
+    const images = document.querySelectorAll("img");
+    return {
+      total: images.length,
+      loaded: Array.from(images).filter((img) => img.complete && img.naturalWidth > 0).length,
+    };
+  });
+  console.log(`    Images: ${imageStatus.loaded}/${imageStatus.total} loaded`);
+
+  // Final wait for all images
   await page.evaluate(() => {
     const images = document.querySelectorAll("img");
     return Promise.all(
@@ -98,10 +159,15 @@ async function generatePDF(
         return new Promise((resolve) => {
           img.addEventListener("load", resolve);
           img.addEventListener("error", resolve);
+          // Timeout after 10 seconds per image
+          setTimeout(resolve, 10000);
         });
       })
     );
   });
+
+  // Additional wait to ensure SVGs are fully rendered
+  await page.waitForTimeout(2000);
 
   // Generate PDF
   const outputPath = join(OUTPUT_DIR, `${articleSlug}.pdf`);
@@ -129,6 +195,11 @@ async function main(): Promise<void> {
 
   await ensureDir(OUTPUT_DIR);
 
+  // Start local server to serve assets
+  const PORT = 3847;
+  const { server, getStats } = await startServer(PORT);
+  console.log(`  Started local server on port ${PORT}`);
+
   const browser = await chromium.launch();
 
   try {
@@ -150,7 +221,7 @@ async function main(): Promise<void> {
     for (const article of articles) {
       try {
         console.log(`  Generating: ${article}...`);
-        const outputPath = await generatePDF(browser, article);
+        const outputPath = await generatePDF(browser, article, PORT);
         console.log(`  ✓ Created: ${basename(outputPath)}\n`);
       } catch (error) {
         console.error(`  ✗ Failed: ${article}`);
@@ -158,9 +229,12 @@ async function main(): Promise<void> {
       }
     }
 
-    console.log(`\nPDFs saved to: ${OUTPUT_DIR}`);
+    const stats = getStats();
+    console.log(`\nServer handled ${stats.ok} requests, ${stats.fail} failed`);
+    console.log(`PDFs saved to: ${OUTPUT_DIR}`);
   } finally {
     await browser.close();
+    server.close();
   }
 }
 
