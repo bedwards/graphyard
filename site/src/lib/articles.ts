@@ -77,6 +77,17 @@ export const categoryInfo: Record<ArticleCategory, { label: string; color: strin
 // Article registry - add new articles here
 export const articles: Article[] = [
   {
+    slug: "boomcession/altair",
+    domain: "economics",
+    title: "The Boomcession: Why Americans Hate What Looks Like an Economic Boom",
+    description:
+      "The economy is booming. Americans are miserable. Both are true. An investigation into why GDP growth no longer predicts how people feel—and what it reveals about everything we measure wrong.",
+    readingTime: "30 min",
+    publishDate: "2026-02-01",
+    category: "latest-research",
+    tags: ["gdp", "consumer sentiment", "inequality", "measurement", "degrowth", "boomcession"],
+  },
+  {
     slug: "blood-money/altair",
     domain: "atrocity-economics",
     title: "Blood Money: What the Median Citizen Pays for State Violence",

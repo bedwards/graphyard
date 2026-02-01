@@ -1,0 +1,672 @@
+---
+/**
+ * The Boomcession: Why Americans Hate What Looks Like an Economic Boom
+ *
+ * An analysis of why GDP growth no longer predicts how people feel about the economy.
+ * Drawing on Matt Stoller's analysis and Jason Hickel's degrowth framework.
+ * 30-minute read (~6,000 words).
+ */
+
+import Chart from "../../../components/Chart.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Why the economy is booming while Americans are miserable - an analysis of the disconnect between GDP growth and lived experience."
+    />
+    <title>The Boomcession: Why Americans Hate What Looks Like an Economic Boom | Graphyard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --color-text: #1a1a2e;
+        --color-text-muted: #4a5568;
+        --color-background: #ffffff;
+        --color-accent: #7c3aed;
+        --color-border: #e5e7eb;
+        --font-sans: "Lexend", system-ui, sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        color: var(--color-text);
+        background: var(--color-background);
+        line-height: 1.75;
+        font-size: 1.0625rem;
+      }
+
+      main {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 3rem 1.5rem 6rem;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-bottom: 2rem;
+        color: var(--color-accent);
+        text-decoration: none;
+        font-size: 0.9rem;
+      }
+
+      .back-link:hover {
+        text-decoration: underline;
+      }
+
+      header {
+        margin-bottom: 3rem;
+      }
+
+      h1 {
+        font-size: 2.25rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+      }
+
+      .subtitle {
+        font-size: 1.25rem;
+        color: var(--color-text-muted);
+        line-height: 1.5;
+        margin-bottom: 1rem;
+      }
+
+      .meta {
+        font-size: 0.9rem;
+        color: var(--color-text-muted);
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 3rem 0 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--color-border);
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 2rem 0 1rem;
+      }
+
+      p {
+        margin-bottom: 1.25rem;
+      }
+
+      blockquote {
+        margin: 1.5rem 0;
+        padding: 1rem 1.5rem;
+        border-left: 4px solid var(--color-accent);
+        background: #f8fafc;
+        font-style: italic;
+      }
+
+      blockquote cite {
+        display: block;
+        margin-top: 0.5rem;
+        font-style: normal;
+        font-size: 0.9rem;
+        color: var(--color-text-muted);
+      }
+
+      .definition {
+        margin: 1.5rem 0;
+        padding: 1.25rem 1.5rem;
+        background: #faf5ff;
+        border-left: 4px solid var(--color-accent);
+        border-radius: 0 6px 6px 0;
+      }
+
+      .definition-term {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .cross-reference {
+        margin: 1.5rem 0;
+        padding: 1rem 1.5rem;
+        background: #f0f9ff;
+        border-left: 4px solid #2563eb;
+        border-radius: 0 6px 6px 0;
+      }
+
+      .cross-reference a {
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .cross-reference a:hover {
+        text-decoration: underline;
+      }
+
+      ul,
+      ol {
+        margin: 1rem 0 1.5rem 1.5rem;
+      }
+
+      li {
+        margin-bottom: 0.5rem;
+      }
+
+      strong {
+        font-weight: 600;
+      }
+
+      em {
+        font-style: italic;
+      }
+
+      a {
+        color: var(--color-accent);
+      }
+
+      .source-link {
+        margin-top: 3rem;
+        padding: 1.5rem;
+        background: #f8fafc;
+        border-radius: 8px;
+        font-size: 0.95rem;
+      }
+
+      .source-link p {
+        margin-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <a href="/graphyard/" class="back-link">← Home</a>
+
+      <header>
+        <h1>The Boomcession</h1>
+        <p class="subtitle">
+          Why Americans hate what looks like an economic boom—and what it reveals about everything we measure wrong.
+        </p>
+        <p class="meta">30 min read</p>
+      </header>
+
+      <article>
+        <p>
+          In the third quarter of 2025, the United States economy grew at an annualized rate of 4.4 percent. Unemployment hovered near historic lows. Business formation was up 8 percent over the previous year. Corporate profits reached record highs. By every conventional metric, Americans should have been celebrating. Instead, consumer sentiment collapsed to 57.6—the lowest reading ever recorded by the University of Michigan's Survey of Consumers, which has been tracking the public mood since the 1950s.
+        </p>
+
+        <p>
+          This is not a story about one bad month or a statistical anomaly. The disconnect between how the economy looks and how people feel about it has been widening for years, and it has now become a chasm. The gap is so large that it has earned its own name: the boomcession. An economy where corporate America experiences a boom while working people feel a recession. Both are true simultaneously.
+        </p>
+
+        <p>
+          Consider this striking comparison. In 2018, during Donald Trump's first term, real average hourly wages grew by 1.1 percent and consumer sentiment stood at a buoyant 98.4. In 2025, during his second term, real average hourly wages also grew by 1.1 percent—the identical rate. Yet sentiment had collapsed by more than 40 points. Same wage growth, same president, radically different lived experience. What changed?
+        </p>
+
+        <p>
+          The answer is not simple, and it is not comforting. What changed is that the American economy has split in two. The metrics we use to measure economic health—Gross Domestic Product, consumer spending, corporate profits—still function, but they now describe only one half of the country. They tell us how Wall Street is doing, how the top quintile is doing, how corporations are doing. They tell us almost nothing about how working people are doing. And policymakers, economists, and business commentators who rely on these metrics are flying blind.
+        </p>
+
+        <Chart chartId="boom-sentiment-president" />
+
+        <p>
+          The chart above tells the story starkly. Average consumer sentiment by presidential administration shows that Americans were happier with the economy under Clinton and during Trump's first term than at almost any time since the Kennedy administration. But something broke after 2020. Biden's term saw sentiment fall below even the Carter malaise of the late 1970s. And Trump's second term began with the lowest readings ever recorded—below even the depths of the 2008 financial crisis, below the stagflation of the 1970s, below every recession in living memory.
+        </p>
+
+        <p>
+          This essay explores why. It is not a partisan argument—both parties have presided over this divergence, and neither has a solution. It is instead an investigation into a measurement problem that has become a political crisis and an economic tragedy. We are measuring the wrong things, and the consequences are everywhere.
+        </p>
+
+        <div class="cross-reference">
+          <strong>Related:</strong> For the theoretical framework behind why GDP fails to measure human welfare, see <a href="/graphyard/articles/beyond-growth/altair/">Beyond Growth: Rethinking Progress for a Finite Planet</a>.
+        </div>
+
+        <h2>Part I: The Great Divergence</h2>
+
+        <p>
+          For most of the twentieth century, economic growth and consumer sentiment moved together. When GDP rose, people felt better about their finances. When it fell, they felt worse. This correlation was so reliable that policymakers used it as a shorthand: deliver growth, and the voters will be happy. The relationship was imperfect but robust, with a correlation coefficient that typically hovered around 0.7 to 0.8.
+        </p>
+
+        <p>
+          Then something happened. Starting in the mid-2010s, the relationship began to weaken. Growth continued, but sentiment didn't keep pace. By 2020, the correlation had collapsed entirely. And in the years since, it has turned negative—meaning that in some periods, stronger growth actually coincided with worse sentiment. The fundamental assumption underlying economic policy for three generations had broken down.
+        </p>
+
+        <Chart chartId="boom-correlation" />
+
+        <p>
+          The chart above shows the rolling ten-year correlation between real GDP growth and consumer sentiment. For decades, it held steady near 0.8—a strong positive relationship. But look at what happens after 2015. The correlation begins to fall, accelerating through the pandemic years, until it crashes through zero and turns negative. By 2021, growth and sentiment were moving in opposite directions.
+        </p>
+
+        <p>
+          This is not a minor technical observation. It means that the entire framework through which economists and policymakers understand the relationship between the economy and public welfare has become obsolete. The Federal Reserve, the Treasury Department, the Council of Economic Advisers—all of these institutions use models that assume growth translates into improved living standards. If that assumption no longer holds, their models are worse than useless. They are actively misleading.
+        </p>
+
+        <Chart chartId="boom-scatter" />
+
+        <p>
+          The scatter plot above makes the divergence visual. Each point represents a year, with GDP growth on the horizontal axis and consumer sentiment on the vertical. The gray points show the historical pattern from 1970 to 2019—a clear positive relationship where higher growth meant higher sentiment. The dashed line shows the expected relationship based on that historical data.
+        </p>
+
+        <p>
+          Now look at the red points clustered in the lower-middle portion of the chart. These are the years from 2020 to 2025. They fall far below where the historical relationship would predict. In 2021, for example, GDP grew at a robust rate, but sentiment remained deeply depressed. In 2023 and 2024, growth was solid, yet sentiment barely budged from recessionary levels. In 2025, even with 4.4 percent annualized growth, sentiment hit all-time lows. Something has fundamentally changed.
+        </p>
+
+        <h3>The Same Paycheck, Different Life</h3>
+
+        <p>
+          To understand what went wrong, we need to move beyond aggregate statistics and into the lived experience of American households. Start with a simple question: if wages are growing at the same rate as before, why do people feel so much worse?
+        </p>
+
+        <p>
+          The answer is that wages are only half the story. What matters is not just how much money comes in, but how far it goes. And over the past several years, a dollar has stopped going as far—particularly for people who are not wealthy.
+        </p>
+
+        <p>
+          Consider housing. A generation ago, a typical American home cost about 2.5 times the median household income. By 2000, that ratio had risen to around 3.5. By 2020, it reached 4.0. In 2024, it hit 5.0—meaning the median home now costs five years of median income, and that's before taxes, before food, before any other expense. For young people trying to form households, for middle-class families hoping to buy rather than rent, for anyone without parental wealth to draw on, this represents a fundamental transformation in what the economy delivers.
+        </p>
+
+        <Chart chartId="boom-housing" />
+
+        <p>
+          The housing chart shows this relentless climb. What looks gradual on a chart feels crushing in lived experience. Every year, the gap between income and housing costs widens. Every year, more of each paycheck goes to keep a roof overhead. Every year, the dream of ownership recedes further.
+        </p>
+
+        <p>
+          And housing is only one piece. Healthcare costs have risen faster than wages for decades. Childcare now consumes a larger share of family budgets than it did a generation ago. Higher education, once a path to middle-class security, now saddles graduates with debt that can take decades to repay. Even banking—the simple act of keeping money in an account—has become a source of extraction.
+        </p>
+
+        <p>
+          The Bureau of Labor Statistics tracks a category called "Financial services furnished without payment." This Orwellian phrase refers to the interest you don't receive on your bank deposits. When banks pay you less than the market rate, the difference is counted as you "buying" their services—free checking, mobile apps, and so on. By this accounting, Americans are "choosing to spend" roughly $2,000 per person per year on banking services they never asked for. That number has been rising rapidly, especially since the Federal Reserve began raising interest rates in 2022. Banks raised the rates they charge but not the rates they pay, and the difference goes straight from depositors' pockets to bank profits.
+        </p>
+
+        <p>
+          These are what the economist Matt Stoller calls "economic termites"—companies that find ways of exploiting market power in unnoticeable ways. They contribute to GDP, they show up as "consumer spending," but they create no actual value for the people supposedly doing the spending. They are extraction dressed up as economic activity.
+        </p>
+
+        <h2>Part II: The Economy of the Top Twenty Percent</h2>
+
+        <p>
+          In the early 1990s, the top 20 percent of American earners accounted for about 50 percent of total consumer spending. This was already a substantial concentration—one-fifth of the population doing half the buying—but it reflected a broad middle class with meaningful purchasing power.
+        </p>
+
+        <p>
+          That concentration has deepened dramatically. By 2025, according to Moody's Analytics, the top 20 percent now accounts for nearly 60 percent of all consumer spending. The bottom 80 percent—four out of five Americans—does only 40 percent of the buying. This is a structural transformation of the consumer economy.
+        </p>
+
+        <Chart chartId="boom-spending-share" />
+
+        <p>
+          The chart above traces this divergence over time. The lines are moving apart steadily, year after year. Recessions cause brief convergences, but the trend always reasserts itself. The economy has become increasingly dependent on wealthy consumers, while the majority of the population has become increasingly marginal to the spending numbers that economists celebrate.
+        </p>
+
+        <p>
+          This matters enormously for how we interpret economic data. When commentators talk about the "strength of the consumer" or note that "consumers continue to spend," they are primarily talking about affluent households. The median family is not powering ahead—they are treading water or falling behind. But because wealth is so concentrated, their struggles barely register in the aggregate statistics.
+        </p>
+
+        <p>
+          The same pattern appears in asset ownership. The stock market has reached record highs, which is cited as evidence of economic health. But 93 percent of stocks are owned by the wealthiest 10 percent of households. For the bottom half of the income distribution, stock market gains are essentially irrelevant. Real estate, too, has appreciated substantially—but this helps existing homeowners while pricing out aspiring ones. The same asset inflation that makes wealthy people feel richer makes everyone else feel poorer.
+        </p>
+
+        <h3>The K-Shaped Recovery That Never Ended</h3>
+
+        <p>
+          During the pandemic, economists coined the term "K-shaped recovery" to describe an economy where different groups were having radically different experiences. The upper arm of the K pointed upward—knowledge workers who could work from home, investors who benefited from stimulus-fueled asset appreciation, corporations that adapted to new conditions. The lower arm pointed downward—service workers, hospitality employees, people in face-to-face jobs who lost income and stability.
+        </p>
+
+        <p>
+          What was supposed to be a temporary pandemic phenomenon has become a permanent feature of the American economy. The K-shape never resolved into a unified recovery. Instead, it hardened into a new normal where aggregate statistics describe an average that almost no one actually experiences.
+        </p>
+
+        <p>
+          This helps explain a puzzle that has baffled economists: why don't people believe the good economic news? The answer is that for most people, the news isn't good. The news describes an economy they don't recognize. When they see headlines about record corporate profits and strong GDP growth, and then look at their bank accounts and realize they can't afford what they could afford last year, the disconnect breeds distrust—both of the economy and of the people reporting on it.
+        </p>
+
+        <h2>Part III: The Structural Roots</h2>
+
+        <p>
+          The boomcession did not emerge from nowhere. Its roots trace back decades, to a series of structural changes in the American economy that gradually severed the link between aggregate growth and broadly shared prosperity. Understanding these roots is essential to understanding why standard policy responses are unlikely to work.
+        </p>
+
+        <p>
+          Start in the early 1970s. From the end of World War II until roughly 1973, American workers received the fruits of their increasing productivity in the form of higher wages. When output per hour rose, compensation per hour rose with it, in near-lockstep. This was the economic foundation of the American Dream—work hard, become more productive, and watch your living standards improve.
+        </p>
+
+        <p>
+          Then the link broke. Starting in the mid-1970s, productivity kept rising but wages stopped keeping pace. The gap widened slowly at first, then accelerated. By 2025, productivity had more than doubled from its 1979 level, but real median wages had risen only about 12 percent. The accumulated gap amounts to roughly 125 percentage points—meaning that if the pre-1973 relationship had held, median wages today would be more than twice as high as they actually are.
+        </p>
+
+        <Chart chartId="boom-productivity-wages" />
+
+        <p>
+          The chart above shows this divergence with stark clarity. The two lines start together in 1979, indexed to 100. Productivity—the blue line—rises steadily, reaching 235 by 2025. Real wages—the red line—crawl upward to only 112. The space between them represents value that workers generated but did not receive. That value went somewhere—to corporate profits, to executive compensation, to shareholders, to asset prices. But it did not go to the people who created it.
+        </p>
+
+        <p>
+          This is not a minor technical adjustment. It is a fundamental reordering of who benefits from economic activity. And it explains much of the divergence between aggregate statistics and lived experience. GDP counts all the value created in the economy, but that value is now distributed very differently than it once was. Growth can be robust while most people see little of it.
+        </p>
+
+        <h3>The Declining Labor Share</h3>
+
+        <p>
+          Another way to see the same pattern is through the labor share of national income—the percentage of total economic output that goes to workers rather than to owners of capital. In 1950, American workers received about 49 percent of all income generated in the economy. This share remained relatively stable for decades, fluctuating within a narrow band.
+        </p>
+
+        <p>
+          Then, starting in the early 2000s, it began to fall. By 2024, the labor share had declined to about 43 percent—a drop of six percentage points that represents hundreds of billions of dollars per year shifted from workers to capital owners. Some of this reflects technological change and globalization, but much of it reflects the declining bargaining power of workers relative to corporations.
+        </p>
+
+        <Chart chartId="boom-labor-share" />
+
+        <p>
+          The labor share chart shows this decline. The downward trend is gradual but relentless. Each percentage point lost represents less money in workers' paychecks and more in corporate profits, dividends, and stock buybacks. The total value of the economy grows, but workers receive a shrinking slice of it.
+        </p>
+
+        <p>
+          This structural shift has consequences beyond economics. When work pays less relative to capital ownership, the returns to labor decline while the returns to inheritance rise. Social mobility decreases. The gap between those who own assets and those who don't widens. The economy becomes less about what you do and more about what you already have.
+        </p>
+
+        <h3>Corporate Profits at Historic Highs</h3>
+
+        <p>
+          Where has the money gone? One answer is visible in corporate profit margins, which have reached historic highs. In 2019, corporate profits after tax represented 9.65 percent of GDP—already elevated by historical standards. Then, during and after the pandemic, they surged. By 2021, profits had reached 12.2 percent of GDP—an increase of more than a quarter in just two years. They have remained near this elevated level since.
+        </p>
+
+        <Chart chartId="boom-corporate-profits" />
+
+        <p>
+          The corporate profits chart shows this surge. The jump after 2020 is not a return to normal—it is a shift to a new, higher level. Corporations are capturing a larger share of the economy than at any time in the modern era. And while some of this flows to shareholders who are ordinary people with retirement accounts, the vast majority of stock ownership is concentrated among the wealthy. Corporate profit growth that shows up in GDP statistics is largely profit growth for the top of the income distribution.
+        </p>
+
+        <p>
+          This is why "the economy" can be doing well while most people are struggling. The economy, as measured, is doing exactly what it's designed to do—generating output and profits. But the distribution of those profits has changed so dramatically that aggregate numbers no longer tell us anything about median experience.
+        </p>
+
+        <h2>Part IV: The Measurement Problem</h2>
+
+        <p>
+          The economist Jason Hickel has written extensively about what GDP actually measures and what it fails to capture. His central insight is both simple and devastating: "GDP growth is, ultimately, an indicator of the welfare of capitalism. That we have all come to see it as a proxy for the welfare of humans represents an extraordinary ideological coup."
+        </p>
+
+        <p>
+          This framing helps explain the boomcession. GDP is growing because capitalism is working—corporations are profitable, assets are appreciating, financial transactions are multiplying. But capitalism working is not the same as people thriving. The two were once closely linked, when workers captured a large share of the value they produced and when growth translated into higher wages. But that link has weakened, and we have been slow to adjust our measurements.
+        </p>
+
+        <p>
+          Consider what GDP includes. It counts as economic activity the interest that banks collect by paying depositors below-market rates. It counts as growth the higher prices that monopolies charge because consumers have no alternatives. It counts as expansion the money people spend on healthcare costs that leave them no healthier—administrative overhead, insurance bureaucracy, pharmaceutical markups. It counts the second-fastest growing sector of the 2019-2024 economy: gambling.
+        </p>
+
+        <p>
+          GDP makes no moral distinction between value that improves human life and value that merely extracts from it. A dollar of spending is a dollar of spending, whether it represents a family buying groceries or a private equity firm charging fees. This was perhaps acceptable when most economic activity was obviously productive—factories making goods, farms growing food, services that people genuinely wanted. But in an economy increasingly dominated by finance, healthcare bureaucracy, and monopolistic extraction, the limitation becomes fatal.
+        </p>
+
+        <h3>Exchange Value vs. Use Value</h3>
+
+        <p>
+          Classical economists distinguished between the "use value" of something—how it could actually be used to improve life—and its "exchange value"—its market price. A loaf of bread has high use value but low exchange value. A diamond has low use value but high exchange value. GDP measures exchange value, making no judgment about use.
+        </p>
+
+        <p>
+          This distinction, which can seem abstract, has practical consequences. When pharmaceutical companies raise prices on existing drugs without improving them, exchange value increases but use value does not. GDP rises, but no one is better off. When banks introduce new fees or reduce deposit rates, exchange value is transferred but use value is destroyed. When companies engineer products to fail sooner—planned obsolescence—exchange value eventually increases as people buy replacements, but use value declines.
+        </p>
+
+        <p>
+          Normal people understand this intuitively. They know that paying more for the same medication doesn't make them healthier. They know that spending more on housing doesn't mean their house is better. They know that a growing economy in which their personal finances deteriorate is not, in any meaningful sense, a good economy for them. The official statistics say one thing; their checkbooks say another.
+        </p>
+
+        <p>
+          Simon Kuznets, who developed the GDP framework in 1934, explicitly warned against using it as a measure of welfare. "The welfare of a nation can scarcely be inferred from a measurement of national income," he wrote. But his warnings were ignored. GDP became the scoreboard by which nations were judged, by which governments rose and fell, by which progress was defined. And now that the measure has become disconnected from the underlying reality it was supposed to track, we lack the institutional capacity to recognize what has gone wrong.
+        </p>
+
+        <h3>The Price of Being Poor</h3>
+
+        <p>
+          There is an additional dimension to this measurement problem that has received less attention: spending inequality. We are accustomed to thinking about income inequality—some people earn more than others—and wealth inequality—some people own more than others. But there is also inequality in what a dollar buys, and this inequality systematically disadvantages those who already have less.
+        </p>
+
+        <p>
+          In 2023, the Atlanta Federal Reserve published research showing that from 2006 to 2020, poorer metropolitan areas experienced annualized food inflation that was 0.46 percentage points higher than richer areas. This may sound small, but compounded over fourteen years, it amounts to a cumulative difference of 8.8 percentage points. Poor people were paying more, year after year, for the same basket of groceries.
+        </p>
+
+        <p>
+          The pattern extends far beyond food. Poor people tend to pay higher interest rates when they borrow. They often pay more for basic financial services because they lack the account balances that trigger fee waivers. They pay more for insurance because they live in areas designated as higher risk. They pay more per unit for many goods because they can't afford to buy in bulk. They pay more for transportation because they are more likely to depend on cars in areas without public transit, more likely to have older vehicles that break down, more likely to face predatory auto lending.
+        </p>
+
+        <p>
+          Imagine, as Stoller suggests, that there were different currencies for different classes. Poor people's dollars might be worth 80 cents apiece. Middle-class dollars worth 95 cents. Wealthy people's dollars worth 105 cents. The numbers I'm using are illustrative, but the phenomenon is real. A wage increase that looks the same in nominal terms means less for someone whose dollars buy less.
+        </p>
+
+        <p>
+          Our economic statistics do not capture this. When we measure inflation, we measure an average basket of goods at average prices. But prices are not average—they vary systematically by income level, by geography, by a hundred factors that correlate with class. The poor face a higher cost of living than official statistics suggest, which means their real incomes are lower than nominal wages imply.
+        </p>
+
+        <h2>Part V: Welfare Without Growth</h2>
+
+        <p>
+          If GDP does not measure welfare, what should we look at instead? One approach is to examine outcomes directly—health, longevity, reported wellbeing—and ask how they relate to economic output. The results are striking.
+        </p>
+
+        <p>
+          At low levels of development, GDP growth is strongly associated with improvements in human welfare. Countries that move from extreme poverty to moderate income see dramatic gains in life expectancy, child survival, educational attainment, and other measures of human flourishing. This relationship drives the conventional wisdom that growth is essential for progress.
+        </p>
+
+        <p>
+          But the relationship breaks down at higher income levels. Once countries reach a GDP per capita of around $20,000 to $30,000—roughly the level of Eastern European nations today—additional growth produces diminishing returns. And above $40,000 or $50,000, the returns essentially vanish. Rich countries can double their GDP without meaningfully improving life expectancy, health outcomes, or reported happiness.
+        </p>
+
+        <Chart chartId="boom-welfare" />
+
+        <p>
+          The welfare comparison chart above illustrates this with specific examples. Costa Rica, with GDP per capita of $13,420—less than one-fifth the American level—achieves life expectancy of 80.8 years, actually higher than the United States at 77.5 years. Japan, with GDP per capita of $33,950—less than half the American level—achieves life expectancy of 84.8 years, more than seven years longer than Americans.
+        </p>
+
+        <p>
+          This is not an argument that GDP doesn't matter. It matters enormously for countries still in poverty. But for wealthy nations like the United States, the relationship between additional growth and additional welfare has become so weak that the obsessive focus on GDP is actively misleading. Growth can continue while wellbeing stagnates or declines. Growth can accelerate while the distribution of its benefits narrows. The aggregate number tells us almost nothing about how people are actually doing.
+        </p>
+
+        <p>
+          Jason Hickel uses Costa Rica as a paradigm case for what he calls "welfare without growth." The country has achieved universal healthcare and education, low inequality by regional standards, and some of the highest life satisfaction scores in the world—all while maintaining a per capita ecological footprint within sustainable limits. It is proof of concept that good lives do not require ever-expanding material throughput.
+        </p>
+
+        <p>
+          The contrast with the United States is instructive. America produces vastly more economic output per person than Costa Rica. But Americans die younger, report more stress and anxiety, work longer hours, take less vacation, and face more economic insecurity. The additional output has not translated into additional flourishing. It has translated into larger houses, more cars, more stuff—and a gnawing sense that something is wrong despite all the apparent plenty.
+        </p>
+
+        <h2>Part VI: Non-Discretionary Spending</h2>
+
+        <p>
+          One of the most important distinctions in economics is between discretionary and non-discretionary spending. Discretionary spending is what people choose to buy—entertainment, dining out, new clothes, vacations. Non-discretionary spending is what people must buy—housing, healthcare, childcare, basic utilities. The ratio between them tells us something important about economic freedom.
+        </p>
+
+        <p>
+          A large share of the increase in "consumer spending" that shows up in economic statistics is actually increased non-discretionary spending. Americans are not spending more because they want to. They are spending more because they have to—on housing that costs more each year, on healthcare that rises faster than inflation, on childcare that has become a second mortgage for young families.
+        </p>
+
+        <p>
+          This matters for how we interpret the data. When analysts point to strong consumer spending as a sign of economic health, they are conflating two very different phenomena. Spending because you can afford nice things is indeed a sign of prosperity. Spending because rent went up and you have no choice is not. The first represents flourishing; the second represents extraction.
+        </p>
+
+        <Chart chartId="boom-nondiscretionary" />
+
+        <p>
+          The chart above tracks housing's share of personal consumption expenditures over time. The steady upward trend represents a larger portion of each paycheck going to keep a roof overhead—leaving less for everything else. Similar patterns appear in healthcare, in insurance, in all the categories that people cannot opt out of.
+        </p>
+
+        <p>
+          When commentators observe that "the consumer is still spending" despite negative sentiment, they are missing this distinction. The consumer has no choice but to spend on necessities. What has declined is discretionary spending—the kind that actually reflects economic optimism and freedom. People are paying their bills because they must, not buying luxuries because they can.
+        </p>
+
+        <h3>The Monopoly Factor</h3>
+
+        <p>
+          Much of the increase in non-discretionary spending reflects market power—the ability of dominant firms to raise prices because consumers have no alternatives. Housing costs are driven partly by zoning restrictions that limit supply, giving existing landlords pricing power. Healthcare costs are driven partly by consolidation that has left many regions with only one or two hospital systems. Banking costs are driven partly by the pain of switching institutions, which banks have deliberately increased by lobbying against open banking rules.
+        </p>
+
+        <p>
+          Economists have largely ignored market power as a driver of inflation and declining living standards. Their models assume competitive markets where high prices attract new entrants who bring prices back down. But many markets are not competitive. They are dominated by a few large players who can raise prices without fear of losing customers, because the customers have nowhere else to go.
+        </p>
+
+        <p>
+          This is another way the boomcession manifests. Corporate profits rise because companies can charge more. Consumer spending rises because people have to pay the higher prices. GDP grows because more money is changing hands. But welfare does not improve, because the additional spending represents extraction rather than value creation. The numbers all go up while life gets harder.
+        </p>
+
+        <h2>Part VII: The Political Economy</h2>
+
+        <p>
+          The boomcession is not just an economic phenomenon. It is a political crisis that helps explain the volatility and anger of American politics in the 2020s.
+        </p>
+
+        <p>
+          When people's lived experience diverges from official accounts of how the economy is doing, trust erodes—in institutions, in expertise, in leadership. The gap between "the economy is doing great" and "I can't afford rent" breeds cynicism and resentment. It makes people receptive to politicians who validate their experience, even if those politicians offer no solutions. It makes them hostile to establishments that seem to be gaslighting them about their own lives.
+        </p>
+
+        <p>
+          This dynamic played out across the political spectrum. Democrats lost credibility by celebrating economic indicators that didn't match how their voters felt. Republicans gained traction by acknowledging the pain, even when their policies would do nothing to address it. The result was a political environment where pessimism won regardless of which party held power, because the underlying economic structure remained unchanged.
+        </p>
+
+        <p>
+          The incoming Federal Reserve Chair Kevin Warsh faces this challenge directly. His job is to manage an economy that the models say is healthy but the public experiences as sick. The traditional tools—interest rate adjustments, forward guidance, quantitative easing—were designed for a unified economy where Wall Street and Main Street rose and fell together. They are poorly suited to a bifurcated economy where corporate profits soar while median households struggle.
+        </p>
+
+        <blockquote>
+          "A boomcession, where the rich and corporate America experience a boom while working people feel a recession, is a very unhealthy dynamic."
+          <cite>— Matt Stoller</cite>
+        </blockquote>
+
+        <p>
+          The unhealthiness extends beyond economics into social fabric. When the official story and the lived story diverge, people stop believing official stories altogether. They become susceptible to conspiracy theories, to demagogues, to anyone who claims to see through the lies of the establishment. The boomcession is not just about money—it's about the breakdown of shared reality that makes democratic governance possible.
+        </p>
+
+        <h2>Part VIII: What Would Better Look Like?</h2>
+
+        <p>
+          If the current measures fail, what should we measure instead? Several alternatives have been proposed, each with strengths and limitations.
+        </p>
+
+        <p>
+          The most straightforward approach is to measure real income after non-discretionary spending. Rather than looking at wages and consumer spending separately, calculate what people have left after they've paid for housing, healthcare, childcare, and other must-haves. This would reveal whether households are actually gaining economic freedom or merely treading water while essential costs rise.
+        </p>
+
+        <p>
+          Another approach is to measure outcomes directly—life expectancy, health-adjusted life years, reported wellbeing, measures of economic security like the ability to handle a $400 emergency expense. These outcome measures bypass the accounting games that inflate GDP and consumer spending, focusing instead on what economic activity is actually supposed to deliver.
+        </p>
+
+        <p>
+          A third approach is to disaggregate by income level, reporting separate statistics for different quintiles of the income distribution. Aggregate statistics obscure as much as they reveal; knowing that median household income rose 2 percent tells you nothing if the top quintile rose 8 percent while the bottom quintile fell 1 percent. Class-specific statistics would make the K-shaped economy visible in official data.
+        </p>
+
+        <p>
+          Some economists have proposed adjusting for spending inequality—recognizing that a dollar buys less for poor people than for wealthy ones and incorporating that into measures of real income. This is technically challenging but conceptually important. An accounting system that treats all dollars as equal when they manifestly are not will systematically understate the struggles of those at the bottom.
+        </p>
+
+        <h3>The Deeper Problem</h3>
+
+        <p>
+          But better measurement alone will not solve the underlying problem. The boomcession reflects not just a measurement failure but a structural transformation of the economy—the severing of links between growth and wages, between productivity and compensation, between national prosperity and individual flourishing.
+        </p>
+
+        <p>
+          Addressing these requires policy changes that go beyond statistical reform. It requires antitrust enforcement that restores competition and limits monopoly pricing power. It requires labor law reform that strengthens worker bargaining power. It requires housing policy that increases supply rather than just subsidizing demand. It requires healthcare reform that reduces costs rather than just shifting who pays them.
+        </p>
+
+        <p>
+          None of these changes is easy, and none is forthcoming from current political configurations. The interests that benefit from the current arrangement—corporations that profit from concentrated markets, asset owners who benefit from scarcity, financial institutions that profit from complexity—are powerful and well-organized. The diffuse majority that suffers from the boomcession is poorly organized and politically fragmented.
+        </p>
+
+        <h2>Part IX: The Question of Growth Itself</h2>
+
+        <p>
+          The boomcession also raises a deeper question: should we be pursuing economic growth at all, at least as conventionally defined?
+        </p>
+
+        <p>
+          The standard answer has always been yes. Growth is how we create jobs, fund public services, lift people out of poverty, afford environmental protection. Even if growth is poorly distributed, the argument goes, more growth means more to distribute. The pie must get bigger before we can argue about slices.
+        </p>
+
+        <p>
+          But the boomcession challenges this logic. If growth no longer reaches most people—if it accrues overwhelmingly to capital owners while workers' share shrinks—then growth is not a solution to distributional problems. It is a continuation of them. More growth of the current kind means more of the same: rising profits, stagnant wages, deteriorating sentiment.
+        </p>
+
+        <p>
+          Jason Hickel and the degrowth movement argue that wealthy countries should deliberately scale down material throughput while redistributing what remains more equitably. This is a radical proposal that most policymakers reject. But the boomcession lends it unexpected support. If growth no longer delivers improved living standards for most people, if it comes increasingly at the cost of ecological stability, if it enriches the few while leaving the many feeling poorer despite rising GDP—then the case for growth becomes much weaker than its proponents assume.
+        </p>
+
+        <p>
+          This does not mean embracing recession. Degrowth advocates distinguish sharply between unplanned economic collapse, which causes unemployment and hardship, and planned transition toward an economy focused on wellbeing rather than throughput. The goal is not less activity but better activity—less extraction, more care; less financial engineering, more genuine production; less planned obsolescence, more durability.
+        </p>
+
+        <p>
+          Whether or not one accepts the degrowth framework, the boomcession forces a reckoning with the growth assumption. We have organized our entire political economy around the pursuit of GDP growth, and we are now discovering that GDP growth can coexist with widespread misery. That suggests we need, at minimum, different goals—or at least different measures of whether we're achieving them.
+        </p>
+
+        <h2>Part X: Living in the Boomcession</h2>
+
+        <p>
+          For individuals living through the boomcession, the structural analysis offers cold comfort. Understanding why the economy feels bad doesn't make it feel better. Understanding that corporate profits are at record highs doesn't help pay rent.
+        </p>
+
+        <p>
+          But understanding can inform choices. It suggests that waiting for "the economy to improve" may be futile, because the economy—as officially measured—may never reflect ordinary experience. It suggests that individual solutions within the current structure (working harder, spending less, investing more) have limits, because the structure itself extracts gains. It suggests that collective action—through unions, through politics, through community organizations—may be necessary to change the underlying conditions.
+        </p>
+
+        <p>
+          Understanding also helps make sense of a confusing political moment. The boomcession explains why economic messaging fails to resonate, why "but the economy is strong" is met with derision, why both parties seem unable to connect on bread-and-butter issues. It's not that voters are irrational or misinformed. It's that official statistics describe a reality that most people do not experience.
+        </p>
+
+        <p>
+          The boomcession is not going away soon. The structural factors that created it—concentrated markets, weak labor, rising essential costs, the productivity-wage gap—have been building for decades and will not reverse quickly. Policy changes that might address them face entrenched opposition. Even acknowledging the problem requires economists and policymakers to admit that their models and measures have failed.
+        </p>
+
+        <p>
+          But acknowledgment is the first step. The boomcession is no longer a fringe concern or a partisan complaint. It is a documented phenomenon with clear data behind it. The correlation between growth and sentiment has collapsed. Corporate profits are at historic highs while consumer confidence is at historic lows. The productivity-wage gap has reached 125 percentage points. Housing costs five times median income. These are not vibes—they are facts.
+        </p>
+
+        <h2>Conclusion: What We Measure Matters</h2>
+
+        <p>
+          The economy is a human creation. So are the metrics we use to understand it. GDP was invented in the 1930s, refined in the 1940s, and institutionalized in the postwar decades. It served a purpose in an era when growth broadly translated into shared prosperity. But circumstances have changed, and the measure has not kept pace.
+        </p>
+
+        <p>
+          The boomcession is, at bottom, a measurement crisis. We are still using twentieth-century metrics to understand a twenty-first-century economy. The numbers go up, and we declare success. But the numbers no longer correspond to how people live.
+        </p>
+
+        <p>
+          This essay has traced the divergence between GDP growth and consumer sentiment, explored its structural roots in the productivity-wage gap and declining labor share, examined its expression in concentrated spending and rising essential costs, and considered alternative frameworks for understanding economic welfare. The picture that emerges is of an economy that works well for some and poorly for many, with official statistics capturing the former while ignoring the latter.
+        </p>
+
+        <p>
+          What comes next is uncertain. The political system may eventually respond to the boomcession with structural reforms that restore the link between growth and shared prosperity. Or it may continue on the current path, celebrating numbers that fewer and fewer people recognize, until the gap between official reality and lived reality becomes unbridgeable.
+        </p>
+
+        <p>
+          What is certain is that we cannot improve what we do not measure. And we are currently measuring the wrong things.
+        </p>
+
+        <p>
+          The economy is booming. Americans are miserable. Until we understand why both are true, we cannot make either better.
+        </p>
+
+        <div class="source-link">
+          <p><strong>Source:</strong></p>
+          <p>This essay draws on Matt Stoller's analysis in <a href="https://www.thebignewsletter.com/p/the-boomcession-why-everyone-but" target="_blank" rel="noopener">The Boomcession: Why Everyone But the Rich Hates the Economy</a> (BIG Newsletter, January 31, 2026), as well as Jason Hickel's framework from <em>Less Is More: How Degrowth Will Save the World</em>.</p>
+        </div>
+
+      </article>
+    </main>
+  </body>
+</html>

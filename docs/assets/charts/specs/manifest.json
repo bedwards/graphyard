@@ -710,5 +710,45 @@
   {
     "chartId": "bm-spending-by-party",
     "specFile": "bm-spending-by-party.json"
+  },
+  {
+    "chartId": "boom-sentiment-president",
+    "specFile": "boom-sentiment-president.json"
+  },
+  {
+    "chartId": "boom-correlation",
+    "specFile": "boom-correlation.json"
+  },
+  {
+    "chartId": "boom-scatter",
+    "specFile": "boom-scatter.json"
+  },
+  {
+    "chartId": "boom-spending-share",
+    "specFile": "boom-spending-share.json"
+  },
+  {
+    "chartId": "boom-productivity-wages",
+    "specFile": "boom-productivity-wages.json"
+  },
+  {
+    "chartId": "boom-housing",
+    "specFile": "boom-housing.json"
+  },
+  {
+    "chartId": "boom-corporate-profits",
+    "specFile": "boom-corporate-profits.json"
+  },
+  {
+    "chartId": "boom-nondiscretionary",
+    "specFile": "boom-nondiscretionary.json"
+  },
+  {
+    "chartId": "boom-labor-share",
+    "specFile": "boom-labor-share.json"
+  },
+  {
+    "chartId": "boom-welfare",
+    "specFile": "boom-welfare.json"
   }
 ]

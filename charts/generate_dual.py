@@ -165,6 +165,18 @@ from charts.cubs_2016.data import (
     load_hendricks_value,
     load_war_prediction_model,
 )
+from charts.boomcession.data import (
+    load_sentiment_by_president,
+    load_gdp_sentiment_correlation,
+    load_gdp_sentiment_scatter,
+    load_productivity_wages,
+    load_housing_affordability,
+    load_corporate_profits_pct,
+    load_labor_share,
+    load_nondiscretionary_spending,
+    load_consumer_spending_by_income,
+    load_welfare_comparison,
+)
 from charts.blood_money.data import (
     # Core military and tax data
     get_us_military_tax_share,
@@ -2399,6 +2411,124 @@ def get_blood_money_chart_specs() -> list[ChartSpec]:
     ]
 
 
+def get_boomcession_chart_specs() -> list[ChartSpec]:
+    """Define all Boomcession article charts."""
+    return [
+        ChartSpec(
+            chart_id="boom-sentiment-president",
+            chart_type=ChartType.BAR,
+            title="Consumer Sentiment by President",
+            data_source=load_sentiment_by_president,
+            x="label",
+            y="sentiment",
+            x_label="President",
+            y_label="Average Consumer Sentiment",
+            options={"sort_by_value": False},  # Keep chronological order
+        ),
+        ChartSpec(
+            chart_id="boom-correlation",
+            chart_type=ChartType.AREA,
+            title="GDP Growth vs. Sentiment Correlation (10-Year Rolling)",
+            data_source=load_gdp_sentiment_correlation,
+            x="year",
+            y="correlation",
+            x_label="Year",
+            y_label="Correlation Coefficient",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="boom-scatter",
+            chart_type=ChartType.SCATTER,
+            title="The Sentiment Gap: GDP Growth vs. Consumer Sentiment",
+            data_source=load_gdp_sentiment_scatter,
+            x="gdp_growth",
+            y="sentiment",
+            x_label="Real GDP Growth (%)",
+            y_label="Consumer Sentiment",
+            color="era",
+        ),
+        ChartSpec(
+            chart_id="boom-spending-share",
+            chart_type=ChartType.LINE,
+            title="Share of Consumer Spending by Income Group",
+            data_source=load_consumer_spending_by_income,
+            x="year",
+            y="share",
+            x_label="Year",
+            y_label="Share of Spending (%)",
+            x_format="year",
+            color="group",
+        ),
+        ChartSpec(
+            chart_id="boom-productivity-wages",
+            chart_type=ChartType.LINE,
+            title="The Productivity-Wage Gap (Index: 1979=100)",
+            data_source=load_productivity_wages,
+            x="year",
+            y="index",
+            x_label="Year",
+            y_label="Index (1979=100)",
+            x_format="year",
+            color="metric",
+        ),
+        ChartSpec(
+            chart_id="boom-housing",
+            chart_type=ChartType.LINE,
+            title="Housing Price-to-Income Ratio",
+            data_source=load_housing_affordability,
+            x="year",
+            y="ratio",
+            x_label="Year",
+            y_label="Median House Price / Median Income",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="boom-corporate-profits",
+            chart_type=ChartType.LINE,
+            title="Corporate Profits as Share of GDP",
+            data_source=load_corporate_profits_pct,
+            x="year",
+            y="profits_pct",
+            x_label="Year",
+            y_label="Profits (% of GDP)",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="boom-nondiscretionary",
+            chart_type=ChartType.LINE,
+            title="Housing as Share of Personal Consumption",
+            data_source=load_nondiscretionary_spending,
+            x="year",
+            y="housing_pct",
+            x_label="Year",
+            y_label="Housing (% of PCE)",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="boom-labor-share",
+            chart_type=ChartType.LINE,
+            title="Labor Share of National Income",
+            data_source=load_labor_share,
+            x="year",
+            y="labor_share_pct",
+            x_label="Year",
+            y_label="Labor Share (%)",
+            x_format="year",
+        ),
+        ChartSpec(
+            chart_id="boom-welfare",
+            chart_type=ChartType.SCATTER,
+            title="Welfare Without Growth: Life Expectancy vs. GDP",
+            data_source=load_welfare_comparison,
+            x="gdp_per_capita",
+            y="life_expectancy",
+            x_label="GDP Per Capita (USD)",
+            y_label="Life Expectancy (Years)",
+            options={"show_labels": True, "label_field": "country"},
+        ),
+    ]
+
+
 def render_altair(specs: list[ChartSpec]) -> int:
     """Render charts using Altair."""
     from charts.altair_renderer import AltairRenderer
@@ -2496,7 +2626,8 @@ def main():
     ncaa_basketball_specs = get_ncaa_basketball_chart_specs()
     cubs_2016_specs = get_cubs_2016_chart_specs()
     blood_money_specs = get_blood_money_chart_specs()
-    specs = gdp_specs + beyond_growth_specs + baseball_specs + marx_specs + sabermetrics_specs + education_specs + ncaa_basketball_specs + cubs_2016_specs + blood_money_specs
+    boomcession_specs = get_boomcession_chart_specs()
+    specs = gdp_specs + beyond_growth_specs + baseball_specs + marx_specs + sabermetrics_specs + education_specs + ncaa_basketball_specs + cubs_2016_specs + blood_money_specs + boomcession_specs
 
     print(f"\nFound {len(specs)} chart specifications")
     print(f"  - GDP article: {len(gdp_specs)} charts")
@@ -2508,6 +2639,7 @@ def main():
     print(f"  - NCAA Basketball article: {len(ncaa_basketball_specs)} charts")
     print(f"  - Cubs 2016 article: {len(cubs_2016_specs)} charts")
     print(f"  - Blood Money book: {len(blood_money_specs)} charts")
+    print(f"  - Boomcession article: {len(boomcession_specs)} charts")
 
     # Export specs for TypeScript (always needed for Plot)
     export_specs_for_plot(specs)

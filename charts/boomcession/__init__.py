@@ -1,0 +1,1 @@
+"""Boomcession chart data loaders."""

@@ -168,7 +168,7 @@ class AltairRenderer:
             mark = chart.mark_circle(size=60)
             encoding = {"x": x_axis, "y": y_axis}
             if spec.color:
-                encoding["color"] = alt.Color(spec.color)
+                encoding["color"] = alt.Color(f"{spec.color}:N")  # Nominal type for categories
             if spec.size:
                 encoding["size"] = alt.Size(spec.size)
             return mark.encode(**encoding)
