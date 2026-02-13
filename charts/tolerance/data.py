@@ -31,8 +31,8 @@ def load_nazi_voters_vs_convicted():
     - Times of Israel / Mary Fulbrook: 6,656 in West Germany, 12,890 in East Germany
     """
     return pd.DataFrame([
-        {"category": "NSDAP Voters (1933)", "count": 17_277_180},
-        {"category": "Convicted (All Courts)", "count": 100_000},
+        {"category": "NSDAP Voters\n(1933)", "count": 17_277_180},
+        {"category": "Convicted\n(All Courts)", "count": 100_000},
     ])
 
 
@@ -69,7 +69,7 @@ def load_detention_comparison():
     return pd.DataFrame([
         {"category": "Black + Hispanic\nAmericans", "count": 112_000_000},
         {"category": "Trump Voters\n(2024)", "count": 77_303_573},
-        {"category": "Undocumented\nImmigrants (Est.)", "count": 14_000_000},
+        {"category": "Undocumented\nImmigrants", "count": 14_000_000},
         {"category": "Deportations\n(2025)", "count": 335_000},
         {"category": "ICE Detention\n(Jan 2026)", "count": 73_000},
     ])
