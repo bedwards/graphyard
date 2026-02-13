@@ -148,7 +148,7 @@ class AltairRenderer:
             return chart.mark_bar().encode(
                 x=bar_x,
                 y=y_axis,
-                color=alt.Color(spec.color) if spec.color else alt.value(self.COLORS[0]),
+                color=alt.Color(f"{spec.color}:N") if spec.color else alt.value(self.COLORS[0]),
             )
 
         elif chart_type == "horizontal_bar":

@@ -236,6 +236,18 @@ from charts.blood_money.data import (
     get_conflict_deaths_trends,
     get_civilian_military_deaths,
 )
+from charts.tolerance.data import (
+    load_maga_vs_nazi_voters,
+    load_nazi_voters_vs_convicted,
+    load_genocide_comparison,
+    load_detention_comparison,
+    load_freedom_house_worst,
+    load_us_freedom_decline,
+    load_accountability_rates,
+    load_democratic_recovery,
+    load_tolerance_world_values,
+    load_perpetrator_gap,
+)
 
 OUTPUT_DIR_ALTAIR = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "altair"
 OUTPUT_DIR_PLOT = PROJECT_ROOT / "site" / "public" / "assets" / "charts" / "plot"
@@ -2603,6 +2615,124 @@ def render_plot() -> int:
         return 0
 
 
+def get_tolerance_chart_specs() -> list[ChartSpec]:
+    """Define all Tolerance by the Numbers article charts."""
+    return [
+        ChartSpec(
+            chart_id="tolerance-maga-vs-nazi",
+            chart_type=ChartType.BAR,
+            title="Peak Voter Support: MAGA vs. Nazi Party",
+            data_source=load_maga_vs_nazi_voters,
+            x="movement",
+            y="voters",
+            x_label="Movement",
+            y_label="Peak Votes (Millions)",
+            y_format="thousands",
+        ),
+        ChartSpec(
+            chart_id="tolerance-nazi-voters-vs-convicted",
+            chart_type=ChartType.BAR,
+            title="Nazi Voters vs. Post-War Convictions",
+            data_source=load_nazi_voters_vs_convicted,
+            x="category",
+            y="count",
+            x_label="",
+            y_label="People",
+            y_format="thousands",
+        ),
+        ChartSpec(
+            chart_id="tolerance-genocide-comparison",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Deadliest Genocides and Democides in History",
+            data_source=load_genocide_comparison,
+            x="deaths",
+            y="event",
+            x_label="Estimated Deaths (Millions)",
+            y_label="",
+            x_format="thousands",
+            color="type",
+            options={"color_scheme": {"imagined": "#dc2626", "historical": "#6b7280"}},
+        ),
+        ChartSpec(
+            chart_id="tolerance-detention",
+            chart_type=ChartType.BAR,
+            title="Scale of MAGA Targeting vs. Actual Enforcement",
+            data_source=load_detention_comparison,
+            x="category",
+            y="count",
+            x_label="",
+            y_label="People",
+            y_format="thousands",
+        ),
+        ChartSpec(
+            chart_id="tolerance-freedom-house",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Freedom House Scores: Where the US Stands (2025)",
+            data_source=load_freedom_house_worst,
+            x="score",
+            y="country",
+            x_label="Freedom Score (0-100)",
+            y_label="",
+            color="category",
+            options={"color_scheme": {"current_us": "#2563eb", "backsliding": "#f59e0b", "authoritarian": "#dc2626"}},
+        ),
+        ChartSpec(
+            chart_id="tolerance-us-decline",
+            chart_type=ChartType.LINE,
+            title="US Freedom House Score (2006-2025)",
+            data_source=load_us_freedom_decline,
+            x="year",
+            y="score",
+            x_label="Year",
+            y_label="Freedom Score (0-100)",
+            x_format="year",
+            options={"y_domain": [75, 100]},
+        ),
+        ChartSpec(
+            chart_id="tolerance-accountability",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Conviction Rates in Post-Authoritarian Transitions",
+            data_source=load_accountability_rates,
+            x="rate",
+            y="country",
+            x_label="Conviction Rate (%)",
+            y_label="",
+        ),
+        ChartSpec(
+            chart_id="tolerance-recovery",
+            chart_type=ChartType.BAR,
+            title="Democratic Recovery: Before and After Transition",
+            data_source=load_democratic_recovery,
+            x="country",
+            y="score",
+            x_label="Country",
+            y_label="V-Dem Liberal Democracy Score",
+            color="period",
+        ),
+        ChartSpec(
+            chart_id="tolerance-world-values",
+            chart_type=ChartType.HORIZONTAL_BAR,
+            title="Racial Intolerance: Would Not Want a Neighbor of a Different Race",
+            data_source=load_tolerance_world_values,
+            x="intolerance_pct",
+            y="country",
+            x_label="% Who Reject Different-Race Neighbor",
+            y_label="",
+        ),
+        ChartSpec(
+            chart_id="tolerance-perpetrator-gap",
+            chart_type=ChartType.BAR,
+            title="The Impunity Funnel: Nazi Germany's Perpetrators vs. Justice",
+            data_source=load_perpetrator_gap,
+            x="category",
+            y="count",
+            x_label="",
+            y_label="People",
+            y_format="thousands",
+        ),
+    ]
+
+
 def main():
     parser = argparse.ArgumentParser(description="Generate charts with dual packages")
     parser.add_argument(
@@ -2628,7 +2758,8 @@ def main():
     cubs_2016_specs = get_cubs_2016_chart_specs()
     blood_money_specs = get_blood_money_chart_specs()
     boomcession_specs = get_boomcession_chart_specs()
-    specs = gdp_specs + beyond_growth_specs + baseball_specs + marx_specs + sabermetrics_specs + education_specs + ncaa_basketball_specs + cubs_2016_specs + blood_money_specs + boomcession_specs
+    tolerance_specs = get_tolerance_chart_specs()
+    specs = gdp_specs + beyond_growth_specs + baseball_specs + marx_specs + sabermetrics_specs + education_specs + ncaa_basketball_specs + cubs_2016_specs + blood_money_specs + boomcession_specs + tolerance_specs
 
     print(f"\nFound {len(specs)} chart specifications")
     print(f"  - GDP article: {len(gdp_specs)} charts")
@@ -2641,6 +2772,7 @@ def main():
     print(f"  - Cubs 2016 article: {len(cubs_2016_specs)} charts")
     print(f"  - Blood Money book: {len(blood_money_specs)} charts")
     print(f"  - Boomcession article: {len(boomcession_specs)} charts")
+    print(f"  - Tolerance article: {len(tolerance_specs)} charts")
 
     # Export specs for TypeScript (always needed for Plot)
     export_specs_for_plot(specs)

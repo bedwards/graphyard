@@ -750,5 +750,45 @@
   {
     "chartId": "boom-welfare",
     "specFile": "boom-welfare.json"
+  },
+  {
+    "chartId": "tolerance-maga-vs-nazi",
+    "specFile": "tolerance-maga-vs-nazi.json"
+  },
+  {
+    "chartId": "tolerance-nazi-voters-vs-convicted",
+    "specFile": "tolerance-nazi-voters-vs-convicted.json"
+  },
+  {
+    "chartId": "tolerance-genocide-comparison",
+    "specFile": "tolerance-genocide-comparison.json"
+  },
+  {
+    "chartId": "tolerance-detention",
+    "specFile": "tolerance-detention.json"
+  },
+  {
+    "chartId": "tolerance-freedom-house",
+    "specFile": "tolerance-freedom-house.json"
+  },
+  {
+    "chartId": "tolerance-us-decline",
+    "specFile": "tolerance-us-decline.json"
+  },
+  {
+    "chartId": "tolerance-accountability",
+    "specFile": "tolerance-accountability.json"
+  },
+  {
+    "chartId": "tolerance-recovery",
+    "specFile": "tolerance-recovery.json"
+  },
+  {
+    "chartId": "tolerance-world-values",
+    "specFile": "tolerance-world-values.json"
+  },
+  {
+    "chartId": "tolerance-perpetrator-gap",
+    "specFile": "tolerance-perpetrator-gap.json"
   }
 ]

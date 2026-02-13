@@ -77,6 +77,17 @@ export const categoryInfo: Record<ArticleCategory, { label: string; color: strin
 // Article registry - add new articles here
 export const articles: Article[] = [
   {
+    slug: "tolerance/altair",
+    domain: "atrocity-economics",
+    title: "Tolerance by the Numbers",
+    description:
+      "An unflinching, data-driven investigation into the paradox of tolerance. What happens when intolerant movements gain power? What does justice actually look like when societies come out the other side? The numbers are not comforting, but they point toward a strategy.",
+    readingTime: "60 min",
+    publishDate: "2026-02-13",
+    category: "latest-research",
+    tags: ["tolerance", "authoritarianism", "democratic backsliding", "transitional justice", "freedom house", "v-dem"],
+  },
+  {
     slug: "boomcession/altair",
     domain: "economics",
     title: "The Boomcession: Why Americans Hate What Looks Like an Economic Boom",
